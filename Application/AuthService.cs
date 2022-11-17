@@ -14,7 +14,7 @@ namespace Application;
 
 public class AuthService : IAuthService
 {
-    private string fillerScret = "asdasdasd";
+    private string fillerScret = "asdasgggyhuouhouhuohouhuhouhuhouhouhouhouhuohujuotfrtdeswadserlukiytrdyuiopiugyftrdasd";
     private IAuthRepository _repo;
     private IValidator<UserRegisterDTO> _registerValidator;
     private IValidator<UserLoginDTO> _loginValidator;
@@ -47,8 +47,8 @@ public class AuthService : IAuthService
             var salt = RandomNumberGenerator.GetBytes(32).ToString();
 
             var user = _mapper.Map<User>(dto);
+            user.Salt = salt;
             user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt);
-            
             _repo.CreateNewUser(user);
             return GenerateToken(user);
         }
