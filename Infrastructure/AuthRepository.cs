@@ -11,6 +11,7 @@ public class AuthRepository : IAuthRepository
     public AuthRepository(DatabaseContext context)
     {
         _context = context;
+        
     }
 
     public User GetUserByUsername(string username)
@@ -23,5 +24,11 @@ public class AuthRepository : IAuthRepository
         _context.UserTable.Add(user);
         _context.SaveChanges();
         return user;
+    }
+
+    public void RebuildDatabase()
+    {
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
     }
 }

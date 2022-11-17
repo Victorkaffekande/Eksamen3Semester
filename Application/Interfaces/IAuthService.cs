@@ -26,4 +26,9 @@ public interface IAuthService
     /// <param name="user"></param>
     /// <returns>jwtToken</returns>
     public string GenerateToken(User user);
+
+    /// <summary>
+    /// rebuilds the database
+    /// </summary>
+    public void RebuildDatabase();
 }

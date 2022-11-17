@@ -4,7 +4,10 @@ using System.Security.Cryptography;
 using System.Text;
 using Application.DTOs;
 using Application.Interfaces;
+using Application.Validators;
+using AutoMapper;
 using Domain;
+using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application;
@@ -13,13 +16,28 @@ public class AuthService : IAuthService
 {
     private string fillerScret = "asdasdasd";
     private IAuthRepository _repo;
-    public AuthService(IAuthRepository repo)    
+    private IValidator<UserRegisterDTO> _registerValidator;
+    private IValidator<UserLoginDTO> _loginValidator;
+    private IMapper _mapper;
+    public AuthService(IAuthRepository repo, 
+        IValidator<UserRegisterDTO> registerValidator, 
+        IValidator<UserLoginDTO> loginValidator,
+        IMapper mapper
+        )
     {
+        _mapper = mapper;
         _repo = repo;
+        _registerValidator = registerValidator;
+        _loginValidator = loginValidator;
+        
     }
 
     public string Register(UserRegisterDTO dto)
     {
+
+        var val = _registerValidator.Validate(dto);
+        if (!val.IsValid) throw new ValidationException(val.ToString());
+            
         try
         {
             _repo.GetUserByUsername(dto.Username);
@@ -27,13 +45,10 @@ public class AuthService : IAuthService
         catch (KeyNotFoundException)
         {
             var salt = RandomNumberGenerator.GetBytes(32).ToString();
-            var user = new User() //TODO Validate user and get rest of the properties
-            {
-                Username = dto.Username,
-                Salt = salt,
-                PwHashed = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt),
-                Role = dto.Role
-            };
+
+            var user = _mapper.Map<User>(dto);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password + salt);
+            
             _repo.CreateNewUser(user);
             return GenerateToken(user);
         }
@@ -42,8 +57,13 @@ public class AuthService : IAuthService
 
     public string Login(UserLoginDTO dto)
     {
+        
+        var val = _loginValidator.Validate(dto);
+        if (!val.IsValid) throw new ValidationException(val.ToString());
+
+        
         var user = _repo.GetUserByUsername(dto.Username);
-        if (BCrypt.Net.BCrypt.Verify(dto.Password + user.Salt, user.PwHashed))
+        if (BCrypt.Net.BCrypt.Verify(dto.Password + user.Salt, user.Password))
         {
             return GenerateToken(user);
         }
@@ -61,5 +81,10 @@ public class AuthService : IAuthService
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
+    }
+
+    public void RebuildDatabase()
+    {
+        _repo.RebuildDatabase();
     }
 }

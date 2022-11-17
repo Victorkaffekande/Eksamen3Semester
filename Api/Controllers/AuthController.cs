@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route("register")]
-    public ActionResult Register(UserRegisterDTO dto)
+    public ActionResult Register([FromBody]UserRegisterDTO dto)
     {
         try
         {
@@ -40,5 +40,12 @@ public class AuthController : ControllerBase
         {
             return BadRequest(e.Message);
         }
+    }
+
+    [HttpGet]
+    [Route("rebuildDb")]
+    public void RebuildDatabase()
+    {
+        _auth.RebuildDatabase();
     }
 }
