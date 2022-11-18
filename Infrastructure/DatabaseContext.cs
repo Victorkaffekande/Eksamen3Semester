@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
@@ -14,7 +15,13 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<User>()
             .Property(u => u.Id)
             .ValueGeneratedOnAdd();
+
+
+        modelBuilder.Entity<Project>()
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
     }
 
     public DbSet<User> UserTable { get; set; }
+    public DbSet<Project> ProjectTable { get; set; }
 }
