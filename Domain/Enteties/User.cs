@@ -10,4 +10,7 @@ public class User
     public string? Role { get; set; }
     public string? ProfilePicture { get; set; }
     public DateOnly BirthDay { get; set; }
+    
+    public List<Pattern>? Patterns { get; set; }
+    public List<Project>? Projects { get; set; }
 }
