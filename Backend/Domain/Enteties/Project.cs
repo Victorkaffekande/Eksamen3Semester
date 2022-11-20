@@ -12,7 +12,7 @@ public class Project
     
     public List<Post>? Posts { get; set; }
     
-    public  String Image { get; set; }
+    public  String? Image { get; set; }
     public  String Title { get; set; }
     public  DateTime StartTime { get; set; }
     public Boolean IsActive { get; set; }

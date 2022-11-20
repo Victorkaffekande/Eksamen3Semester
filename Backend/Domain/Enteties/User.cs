@@ -13,4 +13,13 @@ public class User
     
     public List<Pattern>? Patterns { get; set; }
     public List<Project>? Projects { get; set; }
+
+    public User(int id, string username, string password, string salt, DateOnly birthDay)
+    {
+        Id = id;
+        Username = username;
+        Password = password;
+        Salt = salt;
+        BirthDay = birthDay;
+    }
 }
