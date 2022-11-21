@@ -27,8 +27,14 @@ public class PatternServiceTest
         //Mockrepo setup
         _mockRepo = new Mock<IPatternRepository>();
         _mockRepo.Setup(r => r.GetAllPattern()).Returns(fakeRepo);
-        _mockRepo.Setup(r => r.CreatePattern(It.IsAny<Pattern>())).Callback<Pattern>(p => fakeRepo.Add(p)); //måske fucked
-
+        _mockRepo.Setup(r => r.CreatePattern(It.IsAny<Pattern>())).Callback<Pattern>(p => fakeRepo.Add(p));
+        
+        _mockRepo.Setup(x => x.UpdatePattern(It.IsAny<Pattern>())).Callback<Pattern>(s =>
+        {
+            var index = fakeRepo.IndexOf(s);
+            if (index != -1)
+                fakeRepo[index] = s;
+        });
         //Validator setup
         _validator = new PatternValidator();
     }
@@ -94,8 +100,7 @@ public class PatternServiceTest
     public void CreatePattern_Valid()
     {
         //arrange
-        var user = new User() { Id = 1, Username = "test", Password = "test", Salt = "test", BirthDay = DateOnly.MaxValue };
-        var dto = new PatternDTO(){UserId = 1, User = user, PdfString = "base64PDF", Image = "base65IMG", Description = "Cool"};
+        var dto = new PatternDTO(){UserId = 1, PdfString = "data:application/pdf;base64,wefwefewfwef", Image = "data:image/png;base64,wfwefwefw", Description = "Cool"};
         var repo = _mockRepo.Object;
         var service = new PatternService(repo, _mapper, _validator);
 
@@ -123,63 +128,52 @@ public class PatternServiceTest
         _mockRepo.Verify(r => r.CreatePattern(null), Times.Never);
     }
     
-    [MemberData(nameof(Memberdata_CreatePattern_invalid))]
-    public void CreatePattern_invalid(List<PatternDTO> dto, List<string> expected)
+    [Theory]
+    [InlineData(0,"title","data:application/pdf;base64,qweqweqw", "data:image/png;base64,qweq", "sdasd", "UserID must be higher than 0")]
+    [InlineData(0,"","data:application/pdf;base64,qweqweqw", "data:image/png;base64,qweq", "sdasd", "title can not be empty or null")]
+    [InlineData(0,null,"data:application/pdf;base64,qweqweqw", "data:image/png;base64,qweq", "sdasd", "title can not be empty or null")]
+    [InlineData(1,"title","data:application/png;base64,qweqweqw", "data:image/png;base64,qweq", "sdasd", "this is a not pdf")]
+    [InlineData(1,"title","", "data:application/png;base64,qweq", "sdasd", "this is a not pdf")]
+    [InlineData(1,"title",null, "data:image/png;base64,qweq", "sdasd", "this is a not pdf")]
+    [InlineData(1,"title","data:application/pdf;base64,qweqweqw", "data:image/pdf;base64,qweq", "sdasd", "this is not a png/jpeg")]
+    [InlineData(1,"title","data:application/pdf;base64,qweqweqw", "", "sdasd", "this is not a png/jpeg")]
+    [InlineData(1,"title","data:application/pdf;base64,qweqweqw", null, "sdasd", "this is not a png/jpeg")]
+    [InlineData(1,"title","data:application/pdf;base64,qweqweqw", "data:image/png;base64,qweq", "", "Description can not be empty or null")]
+    [InlineData(1,"title","data:application/pdf;base64,qweqweqw", "data:image/png;base64,qweq", null, "Description can not be empty or null")]
+
+    public void CreatePattern_invalid(int id, string title ,string pdf, string img, string desc, string error)
     {
         //arrange
         var repo = _mockRepo.Object;
         var service = new PatternService(repo, _mapper, _validator);
+        PatternDTO dto = new PatternDTO() { UserId = id, Title = title, PdfString = pdf, Image = img, Description = desc };
         // act + assert
-        Pattern p = _mapper.Map<Pattern>(dto);
-        var ex = Assert.Throws<ArgumentException>(() => service.CreatePattern(dto.First()));
-        Assert.Equal(expected.First(), ex.Message);
-        _mockRepo.Verify(r => r.CreatePattern(p), Times.Never); // TODO ASK VICTOR IF THIS IS OKAY
+        var ex = Assert.Throws<ArgumentException>(() => service.CreatePattern(dto));
+        Assert.Equal(error, ex.Message);
+        _mockRepo.Verify(r => r.CreatePattern(It.IsAny<Pattern>()), Times.Never); 
     }
 
-    public static IEnumerable<Object> Memberdata_CreatePattern_invalid()
+    [Theory]
+    [InlineData(1, "tittle", 1, "data:application/pdf;base64,filler","fillertext", "data:image/png;base64,filler")]  
+    public void UpdatePattern_Valid(int id, string title, int userid, string pdf, string desc, string image)
     {
-        //invalid create Pattern pdf cant be null 
-        //TODO SHOULD WE ALSO TEST ON "" STRINGS?
-        yield return new object[] 
-        {
-            new List<Object>(new[]
-            {
-                new PatternDTO(){UserId = 1, User = new User() { Id = 1, Username = "test", Password = "test", Salt = "test", BirthDay = DateOnly.MaxValue }, PdfString = null, Image = "base65IMG", Description = "Cool"}
-            }),
-            new List<string>(new[] { "No pdf selected" })
-        };
-        yield return new object[] 
-        {
-            new List<Object>(new[]
-            {
-                new PatternDTO(){UserId = 1, User = new User() { Id = 1, Username = "test", Password = "test", Salt = "test", BirthDay = DateOnly.MaxValue }, PdfString = "base64PDF", Description = "Cool"}
-            }),
-            new List<string>(new[] { "No image selected" })
-        };
-        yield return new object[] 
-        {
-            new List<Object>(new[]
-            {
-                new PatternDTO(){UserId = 1, User = new User() { Id = 1, Username = "test", Password = "test", Salt = "test", BirthDay = DateOnly.MaxValue }, PdfString = "base64PDF", Image = "base65IMG"}
-            }),
-            new List<string>(new[] { "Description is missing" })
-        };
-        yield return new object[] 
-        {
-            new List<Object>(new[]
-            {
-                new PatternDTO(){UserId = 1, PdfString = "base64PDF", Image = "base65IMG", Description = "Cool"}
-            }),
-            new List<string>(new[] { "No User" })
-        };
-        yield return new object[] 
-        {
-            new List<Object>(new[]
-            {
-                new PatternDTO(){ User = new User() { Id = 1, Username = "test", Password = "test", Salt = "test", BirthDay = DateOnly.MaxValue }, PdfString = "base64PDF", Image = "base65IMG", Description = "Cool"}
-            }),
-            new List<string>(new[] { "No User id" })
-        };
+        //arrange
+        var  pattern = new Pattern(){Id = 1, UserId = 1, PdfString = "data:application/pdf;base64,wefwefewfwef", Image = "data:application/png;base64,wfwefwefw", Description = "hej"};
+        fakeRepo.Add(pattern);
+
+        var  updatedPattern = new Pattern(){Id = id, Title = title, UserId = userid, PdfString = pdf, Image = image, Description = desc};
+
+        var repo = _mockRepo.Object;
+        var service = new PatternService(repo, _mapper, _validator);
+
+
+        //act
+        service.UpdatePattern(pattern);
+        
+        //assert
+        Assert.True(fakeRepo.Count == 1);
+        Assert.Equal(updatedPattern, fakeRepo[0]);
+        _mockRepo.Verify(r => r.UpdatePattern(updatedPattern), Times.Once);        
     }
 
 }

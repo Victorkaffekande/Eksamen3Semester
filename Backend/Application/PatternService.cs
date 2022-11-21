@@ -22,7 +22,7 @@ public class PatternService : IPatternService
 
     public List<Pattern> GetAllPattern()
     {
-        throw new NotImplementedException();
+        return _repo.GetAllPattern();
     }
 
     public Pattern CreatePattern(PatternDTO dto)
@@ -31,7 +31,7 @@ public class PatternService : IPatternService
         
 
             var val = _validator.Validate(dto);
-        if (!val.IsValid) throw new ValidationException(val.ToString());
+        if (!val.IsValid) throw new ArgumentException(val.ToString());
 
 
         return _repo.CreatePattern(_mapper.Map<Pattern>(dto));
