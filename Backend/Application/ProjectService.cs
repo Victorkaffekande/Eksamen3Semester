@@ -22,7 +22,12 @@ public class ProjectService : IProjectService
     public Project CreateProject(ProjectDTO projectDto)
     {
         if (projectDto == null) throw new ArgumentException("ProjectDTO is null");
-        
+
+        var val = _validator.Validate(projectDto);
+        if (!val.IsValid)
+        {
+            throw new ArgumentException(val.ToString());
+        }
         return _repo.AddProject(_mapper.Map<Project>(projectDto));
     }
 }
