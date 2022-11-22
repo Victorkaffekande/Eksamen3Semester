@@ -40,16 +40,18 @@ public class ProjectService : IProjectService
     public Project UpdateProject(Project project)
     {
         if (project == null) throw new ArgumentException("Project is null");
+
         var val = _projectValidator.Validate(project);
-        if (!val.IsValid)
-        {
-            throw new ArgumentException(val.ToString());
-        }
+        if (!val.IsValid) throw new ArgumentException(val.ToString());
+
+        if (_repo.GetProjectById(project.Id) == null) throw new AggregateException("Project does not exist");
+
         return _repo.UpdateProject(project);
     }
 
     public Project GetProjectById(int id)
     {
-        throw new NotImplementedException();
+        if (id <= 0) throw new ArgumentException("Project Id must be 1 or above");
+        return _repo.GetProjectById(id);
     }
 }

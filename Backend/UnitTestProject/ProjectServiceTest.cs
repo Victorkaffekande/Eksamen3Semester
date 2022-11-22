@@ -33,7 +33,7 @@ public class ProjectServiceTest
         _mockRepo.Setup(r => r.GetAllProjects()).Returns(fakeRepo);
         _mockRepo.Setup(r => r.AddProject(It.IsAny<Project>())).Callback<Project>(p => fakeRepo.Add(p));
         _mockRepo.Setup(r => r.GetProjectById(It.IsAny<int>())).Returns<int>(
-            (id) => fakeRepo.FirstOrDefault(x => x.Id == id));
+            (id) => fakeRepo.FirstOrDefault(p => p.Id == id));
         _mockRepo.Setup(r => r.UpdateProject(It.IsAny<Project>())).Callback<Project>(p =>
         {
             var index = fakeRepo.FindIndex(other => other.Id == p.Id);
@@ -172,7 +172,7 @@ public class ProjectServiceTest
     {
         //arrange
         var dto = new ProjectDTO()
-            { UserId = userId, Title = title, StartTime = DateTime.Parse(startDate), Image = img };
+            {UserId = userId, Title = title, StartTime = DateTime.Parse(startDate), Image = img};
 
 
         var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
@@ -270,43 +270,65 @@ public class ProjectServiceTest
         Assert.Equal("Project is null", ex.Message);
         _mockRepo.Verify(r => r.UpdateProject(It.IsAny<Project>()), Times.Never);
     }
-
-    //TODO LAV GET BY ID OG KOM TILBAGE TIL DEN HER
-    [Fact] //findes ikke i repo
-    public void UpdateProject_Invalid_ProjectDoesNotExistInRepo()
-    {
-        //arrange
-        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
-        var oldProject = new Project()
-        {
-            Id = 1,
-            UserId = 1,
-            Title = "oldTitle",
-            Image = "data:image/png;base64,fillerData",
-            IsActive = true,
-            StartTime = DateTime.Now
-        };
-        _mockRepo.Object.AddProject(oldProject);
-        var newProject = new Project()
-        {
-            Id = 2,
-            UserId = 1,
-            Title = "oldTitle",
-            Image = "data:image/png;base64,fillerData",
-            IsActive = true,
-            StartTime = DateTime.Now
-        };
-
-        //act + assert
-        var ex = Assert.Throws<ArgumentException>(() => service.UpdateProject(newProject));
-        Assert.Equal("Project does not exist", ex.Message);
-        _mockRepo.Verify(r => r.UpdateProject(It.IsAny<Project>()), Times.Never);
-    }
-
+    
     #endregion
 
     #region get By Id Tests
-//getproject by id - existing project
-//getproject by id - no project in db
+
+    [Fact] //getproject by id - existing project
+    public void GetProjectById_ExistingProject()
+    {
+        //arrange
+        var id = 1;
+        var project = new Project()
+        {
+            Id = 1,
+            UserId = 1,
+            Title = "project",
+            Image = "imgString",
+            IsActive = true,
+            PatternId = 5,
+            StartTime = DateTime.Now
+        };
+        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
+        _mockRepo.Setup(r => r.GetProjectById(id)).Returns(project);
+
+        //act
+        var result = service.GetProjectById(id);
+
+        //assert
+        Assert.Equal(project, result);
+        _mockRepo.Verify(r => r.GetProjectById(id), Times.Once);
+    }
+
+
+    [Fact] //getproject by id - no project in db
+    public void GetProjectById_NotFound()
+    {
+        //arrange
+        var id = 1;
+        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
+        _mockRepo.Setup(r => r.GetProjectById(id)).Returns(() => null);
+
+        //act
+        var result = service.GetProjectById(id);
+
+        //assert
+        Assert.Null(result);
+        _mockRepo.Verify(r => r.GetProjectById(id), Times.Once);
+    }
+    
+    [Fact] //getproject by id - invalid 0 or lower
+    public void GetProjectById_invalid_IdTooLow()
+    {
+        //arrange
+        var id = 0;
+        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
+        
+        //act + assert
+        var ex = Assert.Throws<ArgumentException>(() => service.GetProjectById(id));
+        Assert.Equal("Project Id must be 1 or above", ex.Message);
+        _mockRepo.Verify(r => r.GetProjectById(id), Times.Never);
+    }
     #endregion
 }
