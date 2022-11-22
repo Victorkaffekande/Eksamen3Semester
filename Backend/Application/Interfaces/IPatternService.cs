@@ -8,8 +8,10 @@ public interface IPatternService
     //crud functions
     public List<Pattern> GetAllPattern();
     public Pattern CreatePattern(PatternDTO dto);
-    public Pattern UpdatePattern(Pattern pattern);
+    public Pattern UpdatePattern(PatternUpdateDTO dto);
     public Pattern DeletePattern(int id);
     
     public Pattern GetPatternById(int id);
+
+    public List<Pattern> GetAllPatternsByUser(int userId);
 }

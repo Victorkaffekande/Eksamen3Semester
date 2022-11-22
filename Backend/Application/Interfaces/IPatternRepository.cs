@@ -12,4 +12,6 @@ public interface IPatternRepository
 
     public Pattern GetPatternById(int id);
 
+    public List<Pattern> GetAllPatternsByUser(int userId);
+
 }

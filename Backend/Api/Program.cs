@@ -25,6 +25,7 @@ var config = new MapperConfiguration(cfg =>
 {
     cfg.CreateMap<UserRegisterDTO, User>();
     cfg.CreateMap<PatternDTO, Pattern>();
+    cfg.CreateMap<PatternUpdateDTO, Pattern>();
 });
 
 var mapper = config.CreateMapper();
@@ -44,6 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -51,3 +53,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

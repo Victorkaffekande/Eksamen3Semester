@@ -16,9 +16,10 @@ public class PatternRepository : IPatternRepository
 
     public List<Pattern> GetAllPattern()
     {
-       return _context.PatternTable.Include(p => p.User).ToList();
+        // includes the user variable in the patterns
+       //return _context.PatternTable.Include(p => p.User).ToList();
 
-        //return _context.PatternTable.ToList();
+        return _context.PatternTable.ToList();
     }
 
     public Pattern CreatePattern(Pattern pattern)
@@ -30,16 +31,36 @@ public class PatternRepository : IPatternRepository
 
     public Pattern UpdatePattern(Pattern pattern)
     {
-        throw new NotImplementedException();
+        var oldPattern = GetPatternById(pattern.Id);
+        if (oldPattern.Id.Equals(pattern.Id))
+        {
+            oldPattern.Title = pattern.Title;
+            oldPattern.Description = pattern.Description;
+            oldPattern.Image = pattern.Image;
+            oldPattern.PdfString = pattern.PdfString;
+
+        }
+
+        _context.PatternTable.Update(oldPattern ?? throw new InvalidOperationException());
+        _context.SaveChanges();
+        return oldPattern;
     }
 
     public Pattern DeletePattern(int id)
     {
-        throw new NotImplementedException();
+        var pattern = _context.PatternTable.Find(id);
+        _context.PatternTable.Remove(pattern ?? throw new InvalidOperationException());
+        _context.SaveChanges();
+        return pattern;
     }
 
     public Pattern GetPatternById(int id)
     {
-        throw new NotImplementedException();
+        return _context.PatternTable.Find(id);
+    }
+
+    public List<Pattern> GetAllPatternsByUser(int userId)
+    {
+        return _context.PatternTable.Where(p => p.UserId == userId).ToList();
     }
 }
