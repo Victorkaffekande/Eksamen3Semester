@@ -9,6 +9,7 @@ public interface IPatternService
     public List<Pattern> GetAllPattern();
     public Pattern CreatePattern(PatternDTO dto);
     public Pattern UpdatePattern(Pattern pattern);
-    public Pattern DeletePattern(Pattern pattern);
+    public Pattern DeletePattern(int id);
     
+    public Pattern GetPatternById(int id);
 }

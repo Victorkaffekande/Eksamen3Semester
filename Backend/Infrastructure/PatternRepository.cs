@@ -33,7 +33,12 @@ public class PatternRepository : IPatternRepository
         throw new NotImplementedException();
     }
 
-    public Pattern DeletePattern(Pattern pattern)
+    public Pattern DeletePattern(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Pattern GetPatternById(int id)
     {
         throw new NotImplementedException();
     }

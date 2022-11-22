@@ -8,6 +8,8 @@ public interface IPatternRepository
     public List<Pattern> GetAllPattern();
     public Pattern CreatePattern(Pattern pattern);
     public Pattern UpdatePattern(Pattern pattern);
-    public Pattern DeletePattern(Pattern pattern);
-    
+    public Pattern DeletePattern(int id);
+
+    public Pattern GetPatternById(int id);
+
 }

@@ -1,17 +1,15 @@
 ﻿using Application.DTOs;
-using Domain;
 using FluentValidation;
 
 namespace Application.Validators;
 
-public class PatternValidator : AbstractValidator<Pattern>
+public class PatternDTOValidator : AbstractValidator<PatternDTO>
 {
-    public PatternValidator()
+    public PatternDTOValidator()
     {
         
         
         RuleFor(p => p.UserId).GreaterThan(0).WithState(x => throw new ArgumentException("UserID must be higher than 0"));
-        RuleFor(p => p.Id).GreaterThan(0).WithState(x => throw new ArgumentException("ID must be higher than 0"));
         
 
         RuleFor(p => p.Description).NotEmpty().WithState(x => throw new ArgumentException("Description can not be empty or null"));
