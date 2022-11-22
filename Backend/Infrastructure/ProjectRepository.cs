@@ -15,4 +15,14 @@ public class ProjectRepository : IProjectRepository
     {
         throw new NotImplementedException();
     }
+
+    public Project UpdateProject(Project project)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Project GetProjectById(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

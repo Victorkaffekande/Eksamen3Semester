@@ -7,4 +7,6 @@ public interface IProjectRepository
 {
     List<Project> GetAllProjects();
     Project AddProject(Project project);
+    Project UpdateProject(Project project);
+    Project GetProjectById(int id);
 }

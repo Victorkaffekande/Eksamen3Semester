@@ -1,18 +1,13 @@
 ﻿using Application.DTOs;
-using Domain;
 using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Validators;
 
-public class ProjectValidator : AbstractValidator<Project>
+public class ProjectDTOValidator : AbstractValidator<ProjectDTO>
 {
-    public ProjectValidator()
+    public ProjectDTOValidator()
     {
-        RuleFor(x => x.Id)
-            .GreaterThan(0)
-            .WithMessage("Project id must be 1 or higher");
-        
         RuleFor(x => x.UserId)
             .GreaterThan(0)
             .WithMessage("User id must be 1 or higher");
@@ -29,12 +24,5 @@ public class ProjectValidator : AbstractValidator<Project>
         RuleFor(x => x.StartTime)
             .NotNull()
             .WithMessage("Start date can not be null");
-
-        RuleFor(x => x.PatternId)
-            .GreaterThan(0)
-            .When(x => x.Pattern != null)
-            .WithState(x => throw new ArgumentException("Project must have a pattern Id, if a pattern is connected"));
-
-
     }
 }
