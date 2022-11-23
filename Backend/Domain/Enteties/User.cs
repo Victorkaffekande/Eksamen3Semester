@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain;
 
 public class User
 {
@@ -11,15 +13,8 @@ public class User
     public string? ProfilePicture { get; set; }
     public DateOnly BirthDay { get; set; }
     
+    
     public List<Pattern>? Patterns { get; set; }
-    public List<Project>? Projects { get; set; }
+    public List<Project>? Projects { get; set; }  
 
-    public User(int id, string username, string password, string salt, DateOnly birthDay)
-    {
-        Id = id;
-        Username = username;
-        Password = password;
-        Salt = salt;
-        BirthDay = birthDay;
-    }
 }

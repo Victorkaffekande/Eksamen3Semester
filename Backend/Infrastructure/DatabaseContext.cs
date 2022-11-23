@@ -30,16 +30,12 @@ public class DatabaseContext : DbContext
         
         
         modelBuilder.Entity<User>().Ignore(t => t.Patterns);
-        base.OnModelCreating(modelBuilder);
-        
+        modelBuilder.Entity<Pattern>().Ignore(t => t.User);
         modelBuilder.Entity<User>().Ignore(t => t.Projects);
-        base.OnModelCreating(modelBuilder);
-        
         modelBuilder.Entity<Project>().Ignore(t => t.Posts);
-        base.OnModelCreating(modelBuilder);
-
-
         
+
+
         //Foregin key to author ID
         modelBuilder.Entity<Pattern>()
             .HasOne(pattern => pattern.User)
@@ -58,7 +54,9 @@ public class DatabaseContext : DbContext
             .WithMany(project => project.Posts)
             .HasForeignKey(post => post.ProjectId)
             .OnDelete(DeleteBehavior.Cascade);
-
+        
+        
+        
     }
 
     
