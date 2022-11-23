@@ -242,7 +242,7 @@ public class PatternServiceTest
         // act + assert
         var ex = Assert.Throws<ArgumentException>(() => service.UpdatePattern(null));
         Assert.Equal("Pattern is null", ex.Message);
-        _mockRepo.Verify(r => r.CreatePattern(null), Times.Never);
+        _mockRepo.Verify(r => r.UpdatePattern(null), Times.Never);
     }
     
     [Fact]

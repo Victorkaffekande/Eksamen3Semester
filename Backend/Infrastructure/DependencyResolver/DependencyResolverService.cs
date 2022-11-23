@@ -13,5 +13,6 @@ public static class DependencyResolverService
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IPatternRepository, PatternRepository>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
     }
 }

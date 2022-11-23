@@ -27,6 +27,8 @@ var config = new MapperConfiguration(cfg =>
     cfg.CreateMap<PatternDTO, Pattern>();
     cfg.CreateMap<PatternUpdateDTO, Pattern>();
     cfg.CreateMap<ProjectDTO, Project>();
+    cfg.CreateMap<PostCreateDTO, Post>();
+    cfg.CreateMap<PostUpdateDTO, Post>();
 });
 
 var mapper = config.CreateMapper();

@@ -1,10 +1,7 @@
-﻿namespace Domain;
+﻿namespace Application.DTOs;
 
-public class Post
+public class PostCreateDTO
 {
-    public int Id { get; set; }
-
-    public Project? Project { get; set; }
     public int ProjectId { get; set; }
     
     public String Description { get; set; }
