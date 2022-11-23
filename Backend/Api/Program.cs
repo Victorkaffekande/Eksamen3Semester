@@ -22,6 +22,7 @@ builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssembli
 var config = new MapperConfiguration(cfg =>
 {
     cfg.CreateMap<UserRegisterDTO, User>();
+    cfg.CreateMap<ProjectDTO, Project>();
 });
 
 var mapper = config.CreateMapper();
