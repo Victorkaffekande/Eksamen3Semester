@@ -10,5 +10,4 @@ public class ProjectDTO
     public String Title { get; set; }
     public DateTime StartTime { get; set; }
     public Boolean IsActive { get; set; }
-    public List<Post>? Posts { get; set; }
 }

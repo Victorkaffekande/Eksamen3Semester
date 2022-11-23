@@ -30,7 +30,6 @@ public class ProjectServiceTest
 
         //Mockrepo setup
         _mockRepo = new Mock<IProjectRepository>();
-        _mockRepo.Setup(r => r.GetAllProjects()).Returns(fakeRepo);
         _mockRepo.Setup(r => r.AddProject(It.IsAny<Project>())).Callback<Project>(p => fakeRepo.Add(p));
         _mockRepo.Setup(r => r.GetProjectById(It.IsAny<int>())).Returns<int>(
             (id) => fakeRepo.FirstOrDefault(p => p.Id == id));

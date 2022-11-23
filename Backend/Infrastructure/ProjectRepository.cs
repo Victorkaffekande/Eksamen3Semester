@@ -7,35 +7,36 @@ namespace Infrastructure;
 
 public class ProjectRepository : IProjectRepository
 {
-    private DbContext _context;
+    private DatabaseContext _context;
 
-    public ProjectRepository(DbContext context)
+    public ProjectRepository(DatabaseContext context)
     {
         _context = context;
     }
-
-    public List<Project> GetAllProjects()
-    {
-        throw new NotImplementedException();
-    }
+    
 
     public Project AddProject(Project project)
     {
-        throw new NotImplementedException();
+        _context.ProjectTable.Add(project);
+        _context.SaveChanges();
+        return project;
     }
 
     public Project UpdateProject(Project project)
     {
-        throw new NotImplementedException();
+        _context.Update(project);
+        return project;
     }
 
     public Project GetProjectById(int id)
     {
-        throw new NotImplementedException();
+        return _context.ProjectTable.Find(id) ?? throw new ArgumentException("Project does not exist");
     }
 
     public Project DeleteProject(Project project)
     {
-        throw new NotImplementedException();
+        _context.ProjectTable.Remove(project);
+        _context.SaveChanges();
+        return project;
     }
 }
