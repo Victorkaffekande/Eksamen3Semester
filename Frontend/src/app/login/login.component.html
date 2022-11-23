@@ -1,0 +1,37 @@
+<h1 class="text-center p-5"> Velkommen til strikkeNet?</h1>
+<div class="d-flex justify-content-center">
+  <div class="w-25 container">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+      #localForm="ngForm">
+      <!-- username input -->
+      <div class="form-outline mb-4">
+        <input type="text"
+               id="username"
+               formControlName="username"
+               class="form-control"
+               [class.is-invalid]="localForm.submitted && loginForm.get('username')?.invalid"/>
+        <div class="invalid-feedback">Udfyld brugernavn</div>
+        <label class="form-label" for="username">Brugernavn</label>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <input type="password"
+               id="password"
+               formControlName="password"
+               class="form-control"
+               [class.is-invalid]="localForm.submitted && loginForm.get('password')?.invalid"/>
+        <div class="invalid-feedback">Udfyld kodeord</div>
+        <label class="form-label" for="password">Kodeord</label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
+    </form>
+  </div>
+</div>
+
+
+
