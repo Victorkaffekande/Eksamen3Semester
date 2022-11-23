@@ -9,5 +9,6 @@ public static class DependencyResolverService
     {
         service.AddScoped<IAuthService, AuthService>();
         service.AddScoped<IPatternService, PatternService>();
+        service.AddScoped<IProjectService, ProjectService>();
     }
 }

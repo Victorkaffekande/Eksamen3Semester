@@ -15,6 +15,6 @@ public class User
     
     
     public List<Pattern>? Patterns { get; set; }
-    public List<Project>? Projects { get; set; }
-    
+    public List<Project>? Projects { get; set; }  
+
 }
