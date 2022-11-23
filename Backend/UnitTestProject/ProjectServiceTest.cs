@@ -270,7 +270,7 @@ public class ProjectServiceTest
         Assert.Equal("Project is null", ex.Message);
         _mockRepo.Verify(r => r.UpdateProject(It.IsAny<Project>()), Times.Never);
     }
-    
+
     #endregion
 
     #region get By Id Tests
@@ -317,18 +317,76 @@ public class ProjectServiceTest
         Assert.Null(result);
         _mockRepo.Verify(r => r.GetProjectById(id), Times.Once);
     }
-    
+
     [Fact] //getproject by id - invalid 0 or lower
     public void GetProjectById_invalid_IdTooLow()
     {
         //arrange
         var id = 0;
         var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator, _projectValidator);
-        
+
         //act + assert
         var ex = Assert.Throws<ArgumentException>(() => service.GetProjectById(id));
         Assert.Equal("Project Id must be 1 or above", ex.Message);
         _mockRepo.Verify(r => r.GetProjectById(id), Times.Never);
+    }
+
+    #endregion
+
+    #region Delete project test
+
+    [Fact]
+    public void DeleteProject_Valid()
+    {
+        //arrange
+        _mockRepo.Setup(r => r.DeleteProject(It.IsAny<Project>())).Callback<Project>(p => fakeRepo.Remove(p));
+        var repo = _mockRepo.Object;
+        var service = new ProjectService(repo, _mapper, _dtoValidator, _projectValidator);
+        var id = 1;
+        var project = new Project()
+        {
+            Id = 1,
+            UserId = 1,
+            Title = "project",
+            Image = "imgString",
+            IsActive = true,
+            PatternId = 5,
+            StartTime = DateTime.Now
+        };
+        var project2 = new Project()
+        {
+            Id = 2,
+            UserId = 1,
+            Title = "other project",
+            Image = "imgString",
+            IsActive = true,
+            PatternId = 2,
+            StartTime = DateTime.Now
+        };
+        repo.AddProject(project);
+        repo.AddProject(project2);
+
+        //act
+        service.DeleteProject(id);
+
+        //assert
+        Assert.DoesNotContain(project, fakeRepo);
+        _mockRepo.Verify(r => r.DeleteProject(project), Times.Once);
+    }
+
+    [Fact]
+    public void DeleteProject_Invalid_IdDoesNotExist()
+    {
+        //arrange
+        var repo = _mockRepo.Object;
+        var service = new ProjectService(repo, _mapper, _dtoValidator, _projectValidator);
+        var id = 1;
+        
+        //act + assert
+        var ex = Assert.Throws<ArgumentException>(() => service.DeleteProject(id));
+        
+       Assert.Equal("Project id does not exist",ex.Message);
+        _mockRepo.Verify(r => r.DeleteProject(It.IsAny<Project>()), Times.Never);
     }
     #endregion
 }

@@ -9,4 +9,5 @@ public interface IProjectRepository
     Project AddProject(Project project);
     Project UpdateProject(Project project);
     Project GetProjectById(int id);
+    Project DeleteProject(Project project);
 }
