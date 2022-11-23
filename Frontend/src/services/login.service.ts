@@ -13,10 +13,10 @@ export class LoginService {
     const httpResult = await customAxios.post('Auth/login', userDto);
     return httpResult.data;
   }
-/*
+
   async register(dto: UserDto): Promise<any> {
     const httpResult = await customAxios.post('Auth/register', dto);
     return httpResult.data;
   }
- */
+
 }

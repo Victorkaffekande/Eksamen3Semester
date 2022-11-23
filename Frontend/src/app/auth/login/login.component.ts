@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserDto} from "../../interfaces/userDto";
-import {LoginService} from "../../services/login.service";
+import {UserDto} from "../../../interfaces/userDto";
+import {LoginService} from "../../../services/login.service";
 import jwtDecode from "jwt-decode";
-import {Token} from "../../interfaces/token";
+import {Token} from "../../../interfaces/token";
 import {Router, RouterModule} from "@angular/router";
 
 @Component({
@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required]
   }, {updateOn: 'submit'});
+
+  collapsed = true;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
@@ -41,8 +43,6 @@ export class LoginComponent implements OnInit {
       } else {
         await this.router.navigate(["/user"]);
       }
-
     }
-
   }
 }
