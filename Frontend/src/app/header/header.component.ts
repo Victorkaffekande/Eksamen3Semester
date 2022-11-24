@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import jwtDecode from "jwt-decode";
 import {Token} from "../../interfaces/token";
 import {debounceTime} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,8 @@ import {debounceTime} from "rxjs";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
+
   }
 
   username: string = "default"
@@ -22,5 +24,4 @@ export class HeaderComponent implements OnInit {
      this.username = deToken.username;
    }
   }
-
 }
