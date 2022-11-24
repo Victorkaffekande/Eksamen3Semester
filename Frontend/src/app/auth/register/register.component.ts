@@ -11,6 +11,8 @@ import {
 import {LoginService} from "../../../services/login.service";
 import {UserDto} from "../../../interfaces/userDto";
 import {stringifyTask} from "@angular/compiler-cli/ngcc/src/execution/tasks/utils";
+import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-register',
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit {
 
   accountCreated = false;
   errorMsg: any;
+  test: any;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService) {
@@ -61,21 +64,26 @@ export class RegisterComponent implements OnInit {
     this.registerForm.markAsPristine();
     if (this.registerForm.valid) {
 
-      type date = {
-        year: string,
-        month: string,
-        day: string
-      }
-      var x = this.registerForm.get("birthdate")?.value as date;
-      var w = x.year + "-" + x.month + "-" + x.day
+      var x = this.registerForm.get("birthdate")?.value as NgbDate;
 
+      let day = String(x.day);
+      if (x.day < 10) {
+        day = '0' + day
+      }
+
+      let month = String(x.month);
+      if (x.month < 10) {
+        month = '0' + month
+      }
+
+      let dateString = x.year + "-" + month + "-" + day;
 
       const dto: UserDto = {
         username: this.registerForm.get("username")?.value,
         password: this.registerForm.get("passwordConfirm")?.value,
         email: this.registerForm.get("email")?.value,
-        birthday: w.toString(),
-        role: "fillrole"
+        birthday: dateString,
+        role: "user"
       }
 
 
@@ -87,6 +95,19 @@ export class RegisterComponent implements OnInit {
           this.accountCreated = false;
           this.errorMsg = error.response.data;
         });
+
     }
+  }
+
+  formatDate(d: NgbDate): string | null {
+    if (d === null) {
+      return null;
+    }
+
+    return [
+      (d.day < 10 ? ('0' + d.day) : d.day),
+      (d.month < 10 ? ('0' + d.month) : d.month),
+      d.year
+    ].join('-');
   }
 }
