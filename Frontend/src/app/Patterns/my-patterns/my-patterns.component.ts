@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import jwtDecode from "jwt-decode";
+import {Token} from "../../../interfaces/token";
+import {Router} from "@angular/router";
+import {PatternService} from "../../../services/pattern.service";
 
 @Component({
   selector: 'app-my-patterns',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyPatternsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private patternService: PatternService) { }
+  id: number = 0;
+  username: string = "default"
+
+  patterns : any;
 
   ngOnInit(): void {
+    let t =  localStorage.getItem("token");
+    if (t){
+      let deToken = jwtDecode(t) as Token;
+      this.username = deToken.username;
+      this.id = deToken.userId;
+    }
+    const patterns = this.patternService.getPatternsByUserId(this.id);
+    this.patterns = patterns;
+
+
   }
 
 }
