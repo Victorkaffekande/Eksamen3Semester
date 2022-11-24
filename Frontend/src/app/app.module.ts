@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     AdminHeaderComponent,
     RegisterComponent,
+    MyPatternsComponent,
   ],
   imports: [
     BrowserModule,
