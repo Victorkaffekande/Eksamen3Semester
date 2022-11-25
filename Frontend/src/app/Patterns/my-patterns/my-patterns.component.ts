@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
@@ -29,5 +30,6 @@ export class MyPatternsComponent implements OnInit {
 
 
   }
+
 
 }

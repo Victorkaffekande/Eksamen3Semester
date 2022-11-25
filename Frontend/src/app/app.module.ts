@@ -10,6 +10,9 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.componen
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
