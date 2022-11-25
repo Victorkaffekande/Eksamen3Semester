@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-my-patterns',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-patterns.component.sass']
 })
 export class MyPatternsComponent implements OnInit {
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  })
 
-  constructor() { }
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
   }
+
 
 }
