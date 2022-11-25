@@ -1,0 +1,67 @@
+<h1>Lav en ny opskrift</h1>
+
+<!--simple stepper where we can come from site number 1 to site number 2 with validator -->
+<div class="row">
+
+
+
+<mat-stepper linear orientation="vertical" class="col">
+  <mat-step [stepControl]="formGroup">
+    <ng-template matStepLabel>Information</ng-template>
+    <form [formGroup]="formGroup">
+      <label>title</label>
+      <input type="text" class="form-control " style="width: 300px" formControlName="title">
+      <br>
+
+      <label>Description</label>
+      <div class="form-floating">
+        <textarea formControlName="description" class="form-control" placeholder="Leave a comment here"
+                  id="floatingTextarea2" style="height: 150px; width: 500px"></textarea>
+        <label for="floatingTextarea2">Comments</label>
+      </div>
+
+    </form>
+    <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperNext>Next</button>
+  </mat-step>
+
+  <mat-step [stepControl]="formGroupPdf">
+    <ng-template matStepLabel>Vælg Pdf</ng-template>
+
+    <form [formGroup]="formGroupPdf">
+      <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf" class="form-control" id="formFileLg" style="width: 300px"
+             type="file"/>
+
+    </form>
+
+    <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperPrevious>Back</button>
+    <button class="btn btn-primary" style="margin-top: 10px; margin-left: 12px" type="button" cdkStepperNext>Next
+    </button>
+  </mat-step>
+
+  <mat-step [stepControl]="formGroupImage">
+    <ng-template matStepLabel>Vælg billed</ng-template>
+    <form [formGroup]="formGroupImage">
+      <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image" class="form-control" style="width: 300px"
+             type="file"/>
+    </form>
+
+    <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperPrevious>Back</button>
+    <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperNext>Next</button>
+
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="submit()">Færdig</button>
+    </div>
+  </mat-step>
+
+</mat-stepper>
+
+  <div class="col">
+  <img [src]="image" class="card-img-top" style="width: 500px; height: 500px" *ngIf="this.image != null">
+
+  </div>
+</div>

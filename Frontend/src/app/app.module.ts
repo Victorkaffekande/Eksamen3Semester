@@ -13,6 +13,10 @@ import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { CreatePatternComponent } from './Patterns/create-pattern/create-pattern.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {CdkStepperModule} from "@angular/cdk/stepper";
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     AdminHeaderComponent,
     RegisterComponent,
     MyPatternsComponent,
+    CreatePatternComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     NgbModule,
     BrowserAnimationsModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    CdkStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import {customAxios} from "./httpAxios";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {catchError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatternService {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   async getPatternsByUserId(id: any){
     const httpResult = await customAxios.get<any>("Pattern/GetAllPatternsByUser/" +id);
@@ -14,8 +18,9 @@ export class PatternService {
     return httpResult.data;
   }
 
-  async CreatePattern(dto: {Title : string; UserId : number; PdfString : string; Description : string; Image : string;}){
-    const httpResult = await customAxios.post('Pattern/CreatePattern', dto)
+  async CreatePattern(dto: { title: string; userId: number;  pdf: string ; description: string; image: string}){
+    let httpResult = await customAxios.post("/Pattern/CreatePattern", dto)
     return httpResult.data;
+
   }
 }
