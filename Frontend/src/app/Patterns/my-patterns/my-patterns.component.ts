@@ -17,14 +17,14 @@ export class MyPatternsComponent implements OnInit {
 
   patterns : any;
 
-  ngOnInit(): void {
-    let t =  localStorage.getItem("token");
-    if (t){
+  async ngOnInit() {
+    let t = localStorage.getItem("token");
+    if (t) {
       let deToken = jwtDecode(t) as Token;
       this.username = deToken.username;
       this.id = deToken.userId;
     }
-    const patterns = this.patternService.getPatternsByUserId(this.id);
+    const patterns = await this.patternService.getPatternsByUserId(this.id);
     this.patterns = patterns;
 
 

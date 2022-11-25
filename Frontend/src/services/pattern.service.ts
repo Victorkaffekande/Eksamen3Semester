@@ -9,7 +9,7 @@ export class PatternService {
   constructor() { }
 
   async getPatternsByUserId(id: any){
-    const httpResult = await customAxios.get<any>("Pattern/GetAllPatternsByUser/" +id)
+    const httpResult = await customAxios.get<any>("Pattern/GetAllPatternsByUser/" +id);
     console.log(httpResult.data);
     return httpResult.data;
   }
