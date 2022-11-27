@@ -28,6 +28,11 @@ public class ProjectRepository : IProjectRepository
         return project;
     }
 
+    public List<Project> GetAllProjectsFromUser(int id)
+    {
+        return _context.ProjectTable.Where(p => p.UserId == id).ToList();
+    }
+
     public Project GetProjectById(int id)
     {
         return _context.ProjectTable.Find(id) ?? throw new ArgumentException("Project does not exist");

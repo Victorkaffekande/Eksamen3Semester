@@ -6,14 +6,14 @@ import {HeaderComponent} from "./header/header.component";
 import {AdminHeaderComponent} from "./admin-header/admin-header.component";
 import * as path from "path";
 import {MyPatternsComponent} from "./Patterns/my-patterns/my-patterns.component";
+import {MyProjectsComponent} from "./Projects/my-projects/my-projects.component";
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'user', component: HeaderComponent, children:[
-      {
-        path:'mypatterns', component: MyPatternsComponent
-      },
+      {path:'mypatterns', component: MyPatternsComponent},
+      {path:'myprojects', component: MyProjectsComponent},
     ]},
 
 

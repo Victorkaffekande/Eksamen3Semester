@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Mine projekter</h1>
+  <!-- Create foldout -->
+  <div class="">
+    <button class="btn btn-warning"
+            (click)="collapse.toggle()"> start nyt projekt
+    </button>
+    <div
+      #collapse="ngbCollapse"
+      [(ngbCollapse)]="collapsed">
+      <app-create-project></app-create-project>
+    </div>
+  </div>
+
+  <!-- project lists -->
+
+  <h1>Mine projekter</h1>
+  <div class="btn-group">
+    <input
+      class="btn-check"
+      name="radio"
+      type="radio"
+      id="option1">
+    <label
+      class="btn btn-outline-secondary"
+      for="option1">
+      Aktive</label>
+
+    <input
+      class="btn-check"
+      name="radio"
+      type="radio"
+      id="option2">
+    <label
+      class="btn btn-outline-secondary"
+      for="option2">
+      Afsluttede</label>
+  </div>
+
+  <h1> hvorfor kan jeg vise projectList som jason men ikke title?</h1>
+  <div *ngFor="let p of projectList">
+    <h1>{{p | json}}</h1>
+  </div>
+
+</div>
+
+
+

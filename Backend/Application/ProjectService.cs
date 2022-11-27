@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
 using Domain;
+using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace Application;
 
@@ -53,6 +54,11 @@ public class ProjectService : IProjectService
     {
         if (id <= 0) throw new ArgumentException("Project Id must be 1 or above");
         return _repo.GetProjectById(id);
+    }
+
+    public List<Project> GetAllProjectsFromUser(int id)
+    {
+        return _repo.GetAllProjectsFromUser(id);
     }
 
     public Project DeleteProject(int id)
