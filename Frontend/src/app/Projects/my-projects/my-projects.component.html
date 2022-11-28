@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Mine projekter</h1>
+
   <!-- Create foldout -->
   <div class="">
     <button class="btn btn-warning"
@@ -8,21 +8,22 @@
     <div
       #collapse="ngbCollapse"
       [(ngbCollapse)]="collapsed">
-      <app-create-project></app-create-project>
+      <app-create-project (notify)="pushNewProject($event)"></app-create-project>
     </div>
   </div>
 
   <!-- project lists -->
 
   <h1>Mine projekter</h1>
-  <div class="btn-group">
+  <div class="btn-group" (change)="radioClicked($event.target)">
     <input
       class="btn-check"
       name="radio"
       type="radio"
       id="option1"
       checked
-      (change)="filterList(true)">
+      value=1
+    >
     <label
       class="btn btn-outline-secondary"
       for="option1">
@@ -33,14 +34,14 @@
       name="radio"
       type="radio"
       id="option2"
-      (change)="filterList(false)">
+      value="2">
     <label
       class="btn btn-outline-secondary"
       for="option2">
       Afsluttede</label>
   </div>
 
-  <h1> hvorfor kan jeg vise projectList som jason men ikke title?</h1>
+
   <ul class="flex-container">
     <div *ngFor="let p of filteredList">
       <div class="card" style="width: 18rem;">

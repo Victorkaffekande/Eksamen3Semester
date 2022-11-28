@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Token} from "../../../interfaces/token";
 import jwtDecode from "jwt-decode";
 import {ProjectService} from "../../../services/project.service";
-import {ProjectCard} from "../../../interfaces/projectCard";
-import {Project} from "../../../interfaces/project";
 
 
 @Component({
@@ -17,20 +15,16 @@ export class MyProjectsComponent implements OnInit {
   constructor(private service: ProjectService) {
   }
 
-  selected: any = "0";
 
   projectList: any;
   filteredList: any;
+  showIsActive: number = 1;
 
   ngOnInit(): void {
-    this.getAllMyProjects().then( () => this.filterList(true));
+    this.getAllMyProjects().then(() => this.filterList());
 
   }
 
-//get all projekts sort på active ud fra radio buttons
-  select() {
-    console.log(this.selected)
-  }
 
   async getAllMyProjects() {
     let t = localStorage.getItem("token");
@@ -41,7 +35,21 @@ export class MyProjectsComponent implements OnInit {
 
   }
 
-  async filterList(val: boolean) {
-    this.filteredList = this.projectList.filter((p: { isActive: any }) => p.isActive == val)
+  async filterList() {
+    if (this.showIsActive == 1)
+      this.filteredList = this.projectList.filter((p: { isActive: any }) => p.isActive == true)
+    else
+      this.filteredList = this.projectList.filter((p: { isActive: any }) => p.isActive == false)
+  }
+
+  pushNewProject(project: any) {
+    console.log(project);
+    this.projectList.push(project);
+    this.filterList();
+  }
+
+  radioClicked(event: any) {
+    this.showIsActive = event.value;
+    this.filterList();
   }
 }

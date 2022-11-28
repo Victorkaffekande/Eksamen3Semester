@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProjectDto} from "../../../interfaces/projectDto";
 import {Token} from "../../../interfaces/token";
@@ -19,6 +19,7 @@ export class CreateProjectComponent implements OnInit {
     },
   )
   selectedImage: any;
+  @Output() notify = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder,
               private service: ProjectService) {
@@ -27,7 +28,7 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createProject() {
+  async createProject() {
     if (!this.createForm.valid) return "createForm is not valid";
 
     let token = localStorage.getItem("token");
@@ -39,17 +40,21 @@ export class CreateProjectComponent implements OnInit {
     if (imageString == "") imageString = undefined;
 
     const dto: ProjectDto = {
-      UserId: deToken.userId, //get fra token
+      UserId: deToken.userId,
       PatternId: undefined, //null ?? måske lav et link til all patterns
-      Image: imageString, //if tom input => null | fix
+      Image: imageString,
       Title: this.createForm.get("title")?.value,
-      StartTime: new Date(Date.now()).toJSON(), //tjek om rigtigt, måske fucked
+      StartTime: new Date(Date.now()).toJSON(),
       IsActive: true
     }
-    this.service.createProject(dto).then(() => console.log("project created"));
+    let a = await this.service.createProject(dto);
+    this.emmitProject(a.data);
     return "project DTO created"
   }
 
+  emmitProject(project: any){
+    this.notify.emit(project);
+  }
 
   onFileSelectedPdf($event: Event) {
     const reader: FileReader = new FileReader();
