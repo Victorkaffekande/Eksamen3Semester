@@ -28,31 +28,30 @@ export class CreateProjectComponent implements OnInit {
   }
 
   createProject() {
-    if (!this.createForm.valid) return  "createForm is not valid";
+    if (!this.createForm.valid) return "createForm is not valid";
 
     let token = localStorage.getItem("token");
     if (!token) return "no token in local storage"
 
-      let deToken = jwtDecode(token) as Token;
+    let deToken = jwtDecode(token) as Token;
 
-      let imageString = this.createForm.get("image")?.value
-      if (imageString == "") imageString=undefined;
+    let imageString = this.createForm.get("image")?.value
+    if (imageString == "") imageString = undefined;
 
-        const dto: ProjectDto = {
-          UserId: deToken.userId, //get fra token
-          PatternId: undefined, //null ?? måske lav et link til all patterns
-          Image: imageString, //if tom input => null | fix
-          Title: this.createForm.get("title")?.value,
-          StartTime: new Date(Date.now()).toJSON(), //tjek om rigtigt, måske fucked
-          IsActive: true
-        }
-      this.service.createProject(dto).then(() => console.log("project created"));
+    const dto: ProjectDto = {
+      UserId: deToken.userId, //get fra token
+      PatternId: undefined, //null ?? måske lav et link til all patterns
+      Image: imageString, //if tom input => null | fix
+      Title: this.createForm.get("title")?.value,
+      StartTime: new Date(Date.now()).toJSON(), //tjek om rigtigt, måske fucked
+      IsActive: true
+    }
+    this.service.createProject(dto).then(() => console.log("project created"));
     return "project DTO created"
   }
 
 
   onFileSelectedPdf($event: Event) {
-
     const reader: FileReader = new FileReader();
     reader.onloadend = (e) => {
       this.selectedImage = reader.result;
@@ -63,6 +62,5 @@ export class CreateProjectComponent implements OnInit {
     if (file) {
       reader.readAsDataURL(file)
     }
-
   }
 }

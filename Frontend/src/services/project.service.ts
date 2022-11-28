@@ -12,11 +12,11 @@ export class ProjectService {
   }
 
   async createProject(dto: ProjectDto): Promise<any> {
-    return await customAxios.post("/createProject", dto);
+    return await customAxios.post("Project/createProject", dto);
   }
 
-  async getAllProjectsFromUser(id: number): Promise<Project[]> {
-    let response = await customAxios.get<Project[]>("GetProjectsFromUser/" + id)
+  async getAllProjectsFromUser(id: number): Promise<any> {
+    let response = await customAxios.get<any>("Project/GetProjectsFromUser/" + id)
     return response.data
   }
 

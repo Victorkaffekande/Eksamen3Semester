@@ -20,7 +20,9 @@
       class="btn-check"
       name="radio"
       type="radio"
-      id="option1">
+      id="option1"
+      checked
+      (change)="filterList(true)">
     <label
       class="btn btn-outline-secondary"
       for="option1">
@@ -30,7 +32,8 @@
       class="btn-check"
       name="radio"
       type="radio"
-      id="option2">
+      id="option2"
+      (change)="filterList(false)">
     <label
       class="btn btn-outline-secondary"
       for="option2">
@@ -38,9 +41,24 @@
   </div>
 
   <h1> hvorfor kan jeg vise projectList som jason men ikke title?</h1>
-  <div *ngFor="let p of projectList">
-    <h1>{{p | json}}</h1>
-  </div>
+  <ul class="flex-container">
+    <div *ngFor="let p of filteredList">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top ratio ratio-16x9" style="height: 20rem" src="{{p.image}}" alt="...">
+        <div class="card-body">
+          <h2>{{p.title}}</h2>
+          <div>
+            <button class="btn btn-primary" type="button">Se Projekt</button>
+            <button class="btn btn-success" type="button">Nyt opslag</button>
+
+            <button *ngIf="p.isActive" class="btn btn-warning" type="button">Afslut</button>
+            <button *ngIf="!p.isActive " class="btn btn-secondary" type="button">Genstart</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ul>
 
 </div>
 

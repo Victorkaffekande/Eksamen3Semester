@@ -19,10 +19,12 @@ export class MyProjectsComponent implements OnInit {
 
   selected: any = "0";
 
-  projectList: Project[] = [];
+  projectList: any;
+  filteredList: any;
 
   ngOnInit(): void {
-    this.getAllMyProjects();
+    this.getAllMyProjects().then( () => this.filterList(true));
+
   }
 
 //get all projekts sort på active ud fra radio buttons
@@ -30,11 +32,16 @@ export class MyProjectsComponent implements OnInit {
     console.log(this.selected)
   }
 
-   async getAllMyProjects() {
+  async getAllMyProjects() {
     let t = localStorage.getItem("token");
     if (t) {
       let deToken = jwtDecode(t) as Token;
-      this.projectList =  await this.service.getAllProjectsFromUser(deToken.userId);
+      this.projectList = await this.service.getAllProjectsFromUser(deToken.userId);
     }
+
+  }
+
+  async filterList(val: boolean) {
+    this.filteredList = this.projectList.filter((p: { isActive: any }) => p.isActive == val)
   }
 }
