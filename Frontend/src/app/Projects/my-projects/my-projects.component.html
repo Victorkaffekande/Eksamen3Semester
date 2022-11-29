@@ -52,8 +52,18 @@
             <button class="btn btn-primary" type="button">Se Projekt</button>
             <button class="btn btn-success" type="button">Nyt opslag</button>
 
-            <button *ngIf="p.isActive" class="btn btn-warning" type="button">Afslut</button>
-            <button *ngIf="!p.isActive " class="btn btn-secondary" type="button">Genstart</button>
+            <button *ngIf="p.isActive"
+                    class="btn btn-warning"
+                    type="button"
+                    [class.selected]="p"
+                    (click)="endProject(p)">Afslut
+            </button>
+            <button *ngIf="!p.isActive "
+                    class="btn btn-secondary"
+                    type="button"
+                    [class.selected]="p"
+                    (click)="restartProject(p)">Genstart
+            </button>
 
           </div>
         </div>

@@ -52,4 +52,14 @@ export class MyProjectsComponent implements OnInit {
     this.showIsActive = event.value;
     this.filterList();
   }
+
+  async endProject(project: any) {
+    project.isActive = false;
+    let response = await this.service.updateProject(project).then(() => this.filterList())
+  }
+
+  async restartProject(project: any) {
+    project.isActive = true;
+    let response = await this.service.updateProject(project).then(() => this.filterList())
+  }
 }
