@@ -17,7 +17,7 @@ const routes: Routes = [
         path:'mypatterns', component: MyPatternsComponent
       },
       {path: 'createpattern', component: CreatePatternComponent},
-      {path: 'viewpattern', component: PatternViewComponent},
+      {path: 'viewpattern/:id', component: PatternViewComponent},
 
     ]},
 

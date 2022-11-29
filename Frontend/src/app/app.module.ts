@@ -18,6 +18,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {CdkStepperModule} from "@angular/cdk/stepper";
 import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.compo
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    CdkStepperModule
+    CdkStepperModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

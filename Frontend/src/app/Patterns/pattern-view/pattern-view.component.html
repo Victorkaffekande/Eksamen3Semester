@@ -1,4 +1,5 @@
 <br>
+<div class="container" *ngIf="doesPatternExist">
 <div class="row">
   <div class="col">
     <img [src]="selectedPattern.image">
@@ -39,33 +40,48 @@
       <div *ngIf="this.formGroup.enabled">
         <br>
         <label>pdf</label>
-        <input accept="application/pdf" formControlName="pdf"
+        <input accept="application/pdf" (click)="onFileSelectedPdf($event)" formControlName="pdf"
                class="form-control"
                id="formFileLg" style="width: 300px"
                type="file"/>
 
         <br>
         <label>Billede</label>
-        <input accept="image/png,image/jpeg" formControlName="image"
+        <input accept="image/png,image/jpeg" (click)="onFileSelectedImage($event)" formControlName="image"
                class="form-control" style="width: 300px"
                type="file"/>
 
         <br>
-        <button class="btn btn-primary" (click)="fillForm()">Annullere</button>
+        <button class="btn btn-primary" (click)="fillForm()">Annuller</button>
 
-        <button class="btn btn-primary" style="margin-left: 10px">opdaterer</button>
+        <button class="btn btn-primary" (click)="submitEdit()" style="margin-left: 10px">opdater</button>
       </div>
       <br>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined ">
+        {{errorMsg}}
+      </div>
     </form>
 
+    </div>
+  <div class="col">
     <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
       {{selectedPattern.title}}
     </button>
     <br>
+    <div *ngIf="!isButtonForEditDisabled">
     <button class="btn btn-primary" style="background-position: left" [disabled]="isButtonForEditDisabled"
-            (click)="enableEditing()">Opdatere opskrift
+            (click)="enableEditing()">Opdater opskrift
     </button>
+      <button class="btn btn-danger" style="background-position: left" [disabled]="isButtonForEditDisabled"
+              (click)="deletePattern()">fjern opskrift
+      </button>
+    </div>
   </div>
 
 </div>
-
+</div>
+<div class="container" *ngIf="!doesPatternExist">
+  <label> Søger efter Opskrift</label>
+  <mat-spinner>
+  </mat-spinner>
+</div>

@@ -38,7 +38,11 @@ public class PatternRepository : IPatternRepository
             oldPattern.Description = pattern.Description;
             oldPattern.Image = pattern.Image;
             oldPattern.PdfString = pattern.PdfString;
-
+            oldPattern.Difficulty = pattern.Difficulty;
+            oldPattern.Yarn = pattern.Yarn;
+            oldPattern.Language = pattern.Language;
+            oldPattern.Needlesize = pattern.Needlesize;
+            oldPattern.Gauge = pattern.Gauge;
         }
 
         _context.PatternTable.Update(oldPattern ?? throw new InvalidOperationException());

@@ -10,7 +10,7 @@
   <div class="card-body">
     <h5 class="card-title">af {{p.user.username}}</h5>
     <p class="card-text">{{p.title}}</p>
-    <a routerLink="/user/viewpattern" (click)="selectedPattern(p)" class="btn btn-primary">Go somewhere</a>
+    <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
 </ol>
