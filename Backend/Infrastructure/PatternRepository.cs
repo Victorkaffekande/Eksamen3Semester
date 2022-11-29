@@ -61,6 +61,6 @@ public class PatternRepository : IPatternRepository
 
     public List<Pattern> GetAllPatternsByUser(int userId)
     {
-        return _context.PatternTable.Where(p => p.UserId == userId).ToList();
+        return _context.PatternTable.Where(p => p.UserId == userId).Include(p => p.User).ToList();
     }
 }

@@ -17,6 +17,7 @@ import { CreatePatternComponent } from './Patterns/create-pattern/create-pattern
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {CdkStepperModule} from "@angular/cdk/stepper";
+import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {CdkStepperModule} from "@angular/cdk/stepper";
     RegisterComponent,
     MyPatternsComponent,
     CreatePatternComponent,
+    PatternViewComponent,
   ],
   imports: [
     BrowserModule,

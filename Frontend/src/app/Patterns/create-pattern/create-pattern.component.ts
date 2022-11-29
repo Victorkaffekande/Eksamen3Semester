@@ -10,14 +10,34 @@ import {PatternService} from "../../../services/pattern.service";
   styleUrls: ['./create-pattern.component.sass']
 })
 export class CreatePatternComponent implements OnInit {
+  //create pattern
   image: any;
   pdf: any;
   id: number = 0;
   title: string =  "";
   description: string = "";
 
+  //confirms creation
+  patternCreated = false;
+  submitted = false;
+  errorMsg: any;
+
   constructor(private _formBuilder: FormBuilder, private patternService: PatternService) {
+
   }
+
+  formGroup = this._formBuilder.group({
+    title: ['', Validators.required],
+    difficulty : [''],
+    description: ['', Validators.required]
+  });
+
+  formGroupInfo = this._formBuilder.group({
+    yarn: [''],
+    language : [''],
+    needleSize: [''],
+    gauge: ['']
+  });
 
   ngOnInit(): void {
     let t = localStorage.getItem("token");
@@ -27,11 +47,6 @@ export class CreatePatternComponent implements OnInit {
     }
 
   }
-
-  formGroup = this._formBuilder.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required]
-  });
   formGroupPdf = this._formBuilder.group({
     pdf: ['', Validators.required]
   });
@@ -44,15 +59,34 @@ export class CreatePatternComponent implements OnInit {
   async submit() {
     let dto = {
       title: <string>this.formGroup.get('title')?.value,
-      userId: 17,
-      pdf: this.pdf,
+      userId: this.id,
+      pdfstring: this.pdf,
       description: <string>this.formGroup.get("description")?.value,
-      image: this.image
+      image: this.image,
+      difficulty: <string>this.formGroup.get("difficulty")?.value,
+      yarn: <string>this.formGroupInfo.get("yarn")?.value,
+      language: <string>this.formGroupInfo.get("language")?.value,
+      needleSize: <string>this.formGroupInfo.get("needleSize")?.value,
+      gauge: <string>this.formGroupInfo.get("gauge")?.value
     }
-    console.log(dto)
+    this.submitted = true
+    let result: any;
 
-    const result = await this.patternService.CreatePattern(dto)
+    [result] = await Promise.all([this.patternService.CreatePattern(dto)]);
+
+
+
+    await this.patternService.CreatePattern(dto)
+      .then(() =>
+        this.patternCreated = true
+      )
+      .catch(error => {
+        this.patternCreated = false;
+        this.errorMsg = error.response.data;
+      });
   }
+
+
 
   //convert selected image to a blob image
   onFileSelectedImage($event: Event) {

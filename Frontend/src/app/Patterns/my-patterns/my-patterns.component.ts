@@ -15,7 +15,6 @@ export class MyPatternsComponent implements OnInit {
   constructor(private router: Router, private patternService: PatternService) { }
   id: number = 0;
   username: string = "default"
-
   patterns : any;
 
   async ngOnInit() {
@@ -32,4 +31,8 @@ export class MyPatternsComponent implements OnInit {
   }
 
 
+  //when clicked on pattern sends it to service variable
+  selectedPattern(p: any) {
+    this.patternService.selectedPattern = p;
+  }
 }

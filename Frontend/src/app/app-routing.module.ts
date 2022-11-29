@@ -7,6 +7,7 @@ import {AdminHeaderComponent} from "./admin-header/admin-header.component";
 import * as path from "path";
 import {MyPatternsComponent} from "./Patterns/my-patterns/my-patterns.component";
 import {CreatePatternComponent} from "./Patterns/create-pattern/create-pattern.component";
+import {PatternViewComponent} from "./Patterns/pattern-view/pattern-view.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
         path:'mypatterns', component: MyPatternsComponent
       },
       {path: 'createpattern', component: CreatePatternComponent},
+      {path: 'viewpattern', component: PatternViewComponent},
 
     ]},
 

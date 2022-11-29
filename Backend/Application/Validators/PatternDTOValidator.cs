@@ -21,6 +21,8 @@ public class PatternDTOValidator : AbstractValidator<PatternDTO>
         
         RuleFor(p => p.PdfString).Matches("data:application/pdf;base64,").WithState(x => throw new ArgumentException("this is a not pdf"));
         RuleFor(p => p.Image).Must(x => x.Contains("data:image/png;base64,") || x.Contains("data:image/jpeg;base64,")).WithState(x => throw new ArgumentException("this is not a png/jpeg"));
+        
+        
     }
     
 }

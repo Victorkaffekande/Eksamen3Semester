@@ -1,0 +1,71 @@
+<br>
+<div class="row">
+  <div class="col">
+    <img [src]="selectedPattern.image">
+  </div>
+
+  <div class="col">
+
+    <form [formGroup]="formGroup" disabled="true">
+
+
+      <br>
+      <label>titel</label>
+      <input formControlName="title" type="text" class="form-control " style="width: 300px">
+      <br>
+      <label>Sværhedsgrad</label>
+      <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
+      <br>
+      <label>sprog</label>
+      <input formControlName="language" type="text" class="form-control " style="width: 300px">
+      <br>
+      <label>Strikkepind størelse</label>
+      <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
+
+      <br>
+      <label>Gauge</label>
+      <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
+
+      <br>
+      <label>Garn</label>
+      <textarea formControlName="yarn" class="form-control" placeholder="Garn typer"
+                id="floatingTextarea2" style="height: 150px; width: 500px"></textarea>
+
+      <br>
+      <label>Beskrivelse</label>
+      <textarea formControlName="description" class="form-control" placeholder="Beskrivelse"
+                id="floatingTextarea1" style="height: 150px; width: 500px"></textarea>
+
+      <div *ngIf="this.formGroup.enabled">
+        <br>
+        <label>pdf</label>
+        <input accept="application/pdf" formControlName="pdf"
+               class="form-control"
+               id="formFileLg" style="width: 300px"
+               type="file"/>
+
+        <br>
+        <label>Billede</label>
+        <input accept="image/png,image/jpeg" formControlName="image"
+               class="form-control" style="width: 300px"
+               type="file"/>
+
+        <br>
+        <button class="btn btn-primary" (click)="fillForm()">Annullere</button>
+
+        <button class="btn btn-primary" style="margin-left: 10px">opdaterer</button>
+      </div>
+      <br>
+    </form>
+
+    <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
+      {{selectedPattern.title}}
+    </button>
+    <br>
+    <button class="btn btn-primary" style="background-position: left" [disabled]="isButtonForEditDisabled"
+            (click)="enableEditing()">Opdatere opskrift
+    </button>
+  </div>
+
+</div>
+
