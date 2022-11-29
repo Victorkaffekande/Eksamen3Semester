@@ -1,1 +1,16 @@
-<p>my-patterns works!</p>
+
+<button mat-raised-button routerLink="/user/createpattern">Lav Oskrifter </button>
+
+<br>
+<div class="fs-4 fw-bold mt-3" > Mine opskrifter </div>
+
+<ol class="flex-container">
+<div class="card"  *ngFor="let p of this.patterns" style="width: 18rem;">
+  <img [src]="p.image" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">af {{p.user.username}}</h5>
+    <p class="card-text">{{p.title}}</p>
+    <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+</ol>

@@ -13,6 +13,12 @@ import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { CreatePatternComponent } from './Patterns/create-pattern/create-pattern.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {CdkStepperModule} from "@angular/cdk/stepper";
+import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -22,6 +28,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     AdminHeaderComponent,
     RegisterComponent,
     MyPatternsComponent,
+    CreatePatternComponent,
+    PatternViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     NgbModule,
     BrowserAnimationsModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    CdkStepperModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

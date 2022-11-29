@@ -38,7 +38,11 @@ public class PatternRepository : IPatternRepository
             oldPattern.Description = pattern.Description;
             oldPattern.Image = pattern.Image;
             oldPattern.PdfString = pattern.PdfString;
-
+            oldPattern.Difficulty = pattern.Difficulty;
+            oldPattern.Yarn = pattern.Yarn;
+            oldPattern.Language = pattern.Language;
+            oldPattern.NeedleSize = pattern.NeedleSize;
+            oldPattern.Gauge = pattern.Gauge;
         }
 
         _context.PatternTable.Update(oldPattern ?? throw new InvalidOperationException());
@@ -61,6 +65,6 @@ public class PatternRepository : IPatternRepository
 
     public List<Pattern> GetAllPatternsByUser(int userId)
     {
-        return _context.PatternTable.Where(p => p.UserId == userId).ToList();
+        return _context.PatternTable.Where(p => p.UserId == userId).Include(p => p.User).ToList();
     }
 }

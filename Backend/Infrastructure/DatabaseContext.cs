@@ -33,7 +33,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Pattern>().Ignore(t => t.User);
         modelBuilder.Entity<User>().Ignore(t => t.Projects);
         modelBuilder.Entity<Project>().Ignore(t => t.Posts);
-        
+
 
 
         //Foregin key to author ID

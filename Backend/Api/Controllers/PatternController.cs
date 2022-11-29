@@ -46,7 +46,7 @@ public class PatternController : ControllerBase
         }
     }
     
-    [HttpPost]
+    [HttpPut]
     [Route("UpdatePattern")]
     public ActionResult UpdatePattern( [FromBody] PatternUpdateDTO pattern)
     {
