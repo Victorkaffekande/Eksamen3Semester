@@ -2,7 +2,7 @@
 <div class="container" *ngIf="doesPatternExist">
 <div class="row">
   <div class="col">
-    <img [src]="selectedPattern.image">
+    <img [src]="selectedPattern.image" style="max-width: 400px">
   </div>
 
   <div class="col">
@@ -40,19 +40,19 @@
       <div *ngIf="this.formGroup.enabled">
         <br>
         <label>pdf</label>
-        <input accept="application/pdf" (click)="onFileSelectedPdf($event)" formControlName="pdf"
+        <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf"
                class="form-control"
                id="formFileLg" style="width: 300px"
                type="file"/>
 
         <br>
         <label>Billede</label>
-        <input accept="image/png,image/jpeg" (click)="onFileSelectedImage($event)" formControlName="image"
+        <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image"
                class="form-control" style="width: 300px"
                type="file"/>
 
         <br>
-        <button class="btn btn-primary" (click)="fillForm()">Annuller</button>
+        <button class="btn btn-primary" (click)="cancelEdit()">Annuller</button>
 
         <button class="btn btn-primary" (click)="submitEdit()" style="margin-left: 10px">opdater</button>
       </div>

@@ -19,7 +19,7 @@ public class Pattern
     
     public string? Language { get; set; }
     
-    public string? Needlesize { get; set; }
+    public string? NeedleSize { get; set; }
     
     public string? Gauge { get; set; }
     

@@ -41,7 +41,7 @@ public class PatternRepository : IPatternRepository
             oldPattern.Difficulty = pattern.Difficulty;
             oldPattern.Yarn = pattern.Yarn;
             oldPattern.Language = pattern.Language;
-            oldPattern.Needlesize = pattern.Needlesize;
+            oldPattern.NeedleSize = pattern.NeedleSize;
             oldPattern.Gauge = pattern.Gauge;
         }
 

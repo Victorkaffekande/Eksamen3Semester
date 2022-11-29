@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
 import {FormBuilder, Validators} from "@angular/forms";
 import {DomSanitizer} from "@angular/platform-browser";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-pattern-view',
@@ -21,11 +21,9 @@ export class PatternViewComponent implements OnInit {
   username: string = "default"
 
   patternId: any;
-  pdf: any = undefined;
-  image: any = undefined;
   errorMsg: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private patternService: PatternService, private _formBuilder: FormBuilder, private sanitizer: DomSanitizer) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private patternService: PatternService, private _formBuilder: FormBuilder) {
   }
 
   async ngOnInit() {
@@ -97,19 +95,19 @@ export class PatternViewComponent implements OnInit {
   async deletePattern() {
 
     if (confirm("Opskriften ville blive fjernet for evigt")) {
-      const response = await this.patternService.deletePattern(this.patternId);
-      console.log(response);
+      await this.patternService.deletePattern(this.patternId)
+        .then(async () =>
+          await this.router.navigate(["/user/mypatterns"])
+        )
+        .catch(error => {
+          this.errorMsg = error.response.data;
+        });
     }
+
+
   }
 
   async submitEdit() {
-    if (this.image == undefined) {
-      this.image = this.selectedPattern.image
-    }
-    if (this.pdf == undefined) {
-      this.pdf = this.selectedPattern.pdfString;
-    }
-
     let dto = {
       title: <string><unknown>this.formGroup.get('title')?.value,
       id: this.patternId,
@@ -120,8 +118,8 @@ export class PatternViewComponent implements OnInit {
       gauge: <string><unknown>this.formGroup.get('gauge')?.value,
       yarn: <string><unknown>this.formGroup.get('yarn')?.value,
       description: <string><unknown>this.formGroup.get('description')?.value,
-      image: this.image,
-      PdfString: this.pdf,
+      image: this.selectedPattern.image,
+      PdfString: this.selectedPattern.pdfString,
     }
     console.log(this.selectedPattern.pdf)
 
@@ -141,7 +139,7 @@ export class PatternViewComponent implements OnInit {
     const file: File = event.target.files[0];
     const reader: FileReader = new FileReader();
     reader.onloadend = (e) => {
-      this.image = reader.result;
+      this.selectedPattern.image = reader.result;
     }
     if (file) {
       reader.readAsDataURL(file)
@@ -153,7 +151,7 @@ export class PatternViewComponent implements OnInit {
     const file: File = event.target.files[0];
     const reader: FileReader = new FileReader();
     reader.onloadend = (e) => {
-      this.pdf = reader.result;
+      this.selectedPattern.pdfString = reader.result;
     }
     if (file) {
       reader.readAsDataURL(file)  // @ts-ignore
@@ -161,5 +159,7 @@ export class PatternViewComponent implements OnInit {
   }
 
 
-
+  cancelEdit() {
+    window.location.reload()
+  }
 }

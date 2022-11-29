@@ -65,31 +65,33 @@
 
       <mat-step [stepControl]="formGroupPdf">
         <ng-template matStepLabel>Vælg Pdf</ng-template>
-        <form [formGroup]="formGroupPdf" #localForm="ngForm">
+        <form [formGroup]="formGroupPdf" #localFormPdf="ngForm">
           <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf"
                  class="form-control"
                  id="formFileLg" style="width: 300px"
                  type="file"
-                 [class.is-invalid]="localForm.submitted && formGroup.get('title')?.invalid"/>
+                 [class.is-invalid]=" localFormPdf.submitted && formGroupPdf.get('pdf')?.invalid"/>
           <div class="invalid-feedback">En opskrift skal have en pdf</div>
           <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperPrevious>Back</button>
-          <button class="btn btn-primary" style="margin-top: 10px; margin-left: 12px" type="button" cdkStepperNext>Next
+          <button class="btn btn-primary" style="margin-top: 10px; margin-left: 12px" type="submit" cdkStepperNext>Next
           </button>
 
         </form>
       </mat-step>
 
       <mat-step [stepControl]="formGroupImage">
-        <ng-template matStepLabel>Vælg billed</ng-template>
-        <form [formGroup]="formGroupImage">
+        <ng-template matStepLabel>Vælg billede</ng-template>
+        <form [formGroup]="formGroupImage" #localFormImage="ngForm">
           <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image"
                  class="form-control" style="width: 300px"
-                 type="file"/>
+                 type="file"
+                 [class.is-invalid]="localFormImage.submitted && formGroupImage.get('image')?.invalid"/>
+          <div class="invalid-feedback">En opskrift skal have et billede</div>
+          <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperPrevious>Back</button>
+          <button class="btn btn-primary" style="margin-top: 10px; margin-left: 12px" type="submit" cdkStepperNext>Next
+          </button>
         </form>
 
-        <button class="btn btn-primary" style="margin-top: 10px" type="button" cdkStepperPrevious>Back</button>
-        <button class="btn btn-primary" style="margin-top: 10px; margin-left: 12px" type="button" cdkStepperNext>Next
-        </button>
 
       </mat-step>
 

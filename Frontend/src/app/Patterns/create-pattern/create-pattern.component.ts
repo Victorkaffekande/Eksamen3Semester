@@ -38,7 +38,12 @@ export class CreatePatternComponent implements OnInit {
     needleSize: [''],
     gauge: ['']
   });
-
+  formGroupPdf = this._formBuilder.group({
+    pdf: ['', Validators.required]
+  });
+  formGroupImage = this._formBuilder.group({
+    image: ['', Validators.required]
+  });
   ngOnInit(): void {
     let t = localStorage.getItem("token");
     if (t) {
@@ -47,12 +52,7 @@ export class CreatePatternComponent implements OnInit {
     }
 
   }
-  formGroupPdf = this._formBuilder.group({
-    pdf: ['', Validators.required]
-  });
-  formGroupImage = this._formBuilder.group({
-    image: ['', Validators.required]
-  });
+
 
 
   //submit a pattern to database
@@ -70,11 +70,6 @@ export class CreatePatternComponent implements OnInit {
       gauge: <string>this.formGroupInfo.get("gauge")?.value
     }
     this.submitted = true
-    let result: any;
-
-    [result] = await Promise.all([this.patternService.CreatePattern(dto)]);
-
-
 
     await this.patternService.CreatePattern(dto)
       .then(() =>
