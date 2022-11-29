@@ -19,9 +19,18 @@ export class ProjectService {
     return response.data
   }
 
-  async updateProject(project: any){
-    let response = await customAxios.put<any>("Project/UpdateProject",project);
+  async updateProject(project: any) {
+    let response = await customAxios.put<any>("Project/UpdateProject", project);
     return response.data
   }
 
+  async getSingleProjectFromId(id: any) {
+    let response = await customAxios.get('Project/GetById/' + id);
+    return response.data;
+  }
+
+  async deleteProject(id: number) {
+    let response = await customAxios.delete('Project/DeleteProject/' + id)
+    return response.data;
+  }
 }

@@ -1,4 +1,3 @@
-
 <div class="row">
   <!-- inputs -->
   <div class="col">
@@ -18,8 +17,9 @@
 
       <!-- image input -->
       <div class="mb-3">
-        <label for="coverImg">Project titel </label>
-        <input class="form-control"
+        <label for="coverImg">Cover billede </label>
+        <input accept="image/png, image/jpeg"
+               class="form-control"
                type="file"
                id="coverImg"
                (change)="onFileSelectedPdf($event)">

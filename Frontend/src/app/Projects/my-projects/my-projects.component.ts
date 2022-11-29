@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Token} from "../../../interfaces/token";
 import jwtDecode from "jwt-decode";
 import {ProjectService} from "../../../services/project.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {ProjectService} from "../../../services/project.service";
 export class MyProjectsComponent implements OnInit {
   collapsed: boolean = true;
 
-  constructor(private service: ProjectService) {
+  constructor(private service: ProjectService,
+              private router: Router) {
   }
 
 
@@ -32,7 +34,6 @@ export class MyProjectsComponent implements OnInit {
       let deToken = jwtDecode(t) as Token;
       this.projectList = await this.service.getAllProjectsFromUser(deToken.userId);
     }
-
   }
 
   async filterList() {
@@ -61,5 +62,9 @@ export class MyProjectsComponent implements OnInit {
   async restartProject(project: any) {
     project.isActive = true;
     let response = await this.service.updateProject(project).then(() => this.filterList())
+  }
+
+  goToProject(project: any) {
+    this.router.navigate(['user/projectDetails',project.id])
   }
 }

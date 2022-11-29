@@ -14,6 +14,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { MyProjectsComponent } from './Projects/my-projects/my-projects.component';
 import { CreateProjectComponent } from './Projects/create-project/create-project.component';
+import { ProjectDetailsComponent } from './Projects/project-details/project-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { CreateProjectComponent } from './Projects/create-project/create-project
     MyPatternsComponent,
     MyProjectsComponent,
     CreateProjectComponent,
+    ProjectDetailsComponent,
   ],
   imports: [
     BrowserModule,

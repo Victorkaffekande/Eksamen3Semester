@@ -12,8 +12,8 @@
     </div>
   </div>
 
-  <!-- project lists -->
 
+<!-- radio btns-->
   <h1>Mine projekter</h1>
   <div class="btn-group" (change)="radioClicked($event.target)">
     <input
@@ -41,27 +41,28 @@
       Afsluttede</label>
   </div>
 
-
+  <!-- project lists -->
   <ul class="flex-container">
     <div *ngFor="let p of filteredList">
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 18rem;" [class.selected]="p">
         <img class="card-img-top ratio ratio-16x9" style="height: 20rem" src="{{p.image}}" alt="...">
         <div class="card-body">
           <h2>{{p.title}}</h2>
           <div>
-            <button class="btn btn-primary" type="button">Se Projekt</button>
+            <button class="btn btn-primary"
+                    type="button"
+                    (click)="goToProject(p)">Se Projekt
+            </button>
             <button class="btn btn-success" type="button">Nyt opslag</button>
 
             <button *ngIf="p.isActive"
                     class="btn btn-warning"
                     type="button"
-                    [class.selected]="p"
                     (click)="endProject(p)">Afslut
             </button>
             <button *ngIf="!p.isActive "
                     class="btn btn-secondary"
                     type="button"
-                    [class.selected]="p"
                     (click)="restartProject(p)">Genstart
             </button>
 
