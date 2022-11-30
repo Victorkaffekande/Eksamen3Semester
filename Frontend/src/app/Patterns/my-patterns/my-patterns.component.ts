@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+
+import { Component, OnInit } from '@angular/core';
+import jwtDecode from "jwt-decode";
+import {Token} from "../../../interfaces/token";
+import {Router} from "@angular/router";
+import {PatternService} from "../../../services/pattern.service";
 
 @Component({
   selector: 'app-my-patterns',
@@ -7,18 +11,22 @@ import {FormBuilder, Validators} from "@angular/forms";
   styleUrls: ['./my-patterns.component.sass']
 })
 export class MyPatternsComponent implements OnInit {
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  })
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private router: Router, private patternService: PatternService) { }
+  id: number = 0;
+  username: string = "default"
+  patterns : any;
+
+  async ngOnInit() {
+    let t = localStorage.getItem("token");
+    if (t) {
+      let deToken = jwtDecode(t) as Token;
+      this.username = deToken.username;
+      this.id = deToken.userId;
+    }
+    const patterns = await this.patternService.getPatternsByUserId(this.id);
+    this.patterns = patterns;
+
+
   }
-
-  ngOnInit(): void {
-  }
-
-
 }

@@ -15,6 +15,14 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { MyProjectsComponent } from './Projects/my-projects/my-projects.component';
 import { CreateProjectComponent } from './Projects/create-project/create-project.component';
 import { ProjectDetailsComponent } from './Projects/project-details/project-details.component';
+import { CreatePatternComponent } from './Patterns/create-pattern/create-pattern.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {CdkStepperModule} from "@angular/cdk/stepper";
+import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +34,8 @@ import { ProjectDetailsComponent } from './Projects/project-details/project-deta
     MyProjectsComponent,
     CreateProjectComponent,
     ProjectDetailsComponent,
+    CreatePatternComponent,
+    PatternViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +45,11 @@ import { ProjectDetailsComponent } from './Projects/project-details/project-deta
     NgbModule,
     BrowserAnimationsModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    CdkStepperModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

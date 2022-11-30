@@ -11,4 +11,10 @@ public class PatternUpdateDTO
     public String PdfString { get; set; }
     public String Description { get; set; }
     public String Image { get; set; }
+    
+    public string? difficulty { get; set; }
+    public string? yarn { get; set; }
+    public string? Language { get; set; }
+    public string? Needlesize { get; set; }
+    public string? gauge { get; set; }
 }
