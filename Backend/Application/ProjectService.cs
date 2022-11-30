@@ -25,17 +25,17 @@ public class ProjectService : IProjectService
         _projectValidator = projectValidator ?? throw new ArgumentException("Missing project Validator");
     }
 
-    public Project CreateProject(ProjectDTO projectDto)
+    public Project CreateProject(ProjectCreateDTO projectCreateDto)
     {
-        if (projectDto == null) throw new ArgumentException("ProjectDTO is null");
+        if (projectCreateDto == null) throw new ArgumentException("ProjectDTO is null");
 
-        var val = _dtoValidator.Validate(projectDto);
+        var val = _dtoValidator.Validate(projectCreateDto);
         if (!val.IsValid)
         {
             throw new ArgumentException(val.ToString());
         }
 
-        return _repo.AddProject(_mapper.Map<Project>(projectDto));
+        return _repo.AddProject(_mapper.Map<Project>(projectCreateDto));
     }
 
     public Project UpdateProject(Project project)

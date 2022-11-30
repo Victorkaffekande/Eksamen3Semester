@@ -2,7 +2,7 @@
 
 namespace Application.DTOs;
 
-public class ProjectDTO
+public class ProjectCreateDTO
 {
     public int UserId { get; set; }
     public int? PatternId { get; set; }

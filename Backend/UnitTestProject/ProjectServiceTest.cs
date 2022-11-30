@@ -25,7 +25,7 @@ public class ProjectServiceTest
     public ProjectServiceTest()
     {
         //mapper setup
-        var config = new MapperConfiguration(cfg => { cfg.CreateMap<ProjectDTO, Project>(); });
+        var config = new MapperConfiguration(cfg => { cfg.CreateMap<ProjectCreateDTO, Project>(); });
         _mapper = new Mapper(config);
 
         //Mockrepo setup
@@ -128,7 +128,7 @@ public class ProjectServiceTest
     public void CreateProject_Valid(int patternId, string image)
     {
         //arrange
-        var dto = new ProjectDTO()
+        var dto = new ProjectCreateDTO()
         {
             UserId = 1, PatternId = 1, Image = null, Title = "Filler title",
             IsActive = true, StartTime = new DateTime()
@@ -170,7 +170,7 @@ public class ProjectServiceTest
         string errorMsg)
     {
         //arrange
-        var dto = new ProjectDTO()
+        var dto = new ProjectCreateDTO()
             {UserId = userId, Title = title, StartTime = DateTime.Parse(startDate), Image = img};
 
 

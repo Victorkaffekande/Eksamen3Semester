@@ -8,8 +8,7 @@
 <div class="card"  *ngFor="let p of this.patterns" style="width: 18rem;">
   <img [src]="p.image" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">af {{p.user.username}}</h5>
-    <p class="card-text">{{p.title}}</p>
+    <p class="card-text h4">{{p.title}}</p>
     <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>

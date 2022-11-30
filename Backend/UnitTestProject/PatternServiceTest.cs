@@ -441,7 +441,7 @@ public class PatternServiceTest
     }
 
     #endregion //GetPatternById_Tests
-    
+    /*
     #region GetAllPatternsTests
 
     [Fact]
@@ -483,7 +483,7 @@ public class PatternServiceTest
     }
 
     #endregion // GetAllPatternsTest
-
+    */
     #region GetAllPatternsByUser_Tests
 
     [Fact]
