@@ -21,6 +21,7 @@ import {MatInputModule} from "@angular/material/input";
 import {CdkStepperModule} from "@angular/cdk/stepper";
 import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { CreatePostComponent } from './Posts/create-post/create-post.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     ProjectDetailsComponent,
     CreatePatternComponent,
     PatternViewComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,

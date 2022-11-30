@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
+import {PostService} from "../../../services/post.service";
 
 @Component({
   selector: 'app-project-details',
@@ -23,7 +24,8 @@ export class ProjectDetailsComponent implements OnInit {
   })
 
   constructor(private activatedRoute: ActivatedRoute,
-              private service: ProjectService,
+              private projectService: ProjectService,
+              private postService: PostService,
               private router: Router,
               private fb: FormBuilder) {
   }
@@ -33,11 +35,11 @@ export class ProjectDetailsComponent implements OnInit {
     this.getProject()
       .then(() => this.fillForm());
 
-
+    this.fillPostList();
   }
 
   async getProject() {
-    this.project = await this.service.getSingleProjectFromId(this.projectId);
+    this.project = await this.projectService.getSingleProjectFromId(this.projectId);
   }
 
   fillForm() {
@@ -47,19 +49,22 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
+  async fillPostList() {
+    this.postList = await this.postService.getPostsFromProject(this.projectId);
+  }
+
   async deleteProject() {
     let msg: string = "Er du sikker på at du vil slette " + this.project.title
     if (confirm(msg)) {
-      let result = await this.service.deleteProject(this.project.id)
+      let result = await this.projectService.deleteProject(this.project.id)
         .then(() => this.router.navigate(['user/myprojects']));
     }
   }
 
-
   updateProject() {
     if (this.updateForm.valid) {
       this.project.title = this.updateForm.get('title')?.value;
-      let x = this.service.updateProject(this.project);
+      let x = this.projectService.updateProject(this.project);
       console.log(x);
     }
   }
@@ -84,11 +89,17 @@ export class ProjectDetailsComponent implements OnInit {
 
   async endProject() {
     this.project.isActive = false;
-    let response = await this.service.updateProject(this.project);
+    let response = await this.projectService.updateProject(this.project);
   }
 
   async restartProject() {
     this.project.isActive = true;
-    let response = await this.service.updateProject(this.project);
+    let response = await this.projectService.updateProject(this.project);
+  }
+
+  pushNewPost(post: any) {
+    console.log("push log:")
+    console.log(post)
+    this.postList.push(post);
   }
 }

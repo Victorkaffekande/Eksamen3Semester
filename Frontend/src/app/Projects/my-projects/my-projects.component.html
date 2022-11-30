@@ -45,7 +45,7 @@
   <ul class="flex-container">
     <div *ngFor="let p of filteredList">
       <div class="card" style="width: 18rem;" [class.selected]="p">
-        <img class="card-img-top ratio ratio-16x9" style="height: 20rem" src="{{p.image}}" alt="...">
+        <img class="card-img-top ratio" style="max-width: 100%" src="{{p.image}}" alt="">
         <div class="card-body">
           <h2>{{p.title}}</h2>
           <div>
@@ -53,7 +53,7 @@
                     type="button"
                     (click)="goToProject(p)">Se Projekt
             </button>
-            <button class="btn btn-success" type="button">Nyt opslag</button>
+            <app-create-post [projectId]="p.id"></app-create-post>
 
             <button *ngIf="p.isActive"
                     class="btn btn-warning"
