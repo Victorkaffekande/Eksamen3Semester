@@ -1,0 +1,78 @@
+<div class="container">
+
+  <!-- Create foldout -->
+  <div class="">
+    <button class="btn btn-warning"
+            (click)="collapse.toggle()"> start nyt projekt
+    </button>
+    <div
+      #collapse="ngbCollapse"
+      [(ngbCollapse)]="collapsed">
+      <app-create-project (notify)="pushNewProject($event)"></app-create-project>
+    </div>
+  </div>
+
+
+<!-- radio btns-->
+  <h1>Mine projekter</h1>
+  <div class="btn-group" (change)="radioClicked($event.target)">
+    <input
+      class="btn-check"
+      name="radio"
+      type="radio"
+      id="option1"
+      checked
+      value=1
+    >
+    <label
+      class="btn btn-outline-secondary"
+      for="option1">
+      Aktive</label>
+
+    <input
+      class="btn-check"
+      name="radio"
+      type="radio"
+      id="option2"
+      value="2">
+    <label
+      class="btn btn-outline-secondary"
+      for="option2">
+      Afsluttede</label>
+  </div>
+
+  <!-- project lists -->
+  <ul class="flex-container">
+    <div *ngFor="let p of filteredList">
+      <div class="card" style="width: 18rem;" [class.selected]="p">
+        <img class="card-img-top ratio ratio-16x9" style="height: 20rem" src="{{p.image}}" alt="...">
+        <div class="card-body">
+          <h2>{{p.title}}</h2>
+          <div>
+            <button class="btn btn-primary"
+                    type="button"
+                    (click)="goToProject(p)">Se Projekt
+            </button>
+            <button class="btn btn-success" type="button">Nyt opslag</button>
+
+            <button *ngIf="p.isActive"
+                    class="btn btn-warning"
+                    type="button"
+                    (click)="endProject(p)">Afslut
+            </button>
+            <button *ngIf="!p.isActive "
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="restartProject(p)">Genstart
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ul>
+
+</div>
+
+
+

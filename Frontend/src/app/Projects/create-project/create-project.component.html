@@ -1,0 +1,38 @@
+<div class="row">
+  <!-- inputs -->
+  <div class="col">
+    <form [formGroup]=createForm
+          (ngSubmit)="createProject()"
+          #localForm="ngForm">
+      <!-- title input -->
+      <div class="mb-3">
+        <label for="title">Projekt titel </label>
+        <input class="form-control"
+               type="text"
+               id="title"
+               formControlName="title"
+               [class.is-invalid]="localForm.submitted && createForm.get('title')?.invalid">
+        <div class="invalid-feedback">Udfyld projekt titel</div>
+      </div>
+
+      <!-- image input -->
+      <div class="mb-3">
+        <label for="coverImg">Cover billede </label>
+        <input accept="image/png, image/jpeg"
+               class="form-control"
+               type="file"
+               id="coverImg"
+               (change)="onFileSelectedPdf($event)">
+      </div>
+
+
+      <!-- submit button -->
+      <button class="btn btn-primary" type="submit">Start projekt</button>
+    </form>
+  </div>
+  <!-- image preview -->
+  <div class="col">
+    <img src="{{selectedImage}}" class="ratio ratio-16x9">
+  </div>
+</div>
+

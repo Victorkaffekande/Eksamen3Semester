@@ -48,7 +48,7 @@ public class DatabaseContext : DbContext
             .WithMany(user => user.Projects)
             .HasForeignKey(project => project.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-
+        
         modelBuilder.Entity<Post>()
             .HasOne(post => post.Project)
             .WithMany(project => project.Posts)

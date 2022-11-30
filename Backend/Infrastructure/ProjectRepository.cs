@@ -13,7 +13,7 @@ public class ProjectRepository : IProjectRepository
     {
         _context = context;
     }
-    
+
 
     public Project AddProject(Project project)
     {
@@ -24,8 +24,24 @@ public class ProjectRepository : IProjectRepository
 
     public Project UpdateProject(Project project)
     {
-        _context.Update(project);
+        var foundP = GetProjectById(project.Id);
+
+        if (foundP.Id == project.Id)
+        {
+            foundP.Image = project.Image;
+            foundP.Title = project.Title;
+            foundP.IsActive = project.IsActive;
+            foundP.PatternId = project.PatternId;
+        }
+
+        _context.ProjectTable.Update(foundP);
+        _context.SaveChanges();
         return project;
+    }
+
+    public List<Project> GetAllProjectsFromUser(int id)
+    {
+        return _context.ProjectTable.Where(p => p.UserId == id).ToList();
     }
 
     public Project GetProjectById(int id)

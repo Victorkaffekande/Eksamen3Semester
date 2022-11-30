@@ -8,5 +8,6 @@ public interface IProjectService
     Project CreateProject(ProjectDTO projectDto);
     Project UpdateProject(Project project);
     Project GetProjectById(int id);
+    List<Project> GetAllProjectsFromUser(int id);
     Project DeleteProject(int id);
 }

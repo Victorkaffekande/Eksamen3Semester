@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class ProjectController : Controller
 {
     private IProjectService _service;
-    
+
     public ProjectController(IProjectService service)
     {
         _service = service;
@@ -29,9 +31,23 @@ public class ProjectController : Controller
         }
     }
 
+    [HttpGet]
+    [Route("GetProjectsFromUser/{id}")]
+    public ActionResult GetAllProjectsFromUser([FromRoute] int id)
+    {
+        try
+        {
+            return Ok(_service.GetAllProjectsFromUser(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost]
     [Route("CreateProject")]
-    public ActionResult CreateProject([FromBody]ProjectDTO dto)
+    public ActionResult CreateProject([FromBody] ProjectDTO dto)
     {
         try
         {
@@ -59,7 +75,7 @@ public class ProjectController : Controller
 
     [HttpPut]
     [Route("UpdateProject")]
-    public ActionResult UpdateProject([FromBody]Project project)
+    public ActionResult UpdateProject([FromBody] Project project)
     {
         try
         {
