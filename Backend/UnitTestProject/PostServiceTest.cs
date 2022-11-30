@@ -410,7 +410,7 @@ public class PostServiceTest
     }
 
     #endregion //GetPostByIdTest
-
+/*
     #region GetAllPostTest
 
     
@@ -449,6 +449,7 @@ public class PostServiceTest
 
     #endregion //GetAllPostTest
 
+    */
     #region GetAllPostByProjectTest
 
     [Fact]

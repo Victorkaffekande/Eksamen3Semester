@@ -22,9 +22,30 @@ public class PatternService : IPatternService
         _patternValidator = patternValidator ?? throw new ArgumentException("Missing Validator");
     }
 
-    public List<Pattern> GetAllPattern()
+    public List<PatternGetAllDTO> GetAllPattern()
     {
-        return _repo.GetAllPattern();
+
+        List<PatternGetAllDTO> getAllDtos = new List<PatternGetAllDTO>();
+        foreach (var p in _repo.GetAllPattern())
+        {
+            PatternGetAllDTO dto = new PatternGetAllDTO()
+            {
+                Title = p.Title,
+                Id = p.Id,
+                Image = p.Image,
+                User = new UserDTO()
+                {
+                    Id = p.User.Id,
+                    Username = p.User.Username,
+                    Email = p.User.Email,
+                    ProfilePicture = p.User.ProfilePicture,
+                    BirthDay = p.User.BirthDay
+                }
+            };
+            getAllDtos.Add(dto);
+        }
+
+        return getAllDtos;
     }
 
     public Pattern CreatePattern(PatternDTO dto)

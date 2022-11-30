@@ -47,11 +47,11 @@ public class ProjectController : Controller
 
     [HttpPost]
     [Route("CreateProject")]
-    public ActionResult CreateProject([FromBody] ProjectDTO dto)
+    public ActionResult CreateProject([FromBody] ProjectCreateDTO createDto)
     {
         try
         {
-            return Ok(_service.CreateProject(dto));
+            return Ok(_service.CreateProject(createDto));
         }
         catch (Exception e)
         {

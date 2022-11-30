@@ -68,10 +68,38 @@ public class PostService : IPostService
         return _repo.GetPostGetById(id);
     }
 
-    public List<Post> GetAllPosts()
+    public List<PostGetAllDTO> GetAllPosts()
     {
-        return _repo.GetAllPosts();
-        
+        List<PostGetAllDTO> allPost = new List<PostGetAllDTO>();
+        foreach (var p in _repo.GetAllPosts())
+        {
+            var post = new PostGetAllDTO()
+            {
+                Id = p.Id,
+                Description = p.Description,
+                Image = p.Image,
+                PostDate = p.PostDate,
+                Project = new ProjectGetAllDTO()
+                {
+                    Id = p.Project.Id,
+                    Image = null,
+                    Title = p.Project.Title,
+                    User = new UserDTO()
+                    {
+                        BirthDay = p.Project.User.BirthDay,
+                        Email = p.Project.User.Email,
+                        Id = p.Project.User.Id,
+                        ProfilePicture = p.Project.User.ProfilePicture,
+                        Username = p.Project.User.Username
+                    }
+                }
+                
+            };
+            allPost.Add(post);
+        }
+
+        return allPost;
+
     }
 
     public List<Post> GetAllPostFromProject(int id)

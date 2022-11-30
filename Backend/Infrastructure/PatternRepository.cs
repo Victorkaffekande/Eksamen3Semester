@@ -16,10 +16,8 @@ public class PatternRepository : IPatternRepository
 
     public List<Pattern> GetAllPattern()
     {
-        // includes the user variable in the patterns
-       //return _context.PatternTable.Include(p => p.User).ToList();
+       return _context.PatternTable.Include(p => p.User).ToList();
 
-        return _context.PatternTable.ToList();
     }
 
     public Pattern CreatePattern(Pattern pattern)
@@ -65,6 +63,6 @@ public class PatternRepository : IPatternRepository
 
     public List<Pattern> GetAllPatternsByUser(int userId)
     {
-        return _context.PatternTable.Where(p => p.UserId == userId).Include(p => p.User).ToList();
+        return _context.PatternTable.Where(p => p.UserId == userId).ToList();
     }
 }

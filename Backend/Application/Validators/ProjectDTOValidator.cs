@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Validators;
 
-public class ProjectDTOValidator : AbstractValidator<ProjectDTO>
+public class ProjectDTOValidator : AbstractValidator<ProjectCreateDTO>
 {
     public ProjectDTOValidator()
     {

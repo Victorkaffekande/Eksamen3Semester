@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
@@ -46,7 +47,7 @@ public class PostRepository : IPostRepository
 
     public List<Post> GetAllPosts()
     {
-        return _context.PostTable.ToList();
+        return _context.PostTable.Include(p => p.Project.User).ToList();
     }
 
     public List<Post> GetAllPostFromProject(int id)

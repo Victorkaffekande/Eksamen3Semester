@@ -6,7 +6,7 @@ namespace Application.Interfaces;
 public interface IPatternService
 {
     //crud functions
-    public List<Pattern> GetAllPattern();
+    public List<PatternGetAllDTO> GetAllPattern();
     public Pattern CreatePattern(PatternDTO dto);
     public Pattern UpdatePattern(PatternUpdateDTO dto);
     public Pattern DeletePattern(int id);

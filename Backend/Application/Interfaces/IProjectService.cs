@@ -5,7 +5,7 @@ namespace Application.Interfaces;
 
 public interface IProjectService
 {
-    Project CreateProject(ProjectDTO projectDto);
+    Project CreateProject(ProjectCreateDTO projectCreateDto);
     Project UpdateProject(Project project);
     Project GetProjectById(int id);
     List<Project> GetAllProjectsFromUser(int id);
