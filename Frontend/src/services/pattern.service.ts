@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {customAxios} from "./httpAxios";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {catchError} from "rxjs";
+import * as http from "http";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class PatternService {
 
   async updatePattern(dto: {title: string; id:number; userId:number; PdfString:string; description:string; image:string; difficulty:string; yarn:string; language:string; needleSize:string; gauge:string;}) {
     const httpResult = await customAxios.put("Pattern/UpdatePattern", dto)
+    return httpResult.data;
+  }
+
+  async getAllPattern(){
+    const httpResult = await customAxios.get("pattern/getallpatterns")
     return httpResult.data;
   }
 
