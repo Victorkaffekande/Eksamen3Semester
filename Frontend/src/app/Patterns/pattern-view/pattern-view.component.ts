@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PatternService} from "../../../services/pattern.service";
 import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
-import {FormBuilder, Validators} from "@angular/forms";
-import {DomSanitizer} from "@angular/platform-browser";
+import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-pattern-view',
@@ -13,17 +13,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PatternViewComponent implements OnInit {
 
-  isButtonForEditDisabled: boolean = true;
+  isButtonForEditVisble: boolean = false;
   doesPatternExist: boolean = false;
   selectedPattern: any = undefined;
 
+  user: any = undefined;
   id: number = 0;
   username: string = "default"
 
   patternId: any;
   errorMsg: any;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private patternService: PatternService, private _formBuilder: FormBuilder) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private patternService: PatternService, private userService: UserService, private _formBuilder: FormBuilder) {
   }
 
   async ngOnInit() {
@@ -32,6 +33,11 @@ export class PatternViewComponent implements OnInit {
 
     const pattern = await this.patternService.getPatternById(this.patternId);
     this.selectedPattern = pattern;
+
+
+
+      this.user = await this.userService.getUserById(pattern.userId);
+
 
     if (this.selectedPattern.title != null) {
       this.doesPatternExist = true;
@@ -44,7 +50,7 @@ export class PatternViewComponent implements OnInit {
       this.id = deToken.userId;
     }
     if (this.selectedPattern.userId == this.id) {
-      this.isButtonForEditDisabled = false;
+      this.isButtonForEditVisble = true;
     }
     this.fillForm();
   }

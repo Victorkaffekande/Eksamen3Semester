@@ -21,6 +21,10 @@ import {MatInputModule} from "@angular/material/input";
 import {CdkStepperModule} from "@angular/cdk/stepper";
 import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { DiscoverComponent } from './DiscoverSite/discover/discover.component';
+import { Custom_Ng2SearchPipe } from './DiscoverSite/discover/custom-search.pipe';
+import {MatCardModule} from "@angular/material/card";
+
 
 
 @NgModule({
@@ -36,6 +40,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     ProjectDetailsComponent,
     CreatePatternComponent,
     PatternViewComponent,
+    DiscoverComponent,
+    Custom_Ng2SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatButtonModule,
     MatInputModule,
     CdkStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

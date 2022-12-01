@@ -8,6 +8,7 @@ import {MyProjectsComponent} from "./Projects/my-projects/my-projects.component"
 import {ProjectDetailsComponent} from "./Projects/project-details/project-details.component";
 import {CreatePatternComponent} from "./Patterns/create-pattern/create-pattern.component";
 import {PatternViewComponent} from "./Patterns/pattern-view/pattern-view.component";
+import {DiscoverComponent} from "./DiscoverSite/discover/discover.component";
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
 
@@ -19,6 +20,7 @@ const routes: Routes = [
           {path:'mypatterns', component: MyPatternsComponent},
           {path: 'createpattern', component: CreatePatternComponent},
           {path: 'viewpattern/:id', component: PatternViewComponent},
+          {path: 'discover', component: DiscoverComponent},
 
         ]
       },

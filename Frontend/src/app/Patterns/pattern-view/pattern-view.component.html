@@ -1,84 +1,93 @@
 <br>
 <div class="container" *ngIf="doesPatternExist">
-<div class="row">
-  <div class="col">
-    <img [src]="selectedPattern.image" style="max-width: 400px">
-  </div>
-
-  <div class="col">
-
-    <form [formGroup]="formGroup" disabled="true">
-
-
+  <div class="row">
+    <div class="col">
+      <img [src]="selectedPattern.image" style="max-width: 400px">
       <br>
-      <label>titel</label>
-      <input formControlName="title" type="text" class="form-control " style="width: 300px">
       <br>
-      <label>Sværhedsgrad</label>
-      <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
-      <br>
-      <label>sprog</label>
-      <input formControlName="language" type="text" class="form-control " style="width: 300px">
-      <br>
-      <label>Strikkepind størelse</label>
-      <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
+        <a href="#" class="d-flex align-items-center text-black text-decoration-none"
+           aria-expanded="false">
+          <strong>Opskrift af {{user.username}}</strong>
+          <img [src]="user.ProfilePicture" *ngIf="user.ProfilePicture != undefined" alt="" width="32" height="32"
+               class="rounded-circle me-2">
 
-      <br>
-      <label>Gauge</label>
-      <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
+        </a>
+    </div>
 
-      <br>
-      <label>Garn</label>
-      <textarea formControlName="yarn" class="form-control" placeholder="Garn typer"
-                id="floatingTextarea2" style="height: 150px; width: 500px"></textarea>
+    <div class="col">
 
-      <br>
-      <label>Beskrivelse</label>
-      <textarea formControlName="description" class="form-control" placeholder="Beskrivelse"
-                id="floatingTextarea1" style="height: 150px; width: 500px"></textarea>
+      <form [formGroup]="formGroup" disabled="true">
 
-      <div *ngIf="this.formGroup.enabled">
-        <br>
-        <label>pdf</label>
-        <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf"
-               class="form-control"
-               id="formFileLg" style="width: 300px"
-               type="file"/>
 
         <br>
-        <label>Billede</label>
-        <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image"
-               class="form-control" style="width: 300px"
-               type="file"/>
+        <label>Titel</label>
+        <input formControlName="title" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>Sværhedsgrad</label>
+        <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>sprog</label>
+        <input formControlName="language" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>Strikkepind størelse</label>
+        <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
 
         <br>
-        <button class="btn btn-primary" (click)="cancelEdit()">Annuller</button>
+        <label>Gauge</label>
+        <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
 
-        <button class="btn btn-primary" (click)="submitEdit()" style="margin-left: 10px">opdater</button>
-      </div>
-      <br>
-      <div class="alert alert-danger" *ngIf="errorMsg != undefined ">
-        {{errorMsg}}
-      </div>
-    </form>
+        <br>
+        <label>Garn</label>
+        <textarea formControlName="yarn" class="form-control" placeholder="Garn typer"
+                  id="floatingTextarea2" style="height: 150px; width: 500px"></textarea>
+
+        <br>
+        <label>Beskrivelse</label>
+        <textarea formControlName="description" class="form-control" placeholder="Beskrivelse"
+                  id="floatingTextarea1" style="height: 150px; width: 500px"></textarea>
+
+        <div *ngIf="this.formGroup.enabled">
+          <br>
+          <label>pdf</label>
+          <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf"
+                 class="form-control"
+                 id="formFileLg" style="width: 300px"
+                 type="file"/>
+
+          <br>
+          <label>Billede</label>
+          <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image"
+                 class="form-control" style="width: 300px"
+                 type="file"/>
+
+          <br>
+          <button class="btn btn-primary" (click)="cancelEdit()">Annuller</button>
+
+          <button class="btn btn-primary" (click)="submitEdit()" style="margin-left: 10px">opdater</button>
+        </div>
+        <br>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined ">
+          {{errorMsg}}
+        </div>
+      </form>
 
     </div>
-  <div class="col">
-    <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
-      {{selectedPattern.title}}
-    </button>
-    <br>
-    <div *ngIf="!isButtonForEditDisabled">
-    <button class="btn btn-primary" style="background-position: left" [disabled]="isButtonForEditDisabled"
-            (click)="enableEditing()">Opdater opskrift
-    </button>
-      <button class="btn btn-danger" style="background-position: left" [disabled]="isButtonForEditDisabled"
-              (click)="deletePattern()">fjern opskrift
+    <div class="col">
+      <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
+        {{selectedPattern.title}}
       </button>
+      <br>
+      <div *ngIf="isButtonForEditVisble == true">
+        <button class="btn btn-primary" style="background-position: left" [disabled]="isButtonForEditVisble == true"
+                (click)="enableEditing()">Opdater opskrift
+        </button>
+        <button class="btn btn-danger" style="background-position: left" [disabled]="isButtonForEditVisble == true"
+                (click)="deletePattern()">fjern opskrift
+        </button>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
 </div>
 <div class="container" *ngIf="!doesPatternExist">
   <label> Søger efter Opskrift</label>
