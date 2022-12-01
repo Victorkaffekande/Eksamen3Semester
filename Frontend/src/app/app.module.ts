@@ -23,6 +23,7 @@ import { PatternViewComponent } from './Patterns/pattern-view/pattern-view.compo
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { DiscoverComponent } from './DiscoverSite/discover/discover.component';
 import { Custom_Ng2SearchPipe } from './DiscoverSite/discover/custom-search.pipe';
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -55,6 +56,7 @@ import { Custom_Ng2SearchPipe } from './DiscoverSite/discover/custom-search.pipe
     MatInputModule,
     CdkStepperModule,
     MatProgressSpinnerModule,
+    MatCardModule,
 
   ],
   providers: [],

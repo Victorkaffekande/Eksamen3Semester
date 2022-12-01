@@ -1,17 +1,21 @@
 <br>
 <div>
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;  Søg en opskrift">
+  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+         placeholder="&#61442;  Søg en opskrift">
 </div>
 <br>
 <ol class="flex-container">
-  <div class="card"  *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
-    <img [src]="p.image" class="card-img-top" alt="...">
+  <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
+    <img [src]="p.image" class="card-img-top">
     <div class="card-body">
       <p class="mat-card-title">{{p.title}}</p>
 
       <p class="card-text ">af {{p.user.username}}</p>
 
-      <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Go somewhere</a>
     </div>
+    <div class="card-footer bg-transparent">
+      <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
+    </div>
+
   </div>
 </ol>

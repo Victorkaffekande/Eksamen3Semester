@@ -29,6 +29,7 @@ export class Custom_Ng2SearchPipe implements PipeTransform {
         return true;
       }
 
+
       for (let property in item) {
         if (
           item[property] === null ||

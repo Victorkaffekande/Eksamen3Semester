@@ -441,24 +441,32 @@ public class PatternServiceTest
     }
 
     #endregion //GetPatternById_Tests
-    /*
+    
     #region GetAllPatternsTests
 
     [Fact]
     public void GetAllPatterns_Test()
     {
         // Arrange
-        // Arrange
+        
         var  pattern1 = new Pattern()
         {
             Id = 1,
             Title = "filler",
             UserId = 1,
+            User = new User(),
             PdfString = "data:application/pdf;base64,filler",
             Image = "data:image/png;base64,filler",
             Description = "hej"
         };
-        
+        var patternDTO1 = new PatternGetAllDTO()
+        {
+            Id = 1,
+            Title = "filler",
+            User = new UserDTO(),
+            Image = "data:image/png;base64,filler",
+            
+        };
         var  pattern2 = new Pattern()
         {
             Id = 2,
@@ -466,7 +474,15 @@ public class PatternServiceTest
             UserId = 1,
             PdfString = "data:application/pdf;base64,filler",
             Image = "data:image/png;base64,filler",
+            User = new User(),
             Description = "hej"
+        };
+        var patternDTO2 = new PatternGetAllDTO()
+        {
+            Id = 2,
+            Title = "filler",
+            Image = "data:image/png;base64,filler",
+            User = new UserDTO(),
         };
         _fakeRepo.Add(pattern1);
         _fakeRepo.Add(pattern2);
@@ -474,16 +490,23 @@ public class PatternServiceTest
         var repo = _mockRepo.Object;
         var service = new PatternService(repo, _mapper, _dtoValidator,_patternValidator);
 
-        // Act
+        // assert & act
         var result = service.GetAllPattern().ToList();
+
+        var expected1 = JsonConvert.SerializeObject(patternDTO1);
+        var actual1 = JsonConvert.SerializeObject(result[0]);
+        
+        var expected2 = JsonConvert.SerializeObject(patternDTO2);
+        var actual2 = JsonConvert.SerializeObject(result[1]);
+        
         Assert.True(result.Count == 2);
-        Assert.Contains(pattern1, result);
-        Assert.Contains(pattern2, result);
+        Assert.Equal(expected1, actual1);
+        Assert.Equal(expected2, actual2);
         _mockRepo.Verify(r => r.GetAllPattern(), Times.Once);
     }
 
     #endregion // GetAllPatternsTest
-    */
+    
     #region GetAllPatternsByUser_Tests
 
     [Fact]
@@ -525,7 +548,8 @@ public class PatternServiceTest
 
         var repo = _mockRepo.Object;
         var service = new PatternService(repo, _mapper, _dtoValidator,_patternValidator);
-
+        
+        
         // Act
         var result = service.GetAllPatternsByUser(1).ToList();
         Assert.True(result.Count == 2);
