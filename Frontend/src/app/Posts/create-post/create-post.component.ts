@@ -32,28 +32,11 @@ export class CreatePostComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
-    );
-  }
-
-  private getDismissReason(reason: any): string {
-    //if save btn -> save else reset form
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   submitForm(modal: any) {
+
     if (this.createForm.valid) {
       let dto = {
         projectId: this.projectId,
@@ -63,7 +46,13 @@ export class CreatePostComponent implements OnInit {
       }
       this.service.createPost(dto).then(r => this.notify.emit(r));
       modal.dismiss();
+      this.resetModalView()
     }
+  }
+
+  resetModalView() {
+    this.createForm.reset();
+    this.selectedImage = "";
   }
 
   onFileSelectedPdf($event: Event) {
