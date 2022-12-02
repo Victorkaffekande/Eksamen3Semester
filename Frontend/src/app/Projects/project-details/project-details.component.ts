@@ -35,7 +35,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectId = this.activatedRoute.snapshot.params['id'];
+    this.projectId = this.activatedRoute.snapshot.params['id']; // get id from browser route
     this.getProject()
       .then(() => this.fillForm());
 
@@ -43,10 +43,14 @@ export class ProjectDetailsComponent implements OnInit {
 
   }
 
+  /**
+   * Gets one project from rest api
+   */
   async getProject() {
     this.project = await this.projectService.getSingleProjectFromId(this.projectId);
   }
 
+  //fills out the project Form group
   fillForm() {
     if (this.project) {
       this.updateForm.get('title')?.setValue(this.project.title);
@@ -74,6 +78,11 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
+  /**
+   * triggered on a change in the file picker
+   * converts the picked file into a base64 string
+   * @param $event the new file
+   */
   onFileSelectedPdf($event: Event) {
     const reader: FileReader = new FileReader();
     reader.onloadend = (e) => {
@@ -87,21 +96,32 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
+  // returns the project image the oldImage
   cancelUpdate(collapse: NgbCollapse) {
     this.project.image = this.oldImage;
     collapse.toggle();
   }
 
+  /**
+   * updates the project to no longer be an active project
+   */
   async endProject() {
     this.project.isActive = false;
     let response = await this.projectService.updateProject(this.project);
   }
 
+  /**
+   * updates the project to be active again
+   */
   async restartProject() {
     this.project.isActive = true;
     let response = await this.projectService.updateProject(this.project);
   }
 
+  /**
+   * adds a new post to the postlist in frontend only
+   * @param post a post
+   */
   pushNewPost(post: any) {
     console.log("push log:")
     console.log(post)
@@ -110,12 +130,20 @@ export class ProjectDetailsComponent implements OnInit {
 
   @ViewChild('carousel') carousel: any;
 
+  /**
+   * opens the modal (pop out window ontop of browserwindow)
+   */
   async openModal(modal: any, c: NgbCarousel, clickedPost: any) {
     this.carouselList = this.modifyList(this.postList.slice(), clickedPost)
     await this.modalService.open(modal, {size: 'xl'});
   }
 
-
+  /**
+   * Reorganize the list so the place in the list where you want to start viewing in the beginning item of the list.
+   * because the carousel is starting from the beginning of a list no matter what
+   * @param list the list of post your viewing
+   * @param clickedPost the post from where you want to start viewing
+   */
   modifyList(list: any, clickedPost: any): Promise<any> {
     let cIndex = list.indexOf(clickedPost);
     let a = list.slice(0, cIndex)
@@ -123,6 +151,7 @@ export class ProjectDetailsComponent implements OnInit {
     return b.concat(a)
   }
 
+  //TODO ASK VICTOR WHERE IS DELAY USED
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
