@@ -1,15 +1,25 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Application.Validators;
+using AutoMapper;
+using Domain;
+using FluentValidation;
 
 namespace Application;
 
 public class UserService : IUserService
 {
     private IUserRepository _repo;
+    private IMapper _mapper;
+    private UserDTOValidator _userDtoValidator;
 
-    public UserService(IUserRepository repo)
+    public UserService(IUserRepository repo,
+        IMapper mapper,
+        UserDTOValidator userDtoValidator)
     {
         _repo = repo;
+        _mapper = mapper;
+        _userDtoValidator = userDtoValidator;
     }
 
     public UserDTO GetUserById(int id)
@@ -33,5 +43,19 @@ public class UserService : IUserService
         };
 
         return userDto;
+    }
+
+    public User UpdateUser(UserDTO userDto)
+    {
+        if (userDto is null) throw new ArgumentException("User is null");
+        var user = _mapper.Map<User>(userDto);
+        
+        var val = _userDtoValidator.Validate(userDto);
+        if (!val.IsValid) throw new ArgumentException(val.ToString());
+
+        
+        if (_repo.GetUserById(user.Id) is null) {throw new ArgumentException("User id does not exist");}
+
+        return _repo.UpdateUser(user);
     }
 }

@@ -16,4 +16,9 @@ public class UserRepository : IUserRepository
     {
         return _context.UserTable.Find(id);
     }
+
+    public User UpdateUser(User user)
+    {
+        throw new NotImplementedException();
+    }
 }
