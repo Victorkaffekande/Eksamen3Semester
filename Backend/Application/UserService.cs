@@ -45,7 +45,7 @@ public class UserService : IUserService
         return userDto;
     }
 
-    public User UpdateUser(UserDTO userDto)
+    public UserDTO UpdateUser(UserDTO userDto)
     {
         if (userDto is null) throw new ArgumentException("User is null");
         var user = _mapper.Map<User>(userDto);
@@ -56,6 +56,6 @@ public class UserService : IUserService
         
         if (_repo.GetUserById(user.Id) is null) {throw new ArgumentException("User id does not exist");}
 
-        return _repo.UpdateUser(user);
+        return _mapper.Map<UserDTO>(_repo.UpdateUser(user));
     }
 }

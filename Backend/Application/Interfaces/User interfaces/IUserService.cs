@@ -6,5 +6,5 @@ namespace Application.Interfaces;
 public interface IUserService
 {
     UserDTO GetUserById(int id);
-    User UpdateUser(UserDTO userDto);
+    UserDTO UpdateUser(UserDTO userDto);
 }

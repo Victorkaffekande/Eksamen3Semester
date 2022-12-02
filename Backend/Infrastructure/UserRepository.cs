@@ -19,6 +19,17 @@ public class UserRepository : IUserRepository
 
     public User UpdateUser(User user)
     {
-        throw new NotImplementedException();
+        var userById = GetUserById(user.Id);
+        if (userById.Id.Equals(user.Id))
+        {
+            userById.Username = user.Username;
+            userById.Email = user.Email;
+            userById.BirthDay = user.BirthDay;
+            if (user.ProfilePicture != null) userById.ProfilePicture = user.ProfilePicture;
+        }
+
+        _context.UserTable.Update(userById ?? throw new InvalidOperationException());
+        _context.SaveChanges();
+        return userById;
     }
 }
