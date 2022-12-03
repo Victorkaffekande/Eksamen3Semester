@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
+  userid: any;
 
   constructor(private router: Router) {
 
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
    if (t){
      let deToken = jwtDecode(t) as Token;
      this.username = deToken.username;
+     this.userid = deToken.userId
    }
   }
 }

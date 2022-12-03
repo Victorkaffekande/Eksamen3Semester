@@ -1,0 +1,30 @@
+<div *ngIf="user != undefined">
+  <div class="grid-container" style="margin-top: 10px">
+    <div class="card" style="border-color: transparent">
+      <img [src]="user.profilePicture" class="rounded-circle ">
+      <img src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+           class="rounded-circle border border-secondary border-opacity-50" style="">
+      <div class="text-center">
+        <label class="mat-card-title">@{{user.username}}</label>
+        <br>
+        <label class="mat-card-content" style="margin-top: 10px">{{user.email}}</label>
+        <br>
+        <label class="mat-card-content" style="margin-top: 10px">{{user.birthDay}}</label>
+      </div>
+      <button mat-raised-button *ngIf="userId == userRouteId" (click)="changeSubView()">Ændre profil</button>
+    </div>
+
+    <div class="grid-container">
+      <app-private-user-profile *ngIf="showEditScreen == true"></app-private-user-profile>
+
+      <div *ngIf="showEditScreen == false">
+
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>

@@ -24,6 +24,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { DiscoverComponent } from './DiscoverSite/discover/discover.component';
 import { Custom_Ng2SearchPipe } from './DiscoverSite/discover/custom-search.pipe';
 import {MatCardModule} from "@angular/material/card";
+import { PrivateUserProfileComponent } from './UserProfiles/private-user-profile/private-user-profile.component';
+import { PublicUserProfileComponent } from './UserProfiles/public-user-profile/public-user-profile.component';
 
 
 
@@ -41,7 +43,9 @@ import {MatCardModule} from "@angular/material/card";
     CreatePatternComponent,
     PatternViewComponent,
     DiscoverComponent,
-    Custom_Ng2SearchPipe
+    Custom_Ng2SearchPipe,
+    PrivateUserProfileComponent,
+    PublicUserProfileComponent
   ],
   imports: [
     BrowserModule,
