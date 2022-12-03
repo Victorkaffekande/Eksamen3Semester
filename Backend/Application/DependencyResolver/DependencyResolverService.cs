@@ -11,5 +11,6 @@ public static class DependencyResolverService
         service.AddScoped<IPatternService, PatternService>();
         service.AddScoped<IProjectService, ProjectService>();
         service.AddScoped<IPostService, PostService>();
+        service.AddScoped<IUserService, UserService>();
     }
 }
