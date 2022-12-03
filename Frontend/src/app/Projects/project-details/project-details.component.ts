@@ -151,9 +151,4 @@ export class ProjectDetailsComponent implements OnInit {
     return b.concat(a)
   }
 
-  //TODO ASK VICTOR WHERE IS DELAY USED
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
 }
