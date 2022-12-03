@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import jwtDecode from "jwt-decode";
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import {Token} from "../../../interfaces/token";
 import {UserService} from "../../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {PatternService} from "../../../services/pattern.service";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'app-public-user-profile',
@@ -16,8 +18,9 @@ export class PublicUserProfileComponent implements OnInit {
   userRouteId:any;
   showEditScreen: boolean = false;
   patterns: any;
+  projects: any;
 
-  constructor(private patternService: PatternService,private userService: UserService, private activatedRoute: ActivatedRoute) { }
+  constructor(private projectService: ProjectService,private patternService: PatternService,private userService: UserService, private activatedRoute: ActivatedRoute) { }
 
 
   async ngOnInit(){
@@ -32,6 +35,7 @@ export class PublicUserProfileComponent implements OnInit {
     this.user = await this.userService.getUserById(this.userRouteId)
 
     this.patterns = await this.patternService.getPatternsByUserId(this.userRouteId)
+    this.projects = await this.projectService.getAllProjectsFromUser(this.userRouteId)
 
   }
 
