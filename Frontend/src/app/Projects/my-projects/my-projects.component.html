@@ -1,21 +1,11 @@
-<div class="container">
-
-  <!-- Create foldout -->
-  <div class="">
-    <button class="btn btn-warning"
-            (click)="collapse.toggle()"> start nyt projekt
-    </button>
-    <div
-      #collapse="ngbCollapse"
-      [(ngbCollapse)]="collapsed">
-      <app-create-project (notify)="pushNewProject($event)"></app-create-project>
-    </div>
-  </div>
-
-
-<!-- radio btns-->
+<div class="d-grid gap-2 container">
   <h1>Mine projekter</h1>
-  <div class="btn-group" (change)="radioClicked($event.target)">
+  <app-create-project
+    (notify)="pushNewProject($event)">
+  </app-create-project>
+
+  <!-- radio btns-->
+  <div class="btn-group" (change)="radioClicked($event.target)" style="width: 400px">
     <input
       class="btn-check"
       name="radio"
@@ -48,7 +38,7 @@
         <img class="card-img-top ratio" style="max-width: 100%" src="{{p.image}}" alt="">
         <div class="card-body">
           <h2>{{p.title}}</h2>
-          <div>
+          <div class="d-grid gap-1">
             <button class="btn btn-primary"
                     type="button"
                     (click)="goToProject(p)">Se Projekt
@@ -73,6 +63,8 @@
   </ul>
 
 </div>
+
+
 
 
 

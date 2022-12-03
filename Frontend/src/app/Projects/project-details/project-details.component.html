@@ -5,23 +5,32 @@
       <img src="{{project.image}}" style="max-height: 400px; max-width: 400px" alt="...">
     </div>
     <div class="col mt-5">
-      <app-create-post [projectId]="projectId"
-                       (notify)="pushNewPost($event)"></app-create-post>
-      <button class="btn btn-danger" (click)="deleteProject()" type="button">Slet projekt</button>
-      <button class="btn btn-primary" (click)="collapse.toggle()" type="button">Rediger</button>
+      <div class="d-grid gap-2">
+        <app-create-post [projectId]="projectId"
+                         (notify)="pushNewPost($event)">
+        </app-create-post>
 
-      <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt
-      </button>
-      <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart
-        projekt
-      </button>
+        <button class="btn btn-danger" (click)="deleteProject()" type="button">Slet projekt</button>
+
+        <button class="btn btn-primary" (click)="collapse.toggle()" type="button">Rediger</button>
+
+        <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt
+        </button>
+        <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart
+          projekt
+        </button>
+
+        <button *ngIf="project.patternId" class="btn btn-info" (click)="navigateToRecipie(project.patternId)" >Gå til opskrift</button>
+
+      </div>
+
       <!--edit foldout -->
       <div
         #collapse="ngbCollapse"
         [(ngbCollapse)]="editCollapsed"
         class="mt-3">
         <form [formGroup]=updateForm
-              (ngSubmit)="updateProject()"
+              (ngSubmit)="updateProject(collapse)"
               #localForm="ngForm">
           <!-- title input -->
           <div class="mb-3">
@@ -45,7 +54,7 @@
           </div>
 
           <!-- submit button -->
-          <button class="btn btn-primary" type="submit" (click)="updateProject()">Opdater projekt</button>
+          <button class="btn btn-primary" type="submit" >Opdater projekt</button>
           <!-- Cancel button-->
           <button class="btn btn-outline-danger" (click)="cancelUpdate(collapse)">Anuller</button>
         </form>
@@ -73,7 +82,7 @@
 </div>
 
 <!-- Slideshow modal Måske lav til eget component-->
-<ng-template #myModal let-modal>
+<ng-template #myModal let-modal class="">
   <div class="modal-header">
     <h1>Alle opslag fra {{project.title}}</h1>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
@@ -81,13 +90,14 @@
   <div class=" modal-body bg-light">
     <ngb-carousel
       #carousel
+      [animation] = "false"
       [showNavigationIndicators]="false"
       [interval]="0">
       <ng-container *ngFor="let p of carouselList">
         <ng-template ngbSlide class="container">
           <div class="row justify-content-center">
             <div class="col">
-              <img src="{{p.image}}" alt="" style="max-width: 500px">
+              <img src="{{p.image}}" alt="" style="max-height: 600px; max-width: 500px;">
             </div>
             <div class="col fs-4 lh-sm">
               <p> {{p.description}}</p>

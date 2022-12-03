@@ -10,7 +10,6 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class CreatePostComponent implements OnInit {
 
-  closeResult = '';
   selectedImage: any;
 
   @Input() projectId: any;
@@ -32,7 +31,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(content);
   }
 
   submitForm(modal: any) {

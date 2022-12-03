@@ -12,7 +12,7 @@ import {PostService} from "../../../services/post.service";
   styleUrls: ['./my-projects.component.sass']
 })
 export class MyProjectsComponent implements OnInit {
-  collapsed: boolean = true;
+
 
   constructor(private service: ProjectService,
               private router: Router) {
