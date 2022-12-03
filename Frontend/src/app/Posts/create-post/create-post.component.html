@@ -1,0 +1,42 @@
+<!-- modal tamplate  -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-basic-title">Nyt opslag</h3>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="createForm"
+          #localForm="ngForm"
+          (ngSubmit)="submitForm(modal)">
+      <div class="mb-3">
+        <img src="{{selectedImage}}"
+             style="max-width: 100%" alt=""
+             class="mb-2">
+        <label>Billede</label>
+        <input accept="image/png, image/jpeg"
+               class="form-control"
+               type="file"
+               id="coverImg"
+               (change)="onFileSelectedPdf($event)"
+               [class.is-invalid]="localForm.submitted && createForm.get('description')?.invalid">
+        <div class="invalid-feedback">Opslag skal have et billede</div>
+      </div>
+      <div class="mb-3">
+        <label for="dsc">Beskrivelse</label>
+        <textarea class="form-control"
+                  id="dsc"
+                  formControlName="description"
+                  placeholder="Giv en beskrivelse til dit opslag"
+                  [class.is-invalid]="localForm.submitted && createForm.get('description')?.invalid">
+        </textarea>
+        <div class="invalid-feedback">Dit opslag skal have en beskrivelse</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">Save</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<button class="btn btn-success" (click)="open(content)">Nyt opslag</button>
