@@ -3,6 +3,7 @@ import {Token} from "../../../interfaces/token";
 import jwtDecode from "jwt-decode";
 import {ProjectService} from "../../../services/project.service";
 import {Router} from "@angular/router";
+import {PostService} from "../../../services/post.service";
 
 
 @Component({
@@ -24,7 +25,6 @@ export class MyProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMyProjects().then(() => this.filterList());
-
   }
 
 
@@ -65,6 +65,7 @@ export class MyProjectsComponent implements OnInit {
   }
 
   goToProject(project: any) {
-    this.router.navigate(['user/projectDetails',project.id])
+    this.router.navigate(['user/projectDetails',project.id]);
+
   }
 }

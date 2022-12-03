@@ -1,16 +1,20 @@
-<div *ngIf="project" class="container">
+<div *ngIf="project" class="container mb-5">
   <div class="row">
     <div class="col">
       <h1>{{project.title}}</h1>
       <img src="{{project.image}}" style="max-height: 400px; max-width: 400px" alt="...">
     </div>
     <div class="col mt-5">
-      <button class="btn btn-success" type="button">Nyt opslag</button>
+      <app-create-post [projectId]="projectId"
+                       (notify)="pushNewPost($event)"></app-create-post>
       <button class="btn btn-danger" (click)="deleteProject()" type="button">Slet projekt</button>
       <button class="btn btn-primary" (click)="collapse.toggle()" type="button">Rediger</button>
 
-      <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt</button>
-      <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart projekt</button>
+      <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt
+      </button>
+      <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart
+        projekt
+      </button>
       <!--edit foldout -->
       <div
         #collapse="ngbCollapse"
@@ -43,32 +47,62 @@
           <!-- submit button -->
           <button class="btn btn-primary" type="submit" (click)="updateProject()">Opdater projekt</button>
           <!-- Cancel button-->
-          <button class="btn btn-outline-danger" (click)="cancelUpdate(collapse)" >Anuller</button>
+          <button class="btn btn-outline-danger" (click)="cancelUpdate(collapse)">Anuller</button>
         </form>
 
       </div>
     </div>
-
   </div>
 
-
+  <hr>
   <!-- Post list -->
   <h1> Alle opslag:</h1>
-  <h1>TODO: CARD LISTE AF POSTS (CLICK) -> MODAL VIEW MED LEFT AND RIGHT</h1>
-  <div *ngFor="let p of postList">
-    <div class="flex-container">
-      <div class="card" style="width: 18rem;" [class.selected]="p">
-        <img class="card-img-top ratio ratio-16x9" style="height: 20rem" src="{{p.image}}" alt="...">
+  <div class="flex-container ">
+    <div *ngFor="let p of postList">
+      <div class="card" style="width: 18rem;" [class.selected]="p" (click)="openModal(myModal,carousel,p) ">
+        <img class="card-img-top" src="{{p.image}}" alt="">
         <div class="card-body">
-          <h2>{{p.title}}</h2>
-          <div>
-
-          </div>
+          <div class="text-truncate">{{p.description}}</div>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Dato: {{p.postDate | date: 'short'}}</small>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Slideshow modal Måske lav til eget component-->
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h1>Alle opslag fra {{project.title}}</h1>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class=" modal-body bg-light">
+    <ngb-carousel
+      #carousel
+      [showNavigationIndicators]="false"
+      [interval]="0">
+      <ng-container *ngFor="let p of carouselList">
+        <ng-template ngbSlide class="container">
+          <div class="row justify-content-center">
+            <div class="col">
+              <img src="{{p.image}}" alt="" style="max-width: 500px">
+            </div>
+            <div class="col fs-4 lh-sm">
+              <p> {{p.description}}</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <small class="text-muted">Dato: {{p.postDate | date: 'short'}}</small>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ngb-carousel>
+  </div>
+
+</ng-template>
+
 
 
 
