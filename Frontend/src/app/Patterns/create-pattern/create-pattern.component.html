@@ -6,9 +6,9 @@
   <div class="col">
     <mat-stepper linear orientation="vertical">
       <mat-step [stepControl]="formGroup">
-        <ng-template matStepLabel>Information</ng-template>
+        <ng-template matStepLabel>Opskrift information</ng-template>
         <form [formGroup]="formGroup" #localForm="ngForm">
-          <label>title</label>
+          <label>Titel</label>
           <input type="text" class="form-control " style="width: 300px" formControlName="title"
                  [class.is-invalid]="localForm.submitted && formGroup.get('title')?.invalid">
           <div class="invalid-feedback">title skal være udfyldt</div>
@@ -18,12 +18,12 @@
           <input type="text" class="form-control " style="width: 300px" formControlName="difficulty">
           <br>
 
-          <label>Description</label>
+          <label>Beskrivelse</label>
           <div class="form-floating">
-        <textarea formControlName="description" class="form-control" placeholder="Leave a comment here"
+        <textarea formControlName="description" class="form-control" placeholder="Efterlad en kommentar om din opskrift"
                   id="floatingTextarea2" style="height: 150px; width: 500px"
                   [class.is-invalid]="localForm.submitted && formGroup.get('description')?.invalid"></textarea>
-            <label for="floatingTextarea2">Comments</label>
+            <label for="floatingTextarea2">kommentar</label>
             <div class="invalid-feedback">description skal være udfyldt</div>
 
           </div>
@@ -33,7 +33,7 @@
       </mat-step>
 
       <mat-step [stepControl]="formGroupInfo">
-        <ng-template matStepLabel>Information</ng-template>
+        <ng-template matStepLabel>Teknisk information</ng-template>
         <form [formGroup]="formGroupInfo">
 
           <label>sprog for opskrift pdf</label>
