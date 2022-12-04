@@ -12,13 +12,12 @@
                class="rounded-circle me-2">
 
         </a>
+
     </div>
 
     <div class="col">
 
       <form [formGroup]="formGroup" disabled="true">
-
-
         <br>
         <label>Titel</label>
         <input formControlName="title" type="text" class="form-control " style="width: 300px">
@@ -73,6 +72,7 @@
 
     </div>
     <div class="col">
+
       <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
         {{selectedPattern.title}}
       </button>
@@ -86,7 +86,7 @@
         </button>
       </div>
     </div>
-
+    
   </div>
 </div>
 <div class="container" *ngIf="!doesPatternExist">

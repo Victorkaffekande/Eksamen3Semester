@@ -20,6 +20,8 @@ export class ProjectDetailsComponent implements OnInit {
   editCollapsed: boolean = true;
   oldImage: any;
 
+
+
   updateForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
     image: ['']
@@ -70,11 +72,12 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
-  updateProject() {
+  updateProject(collapse: NgbCollapse) {
     if (this.updateForm.valid) {
       this.project.title = this.updateForm.get('title')?.value;
       let x = this.projectService.updateProject(this.project);
       console.log(x);
+      collapse.toggle();
     }
   }
 
@@ -130,6 +133,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   @ViewChild('carousel') carousel: any;
 
+
   /**
    * opens the modal (pop out window ontop of browserwindow)
    */
@@ -151,4 +155,7 @@ export class ProjectDetailsComponent implements OnInit {
     return b.concat(a)
   }
 
+  navigateToRecipie(patternId: any) {
+    this.router.navigate(['user/viewpattern',patternId]);
+  }
 }

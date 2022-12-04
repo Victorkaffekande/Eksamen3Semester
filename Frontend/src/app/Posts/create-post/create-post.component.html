@@ -2,16 +2,16 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h3 class="modal-title" id="modal-basic-title">Nyt opslag</h3>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="createForm"
           #localForm="ngForm"
           (ngSubmit)="submitForm(modal)">
+      <img src="{{selectedImage}}"
+           style="max-width: 100%" alt=""
+           class="mb-2">
       <div class="mb-3">
-        <img src="{{selectedImage}}"
-             style="max-width: 100%" alt=""
-             class="mb-2">
         <label>Billede</label>
         <input accept="image/png, image/jpeg"
                class="form-control"
@@ -39,4 +39,7 @@
 
 </ng-template>
 
-<button class="btn btn-success" (click)="open(content)">Nyt opslag</button>
+<div class="d-grid">
+  <button class="btn btn-success " (click)="open(content)" type="button">Nyt opslag</button>
+</div>
+
