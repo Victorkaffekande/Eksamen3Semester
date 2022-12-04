@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -22,6 +23,20 @@ public class UserController : ControllerBase
         try
         {
             return Ok(_service.GetUserById(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
+    [HttpPut]
+    [Route("UpdateUser")]
+    public ActionResult UpdatePattern( [FromBody] UserDTO pattern)
+    {
+        try
+        {
+            return Ok(_service.UpdateUser(pattern));
         }
         catch (Exception e)
         {

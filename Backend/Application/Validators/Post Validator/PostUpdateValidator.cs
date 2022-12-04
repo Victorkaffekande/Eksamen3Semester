@@ -20,6 +20,6 @@ public class PostUpdateValidator : AbstractValidator<Post>
         
         RuleFor(p => p.Description)
             .NotEmpty()
-            .WithMessage("Description can not be empty or null");
+            .WithMessage("Description can not be empty or null"); 
     }
 }

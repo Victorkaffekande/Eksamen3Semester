@@ -9,6 +9,8 @@ import {ProjectDetailsComponent} from "./Projects/project-details/project-detail
 import {CreatePatternComponent} from "./Patterns/create-pattern/create-pattern.component";
 import {PatternViewComponent} from "./Patterns/pattern-view/pattern-view.component";
 import {DiscoverComponent} from "./DiscoverSite/discover/discover.component";
+import {PublicUserProfileComponent} from "./UserProfiles/public-user-profile/public-user-profile.component";
+import {PrivateUserProfileComponent} from "./UserProfiles/private-user-profile/private-user-profile.component";
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
 
@@ -21,7 +23,7 @@ const routes: Routes = [
           {path: 'createpattern', component: CreatePatternComponent},
           {path: 'viewpattern/:id', component: PatternViewComponent},
           {path: 'discover', component: DiscoverComponent},
-
+          {path: 'userprofile/:id', component: PublicUserProfileComponent},
         ]
       },
   {path: 'admin', component: AdminHeaderComponent},

@@ -8,36 +8,36 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active bi-house" aria-current="page">
+        <a href="#" class="nav-link text-white selected bi-house" aria-current="page">
           Hjem
         </a>
       </li>
       <li>
-        <a routerLink="/user/discover" class="nav-link text-white bi-compass">
+        <a routerLink="/user/discover" class="nav-link selected text-white bi-compass">
           Udforsk
         </a>
       </li>
       <li>
-        <a routerLink="/user/myprojects" class="nav-link text-white bi-bookmark-heart">
+        <a routerLink="/user/myprojects" class="nav-link selected text-white bi-bookmark-heart">
           Mine projekter
         </a>
       </li>
       <li>
-        <a  routerLink="/user/mypatterns"   class="nav-link text-white bi-journal-text">
+        <a  routerLink="/user/mypatterns"   class="nav-link selected text-white bi-journal-text">
           Mine Opskrifter
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white bi-people">
+        <a href="#" class="nav-link text-white selected bi-people">
           Venner
         </a>
       </li>
     </ul>
     <hr>
     <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+      <a routerLink="/user/userprofile/{{userid}}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
          data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <img [src]="user.profilePicture" alt="" width="32" height="32" class="rounded-circle me-2">
         <strong>{{username}}</strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
