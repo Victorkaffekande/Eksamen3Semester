@@ -9,8 +9,25 @@
       <label>email</label>
       <input formControlName="email" type="text" class="form-control " style="width: 300px">
       <br>
-      <label>birthday</label>
-      <input formControlName="birthday" type="date" dataformatas="simple" class="form-control " style="width: 300px">
+      <label class="form-check-label" for="birthday">Fødselsdag</label>
+      <!-- Birthdate input -->
+      <div>
+        <input
+              name="birthday"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              formControlName="birthday"
+              />
+            <button name="birthday" class="btn btn-outline-secondary bi bi-calendar3"
+                    id="birthday"
+                    (click)="d.toggle()"
+                    type="button"
+            ></button>
+          </div>
+          <div class="invalid-feedback" >Valg en gyldig dato</div>
+          <label class="form-check-label" for="birthday">Fødselsdag</label>
+
+
       <br>
 
       <div *ngIf="this.formGroup.enabled">

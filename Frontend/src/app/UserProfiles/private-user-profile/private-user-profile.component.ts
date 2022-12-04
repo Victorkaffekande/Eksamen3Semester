@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
 import {UserService} from "../../../services/user.service";
 import {FormBuilder, Validators} from "@angular/forms";
+import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-private-user-profile',
@@ -52,15 +53,55 @@ user: any;
     }
   }
 
-  submitEdit() {
+  async submitEdit() {
+    var x = <NgbDate><unknown>this.formGroup.get("birthday")?.value;
+    console.log(x)
+    let day = String(x.day);
+    if (x.day < 10) {
+      day = '0' + day
+    }
+
+    let month = String(x.month);
+    if (x.month < 10) {
+      month = '0' + month
+    }
+
+    let dateString = x.year + "-" + month + "-" + day;
+
+    let dto = {
+      username: <string><unknown>this.formGroup.get('username')?.value,
+      id: this.userId,
+      email: <string><unknown>this.formGroup.get('email')?.value,
+      birthday: dateString,
+      profilePicture: this.user.profilePicture,
+
+    }
+
+    await this.userService.updateUser(dto)
+      .then(() =>
+        window.location.reload()
+      )
+      .catch(error => {
+        this.errorMsg = error.response.data;
+      });
 
   }
 
   cancelEdit() {
-
+    window.location.reload()
   }
 
+  //convert selected image to a blob image
   onFileSelectedImage($event: Event) {
-
+    // @ts-ignore
+    const file: File = event.target.files[0];
+    const reader: FileReader = new FileReader();
+    reader.onloadend = (e) => {
+      this.user.profilePicture = reader.result;
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+    }
   }
+
 }
