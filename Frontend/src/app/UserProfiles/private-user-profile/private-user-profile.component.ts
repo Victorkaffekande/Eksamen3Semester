@@ -47,9 +47,9 @@ user: any;
   fillForm() {
     if (this.user) {
       this.formGroup.controls['username'].setValue(this.user.username);
-      this.formGroup.controls['birthday'].setValue(this.user.birthDay);
+      //this.formGroup.controls['birthday'].setValue(this.user.birthDay);
       this.formGroup.controls['email'].setValue(this.user.email);
-      this.formGroup.controls['profilePicture'].setValue(this.user.profilePicture);
+      //this.formGroup.controls['profilePicture'].setValue(this.user.profilePicture);
     }
   }
 
@@ -67,6 +67,11 @@ user: any;
     }
 
     let dateString = x.year + "-" + month + "-" + day;
+
+    console.log(dateString)
+    if (dateString.includes("undefined")){
+      dateString = this.user.birthDay;
+    }
 
     let dto = {
       username: <string><unknown>this.formGroup.get('username')?.value,

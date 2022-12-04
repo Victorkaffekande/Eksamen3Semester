@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import {Token} from "../../interfaces/token";
 import {debounceTime} from "rxjs";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-header',
@@ -11,19 +12,22 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   userid: any;
+  user: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
 
   }
 
   username: string = "default"
 
-  ngOnInit(): void {
-   let t =  localStorage.getItem("token");
-   if (t){
-     let deToken = jwtDecode(t) as Token;
-     this.username = deToken.username;
-     this.userid = deToken.userId
-   }
+  async ngOnInit(){
+    let t = localStorage.getItem("token");
+    if (t) {
+      let deToken = jwtDecode(t) as Token;
+      this.username = deToken.username;
+      this.userid = deToken.userId
+    }
+
+    this.user = await this.userService.getUserById(this.userid)
   }
 }
