@@ -68,16 +68,16 @@
   <h1> Alle opslag:</h1>
   <div class="flex-container ">
     <div *ngFor="let p of postList">
-      <div class="card" style="width: 18rem;" [class.selected]="p" (click)="openModal(myModal,carousel,p) ">
-        <img class="card-img-top" src="{{p.image}}" alt="">
+      <div class="card" style="width: 18rem;" [class.selected]="p">
+        <img class="card-img-top" src="{{p.image}}"  alt="" (click)="openModal(myModal,carousel,p)">
         <div class="card-body">
           <div class="text-truncate">{{p.description}}</div>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">Dato: {{p.postDate | date: 'short'}}</small>
+        <div class="card-footer row">
+          <small class="text-muted col">Dato: {{p.postDate | date: 'short'}}</small>
+          <button class="btn btn-outline-danger btn-sm" (click)="deletePost(p.id)">Slet</button>
         </div>
       </div>
-      <button class="btn btn-danger" (click)="deletePost(p.id)">Slet</button>
     </div>
   </div>
 </div>

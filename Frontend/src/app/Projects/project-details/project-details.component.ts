@@ -21,7 +21,6 @@ export class ProjectDetailsComponent implements OnInit {
   oldImage: any;
 
 
-
   updateForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
     image: ['']
@@ -156,12 +155,13 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   navigateToRecipie(patternId: any) {
-    this.router.navigate(['user/viewpattern',patternId]);
+    this.router.navigate(['user/viewpattern', patternId]);
   }
 
- async deletePost(id:number) {
-    let deletedPost = await this.postService.deletePost(id);
-    this.postList = this.postList.filter((p: {id: any }) => deletedPost.id != p.id);
-    console.log(deletedPost.id);
+  async deletePost(id: number) {
+    if (confirm("Er du sikker på at du vil slete?")) {
+      let deletedPost = await this.postService.deletePost(id);
+      this.postList = this.postList.filter((p: { id: any }) => deletedPost.id != p.id);
+    }
   }
 }
