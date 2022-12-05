@@ -78,17 +78,18 @@
       </button>
       <br>
       <div *ngIf="isButtonForEditVisble == true">
-        <button class="btn btn-primary" style="background-position: left" [disabled]="isButtonForEditVisble == true"
+        <button class="btn btn-primary" style="background-position: left"
                 (click)="enableEditing()">Opdater opskrift
         </button>
-        <button class="btn btn-danger" style="background-position: left" [disabled]="isButtonForEditVisble == true"
+        <button class="btn btn-danger" style="  background-position: left"
                 (click)="deletePattern()">fjern opskrift
         </button>
       </div>
     </div>
-    
+
   </div>
 </div>
+
 <div class="container" *ngIf="!doesPatternExist">
   <label> Søger efter Opskrift</label>
   <mat-spinner>
