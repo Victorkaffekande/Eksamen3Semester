@@ -158,4 +158,10 @@ export class ProjectDetailsComponent implements OnInit {
   navigateToRecipie(patternId: any) {
     this.router.navigate(['user/viewpattern',patternId]);
   }
+
+ async deletePost(id:number) {
+    let deletedPost = await this.postService.deletePost(id);
+    this.postList = this.postList.filter((p: {id: any }) => deletedPost.id != p.id);
+    console.log(deletedPost.id);
+  }
 }
