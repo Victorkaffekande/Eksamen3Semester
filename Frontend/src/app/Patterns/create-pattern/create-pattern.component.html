@@ -36,7 +36,7 @@
         <ng-template matStepLabel>Teknisk information</ng-template>
         <form [formGroup]="formGroupInfo">
 
-          <label>sprog for opskrift pdf</label>
+          <label>Sprog for opskrift</label>
           <input type="text" class="form-control " style="width: 300px" formControlName="language">
           <br>
 
@@ -44,7 +44,7 @@
           <input type="text" class="form-control " style="width: 300px" formControlName="needleSize">
           <br>
 
-          <label>Gauge</label>
+          <label>Strikkefasthed</label>
           <input type="text" class="form-control " style="width: 300px" formControlName="gauge">
           <br>
 
@@ -113,7 +113,7 @@
     <div class="alert alert-danger" *ngIf="!patternCreated && submitted">
       {{errorMsg}}
     </div>
-    <button class="btn btn-primary" style="margin-left: 20px" routerLink="user/mypatterns">Tilbage</button>
+    <button class="btn btn-primary" style="margin-left: 20px" routerLink="/user/mypatterns">Annuller</button>
 
   </div>
   <div class="col">

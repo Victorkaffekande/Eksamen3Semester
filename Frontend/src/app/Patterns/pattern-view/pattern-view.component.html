@@ -25,14 +25,14 @@
         <label>Sværhedsgrad</label>
         <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
         <br>
-        <label>sprog</label>
+        <label>Sprog</label>
         <input formControlName="language" type="text" class="form-control " style="width: 300px">
         <br>
         <label>Strikkepind størelse</label>
         <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
 
         <br>
-        <label>Gauge</label>
+        <label>Strikkefasthed</label>
         <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
 
         <br>
@@ -78,10 +78,11 @@
       </button>
       <br>
       <div *ngIf="isButtonForEditVisble == true">
-        <button class="btn btn-primary" style="background-position: left"
+        <button class="btn btn-primary" style="background-position: left ; margin-top: 5px"
                 (click)="enableEditing()">Opdater opskrift
         </button>
-        <button class="btn btn-danger" style="  background-position: left"
+        <br>
+        <button class="btn btn-danger" style="  background-position: left; margin-top: 5px"
                 (click)="deletePattern()">fjern opskrift
         </button>
       </div>

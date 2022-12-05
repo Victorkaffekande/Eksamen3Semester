@@ -4,6 +4,8 @@
          placeholder="&#61442;  Søg en opskrift">
 </div>
 <br>
+
+<h1>Alle opskrifter</h1>
 <ol class="flex-container">
   <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
     <img [src]="p.image" class="card-img-top">

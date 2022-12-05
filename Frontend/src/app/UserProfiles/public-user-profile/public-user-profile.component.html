@@ -5,7 +5,7 @@
     <div class="card" style="border-color: transparent">
       <div class="row">
       <div class="col col-1">
-        <img [src]="user.profilePicture" style="height: 325px; width: 325px" class="rounded-circle ">
+        <img [src]="user.profilePicture" *ngIf="user.profilePicture != undefined" style="height: 325px; width: 325px" class="rounded-circle ">
         <img *ngIf="user.profilePicture == undefined" src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
              class="rounded-circle" style="height: 325px; width: 325px">
       </div>
