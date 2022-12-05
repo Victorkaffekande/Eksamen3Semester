@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import jwtDecode from "jwt-decode";
 import {Token} from "../../interfaces/token";
 import {debounceTime} from "rxjs";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Event, NavigationEnd, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -13,8 +13,10 @@ import {UserService} from "../../services/user.service";
 export class HeaderComponent implements OnInit {
   userid: any;
   user: any;
+  page: string | null = "";
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router,  private userService: UserService) {
+
 
   }
 

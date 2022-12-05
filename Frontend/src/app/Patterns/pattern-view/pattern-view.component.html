@@ -5,13 +5,13 @@
       <img [src]="selectedPattern.image" style="max-width: 400px">
       <br>
       <br>
-        <a routerLink="/user/userprofile/{{user.id}}"  class="d-flex align-items-center text-black text-decoration-none"
-           aria-expanded="false">
-          <strong>Opskrift af {{user.username}}</strong>
-          <img [src]="user.ProfilePicture" *ngIf="user.ProfilePicture != undefined" alt="" width="32" height="32"
-               class="rounded-circle me-2">
+      <a routerLink="/user/userprofile/{{user.id}}" class="d-flex align-items-center text-black text-decoration-none"
+         aria-expanded="false">
+        <strong>Opskrift af {{user.username}}</strong>
+        <img [src]="user.profilePicture" *ngIf="user.profilePicture != undefined" alt="" width="32" height="32"
+             class="rounded-circle me-2" style="margin-left: 2px">
 
-        </a>
+      </a>
 
     </div>
 
@@ -25,14 +25,14 @@
         <label>Sværhedsgrad</label>
         <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
         <br>
-        <label>sprog</label>
+        <label>Sprog</label>
         <input formControlName="language" type="text" class="form-control " style="width: 300px">
         <br>
         <label>Strikkepind størelse</label>
         <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
 
         <br>
-        <label>Gauge</label>
+        <label>Strikkefasthed</label>
         <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
 
         <br>
@@ -72,16 +72,19 @@
 
     </div>
     <div class="col">
-
-      <button (click)="createPdfBtn()" class="btn btn-primary bi-file-earmark-arrow-down-fill">Download
+      <app-create-project style="margin-top: 5px" [pattern]="selectedPattern"></app-create-project>
+      <br>
+      <button (click)="createPdfBtn()" style="margin-top: 5px" class="btn btn-primary bi-file-earmark-arrow-down-fill">
+        Download
         {{selectedPattern.title}}
       </button>
       <br>
       <div *ngIf="isButtonForEditVisble == true">
-        <button class="btn btn-primary" style="background-position: left"
+        <button class="btn btn-primary" style="background-position: left ; margin-top: 5px"
                 (click)="enableEditing()">Opdater opskrift
         </button>
-        <button class="btn btn-danger" style="  background-position: left"
+        <br>
+        <button class="btn btn-danger" style="  background-position: left; margin-top: 5px"
                 (click)="deletePattern()">fjern opskrift
         </button>
       </div>
