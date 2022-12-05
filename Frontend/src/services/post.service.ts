@@ -18,4 +18,9 @@ export class PostService {
     const result = await customAxios.get("Post/GetAllPostByProject/" + projectId)
     return result.data;
   }
+
+  async deletePost(id: number) {
+    const result = await customAxios.delete("Post/DeletePost/"+id);
+    return result.data;
+  }
 }
