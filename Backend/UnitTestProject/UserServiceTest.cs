@@ -137,7 +137,7 @@ public class UserServiceTest
     [InlineData(1,"data:image/png;base64,filler", "filler", "11-11-2000", "email@live.dk")] // updates nothing
     [InlineData(1,"data:image/jpeg;base64,filler", "filler", "11-11-2000", "email@live.dk")] // updates profile pricture to jpeg
     [InlineData(1,"data:image/png;base64,filler", "test", "11-11-2000", "email@live.dk")] // updates username
-    [InlineData(1,"data:image/png;base64,filler", "filler", "12-31-9999", "email@live.dk")] // updates birthday
+    [InlineData(1,"data:image/png;base64,filler", "filler", "12-12-9999", "email@live.dk")] // updates birthday
     [InlineData(1,"data:image/png;base64,filler", "filler", "01-01-1000", "email@live.dk")] // updates birthday
     [InlineData(1,"data:image/png;base64,filler", "filler", "11-11-2000", "email123@live.dk")] // updates email
     [InlineData(1,null, "filler", "11-11-2000", "email@live.dk")] // updates with no image
