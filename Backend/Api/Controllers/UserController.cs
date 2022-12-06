@@ -30,6 +30,21 @@ public class UserController : ControllerBase
         }
     }
     
+    [HttpGet]
+    [Route("GetAllUsers")]
+    public ActionResult GetAllUser()
+    {
+
+        try
+        {
+            return Ok(_service.GetAllUsers());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    
     [HttpPut]
     [Route("UpdateUser")]
     public ActionResult UpdatePattern( [FromBody] UserDTO pattern)
@@ -43,4 +58,5 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    
 }

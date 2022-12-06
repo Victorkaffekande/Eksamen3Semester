@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Application.DTOs;
+using Application.DTOs.Like;
 using AutoMapper;
 using Domain;
 using FluentValidation;
@@ -32,6 +33,9 @@ var config = new MapperConfiguration(cfg =>
     cfg.CreateMap<Pattern, PatternGetAllDTO>();
     cfg.CreateMap<UserDTO, User>();
     cfg.CreateMap<User, UserDTO>();
+    cfg.CreateMap<SimpleLikeDto, Like>();
+    cfg.CreateMap<Like, SimpleLikeDto>();
+    cfg.CreateMap<DashboardPostDTO, Like>();
 });
 
 var mapper = config.CreateMapper();

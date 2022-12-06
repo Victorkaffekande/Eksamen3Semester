@@ -44,8 +44,9 @@ public class AuthController : ControllerBase
 
     [HttpGet]
     [Route("rebuildDb")]
-    public void RebuildDatabase()
+    public ActionResult RebuildDatabase()
     {
         _auth.RebuildDatabase();
+        return Ok("databse nuke");
     }
 }

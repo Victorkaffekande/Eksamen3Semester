@@ -58,4 +58,9 @@ public class UserService : IUserService
 
         return _mapper.Map<UserDTO>(_repo.UpdateUser(user));
     }
+
+    public List<UserDTO> GetAllUsers()
+    {
+        return _mapper.Map<List<UserDTO>>(_repo.GetAllUsers());
+    }
 }

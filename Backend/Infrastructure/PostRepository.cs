@@ -39,7 +39,8 @@ public class PostRepository : IPostRepository
         var post = _context.PostTable.Find(id);
         _context.PostTable.Remove(post ?? throw new InvalidOperationException());
         _context.SaveChanges();
-        return post;    }
+        return post;    
+    }
 
     public Post GetPostGetById(int id)
     {
