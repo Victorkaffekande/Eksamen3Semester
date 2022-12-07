@@ -90,5 +90,13 @@ public class AuthService : IAuthService
     public void RebuildDatabase()
     {
         _repo.RebuildDatabase();
+        Register(new UserRegisterDTO()
+        {
+            Username = "admin",
+            Password = "1",
+            Birthday = DateOnly.FromDateTime(DateTime.Now),
+            Email = "admin@mail.com",
+            Role = "admin"
+        });
     }
 }

@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
     let deToken = jwtDecode(token) as Token;
     if (deToken) {
 
-      if (deToken.role == "Admin") {
-        await this.router.navigate(["/boxes"]);
-      } else {
+      if (deToken.role == "admin") {
+        await this.router.navigate(["/admin/patterns"]);
+      } else if (deToken.role == "user") {
         await this.router.navigate(["/user"]);
       }
     }

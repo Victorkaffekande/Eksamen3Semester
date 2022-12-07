@@ -12,7 +12,6 @@ import {LoginService} from "../../../services/login.service";
 import {UserDto} from "../../../interfaces/userDto";
 import {stringifyTask} from "@angular/compiler-cli/ngcc/src/execution/tasks/utils";
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
-import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-register',
@@ -64,19 +63,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm.markAsPristine();
     if (this.registerForm.valid) {
 
-      var x = this.registerForm.get("birthdate")?.value as NgbDate;
+      var date = this.registerForm.get("birthdate")?.value as NgbDate;
 
-      let day = String(x.day);
-      if (x.day < 10) {
-        day = '0' + day
-      }
-
-      let month = String(x.month);
-      if (x.month < 10) {
-        month = '0' + month
-      }
-
-      let dateString = x.year + "-" + month + "-" + day;
+      let dateString = this.formatDate(date);
 
       const dto: UserDto = {
         username: this.registerForm.get("username")?.value,
@@ -86,7 +75,6 @@ export class RegisterComponent implements OnInit {
         role: "user"
       }
 
-
       await this.loginService.register(dto)
         .then(() =>
           this.accountCreated = true
@@ -95,19 +83,20 @@ export class RegisterComponent implements OnInit {
           this.accountCreated = false;
           this.errorMsg = error.response.data;
         });
-
     }
   }
 
-  formatDate(d: NgbDate): string | null {
-    if (d === null) {
-      return null;
+  formatDate(d: NgbDate): string {
+    let day = String(d.day);
+    if (d.day < 10) {
+      day = '0' + day
     }
 
-    return [
-      (d.day < 10 ? ('0' + d.day) : d.day),
-      (d.month < 10 ? ('0' + d.month) : d.month),
-      d.year
-    ].join('-');
+    let month = String(d.month);
+    if (d.month < 10) {
+      month = '0' + month
+    }
+    return d.year + "-" + month + "-" + day;
+
   }
 }

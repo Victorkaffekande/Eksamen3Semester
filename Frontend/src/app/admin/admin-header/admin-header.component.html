@@ -1,0 +1,33 @@
+<div class="grid-container">
+  <!-- Nav sidebar-->
+  <div class="col d-flex flex-column position-fixed flex-shrink-0 p-3 text-white bg-dark"
+       style="width: 280px; height: 100%">
+    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">StrikkeNet</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a [routerLink]="['/admin/patterns']" [routerLinkActive]="['active']" class="nav-link text-white"
+           aria-current="page">
+          Opskrifter
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/admin/users']" [routerLinkActive]="['active']" class="nav-link text-white"
+           aria-current="page">
+          Brugere
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div>
+      <button class="btn btn-lg btn-outline-light bi-box-arrow-left" (click)="logout()"> Log ud</button>
+    </div>
+  </div>
+</div>
+<div class="grid-container">
+  <router-outlet></router-outlet>
+</div>
+
+
