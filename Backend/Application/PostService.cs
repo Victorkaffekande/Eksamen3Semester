@@ -76,11 +76,6 @@ public class PostService : IPostService
         return _repo.GetPostGetById(id);
     }
 
-    public List<DashboardPostDTO> GetAllPosts()
-    {
-        throw new NotImplementedException();
-    }
-
     public List<PostFromProjectDTO> GetAllPostFromProject(int id)
     {
         if (id < 1) throw new ArgumentException("Id cannot be lower than 1");

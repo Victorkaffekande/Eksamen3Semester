@@ -31,7 +31,6 @@ public class PostServiceTest
 
         //Mockrepo setup
         _mockRepo = new Mock<IPostRepository>();
-        _mockRepo.Setup(r => r.GetAllPosts()).Returns(_fakeRepo);
         _mockRepo.Setup(r => r.CreatePost(It.IsAny<Post>())).Callback<Post>(p => _fakeRepo.Add(p));
         _mockRepo.Setup(x => x.GetPostGetById(It.IsAny<int>()))
             .Returns<int>(id => _fakeRepo.FirstOrDefault(p => p.Id == id));
@@ -419,48 +418,7 @@ public class PostServiceTest
     }
 
     #endregion //GetPostByIdTest
-
-/*
-    #region GetAllPostTest
-
     
-    [Fact]
-    public void GetAllPatterns_Test()
-    {
-        // Arrange
-        var  post = new Post()
-        {
-            Id = 1,
-            ProjectId = 1,
-            Image = "data:image/png;base64,filler",
-            Description = "hej"
-        };
-        
-        var  post2 = new Post()
-        {
-            Id = 2,
-            ProjectId = 1,
-            Image = "data:image/png;base64,filler",
-            Description = "hej"
-        };
-        _fakeRepo.Add(post);
-        _fakeRepo.Add(post2);
-
-        var repo = _mockRepo.Object;
-        var service = new PostService(repo, _mapper, _postCreateDtoValidator,_postUpdateValidator);
-
-        // Act
-        var result = service.GetAllPosts().ToList();
-        Assert.True(result.Count == 2);
-        Assert.Contains(post, result);
-        Assert.Contains(post2, result);
-        _mockRepo.Verify(r => r.GetAllPosts(), Times.Once);
-    }
-
-    #endregion //GetAllPostTest
-
-    */
-
     #region GetAllPostByProjectTest
 
     [Fact]
