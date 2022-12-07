@@ -43,6 +43,7 @@ var config = new MapperConfiguration(cfg =>
         .ForMember(p => p.Email, opt => opt.MapFrom(p =>p.LikedUser.Email))
         .ForMember(p => p.ProfilePicture, opt => opt.MapFrom(p =>p.LikedUser.ProfilePicture))
         .ForMember(p => p.BirthDay, opt => opt.MapFrom(p =>p.LikedUser.BirthDay));
+
 });
 
 

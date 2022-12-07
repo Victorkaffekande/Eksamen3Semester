@@ -13,12 +13,17 @@ public class LikeService : ILikeService
 
     public LikeService(ILikeRepository repo, IMapper mapper)
     {
+        if (repo == null) throw new ArgumentException("Missing repository");
+        if (mapper == null) throw new ArgumentException("Missing mapper");
         _repo = repo;
         _mapper = mapper;
     }
 
     public SimpleLikeDto LikeUser(SimpleLikeDto dto)
     {
+        if (dto == null) throw new ArgumentException("SimpleLikeDto is null");
+        if (AlreadyLike(dto)) throw new ArgumentException("Like already exists");
+        
         var like = _mapper.Map<Like>(dto);
         return _mapper.Map<SimpleLikeDto>(_repo.LikeUser(like));
     }
@@ -70,7 +75,6 @@ public class LikeService : ILikeService
                 }
             }
         }
-
         
         return dtoList.OrderBy(p => p.PostDate).ToList();
     }
