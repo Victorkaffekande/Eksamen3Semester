@@ -281,6 +281,7 @@ public class PatternServiceTest
     
     [Theory]
     [InlineData(0,1,"title","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "ID must be higher than 0")]  // id is 0
+    [InlineData(1,0,"title","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "UserID must be higher than 0")]  // id is 0
     [InlineData(1,1,"","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "title can not be empty or null")] // title is empty
     [InlineData(1,1,null,"data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "title can not be empty or null")] // title is null
     [InlineData(1,1,"title","data:application/png;base64,filler", "data:image/png;base64,filler", "filler", "this is a not pdf")] // pdf blob is configured wrong
