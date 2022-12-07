@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Like_Interfaces;
+﻿using Application.DTOs.Like;
+using Application.Interfaces.Like_Interfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,5 +42,10 @@ public class LikeRepository : ILikeRepository
     public List<Like> GetallPostByLikedUsersByUser(int userId)
     {
         return _context.LikeTable.Include(l => l.LikedUser.Projects).ThenInclude(p => p.Posts).Where(l => l.UserId == userId).ToList();
+    }
+
+    public bool DoesUserExist(SimpleLikeDto dto)
+    {
+        return _context.UserTable.Any(u => u.Id == dto.UserId) && _context.UserTable.Any(u => u.Id == dto.LikedUserId);
     }
 }

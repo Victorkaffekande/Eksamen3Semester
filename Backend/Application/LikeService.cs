@@ -23,15 +23,20 @@ public class LikeService : ILikeService
     {
         if (dto == null) throw new ArgumentException("SimpleLikeDto is null");
         if (AlreadyLike(dto)) throw new ArgumentException("Like already exists");
-        
+        if (_repo.DoesUserExist(dto)) throw new ArgumentException("One or more userIds don't exist");
+
+
         var like = _mapper.Map<Like>(dto);
         return _mapper.Map<SimpleLikeDto>(_repo.LikeUser(like));
     }
 
+
     public SimpleLikeDto RemoveLike(SimpleLikeDto dto)
     {
+        if (dto == null) throw new ArgumentException("Input is null");
         var like = _mapper.Map<Like>(dto);
-        return _mapper.Map<SimpleLikeDto>(_repo.RemoveLike(like));    }
+        return _mapper.Map<SimpleLikeDto>(_repo.RemoveLike(like));
+    }
 
     public bool AlreadyLike(SimpleLikeDto dto)
     {
@@ -49,9 +54,9 @@ public class LikeService : ILikeService
         return _mapper.Map<List<UserDTO>>(_repo.GetAllLikedUsersByUser(userId));
     }
 
+
     public List<DashboardPostDTO> GetallPostByLikedUsersByUser(int userId)
     {
-
         var dtoList = new List<DashboardPostDTO>();
         foreach (var l in _repo.GetallPostByLikedUsersByUser(userId))
         {
@@ -75,7 +80,7 @@ public class LikeService : ILikeService
                 }
             }
         }
-        
+
         return dtoList.OrderBy(p => p.PostDate).ToList();
     }
 }

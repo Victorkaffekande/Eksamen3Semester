@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.DTOs.Like;
+using Domain;
 
 namespace Application.Interfaces.Like_Interfaces;
 
@@ -12,4 +13,5 @@ public interface ILikeRepository
     public List<Like> GetAllLikedUsersByUser(int userId);
     public List<Like> GetallPostByLikedUsersByUser(int userId);
 
+    bool DoesUserExist(SimpleLikeDto dto);
 }

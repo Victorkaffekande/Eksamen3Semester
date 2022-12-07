@@ -19,6 +19,9 @@ public class LikeServiceTest
         _mockRepo = new Mock<ILikeRepository>();
         _mockRepo.Setup(r => r.LikeUser(It.IsAny<Like>()))
             .Callback<Like>(l => fakeRepo.Add(l));
+        _mockRepo.Setup(r => r.RemoveLike(It.IsAny<Like>()))
+            .Callback<Like>(x =>
+                fakeRepo.Remove(fakeRepo.Find(l => l.UserId == x.UserId && l.LikedUserId == x.LikedUserId)));
 
 
         var config = new MapperConfiguration(cfg =>
@@ -29,7 +32,7 @@ public class LikeServiceTest
         _mapper = new Mapper(config);
     }
 
-    #region MyRegion
+    #region Constructor tests
 
     [Fact]
     public void Constructor_Valid()
@@ -102,13 +105,9 @@ public class LikeServiceTest
         _mockRepo.Verify(r => r.LikeUser(It.IsAny<Like>()), Times.Never);
     }
 
-    //allready exists
-    //invalid user ids
     [Fact]
     public void LikeUser_Invalid_AlReadyLikes()
     {
-        
-        //TODO WORK IN PROGRESS
         //arrange
         var likeDto = new SimpleLikeDto()
         {
@@ -117,11 +116,102 @@ public class LikeServiceTest
         };
         var repo = _mockRepo.Object;
         ILikeService service = new LikeService(repo, _mapper);
+        _mockRepo.Setup(r => r.AlreadyLikes(It.IsAny<Like>())).Returns(_mapper.Map<Like>(likeDto));
         fakeRepo.Add(_mapper.Map<Like>(likeDto));
-        
+
         //act + assert
         var ex = Assert.Throws<ArgumentException>(() => service.LikeUser(likeDto));
         Assert.Equal("Like already exists", ex.Message);
+        _mockRepo.Verify(r => r.LikeUser(It.IsAny<Like>()), Times.Never);
+    }
+
+
+    [Theory]
+    [InlineData(5, 1)]
+    [InlineData(1, 5)]
+    public void LikeUser_Invalid_UserIdDoesNotExist(int userId, int likedUserId)
+    {
+        //arrange
+        var repo = _mockRepo.Object;
+        ILikeService service = new LikeService(repo, _mapper);
+        var likeDto = new SimpleLikeDto()
+        {
+            UserId = userId,
+            LikedUserId = likedUserId
+        };
+        _mockRepo.Setup(r => r.DoesUserExist(likeDto)).Returns(true);
+
+        //act + assert
+        var ex = Assert.Throws<ArgumentException>(() => service.LikeUser(likeDto));
+        Assert.Equal("One or more userIds don't exist", ex.Message);
+        _mockRepo.Verify(r => r.LikeUser(It.IsAny<Like>()), Times.Never);
+    }
+
+    #endregion
+
+    #region RemoveLike tests
+
+    //valid remove
+    [Fact]
+    public void RemoveLike_Valid_LikeExists()
+    {
+        //arrange
+        var repo = _mockRepo.Object;
+        ILikeService service = new LikeService(repo, _mapper);
+        var dto1 = new SimpleLikeDto()
+        {
+            UserId = 1, LikedUserId = 2
+        };
+        var dto2 = new SimpleLikeDto()
+        {
+            UserId = 1, LikedUserId = 3
+        };
+        fakeRepo.Add(_mapper.Map<Like>(dto1));
+        fakeRepo.Add(_mapper.Map<Like>(dto2));
+
+        //act
+        service.RemoveLike(dto1);
+
+        //assert
+        Assert.True(fakeRepo.Count is 1);
+        _mockRepo.Verify(r => r.RemoveLike(It.IsAny<Like>()), Times.Once);
+    }
+
+    [Fact]
+    public void RemoveLike_Valid_LikeDoesNotExists()
+    {
+        //arrange
+        var repo = _mockRepo.Object;
+        ILikeService service = new LikeService(repo, _mapper);
+        var dto1 = new SimpleLikeDto()
+        {
+            UserId = 1, LikedUserId = 2
+        };
+        var dto2 = new SimpleLikeDto()
+        {
+            UserId = 1, LikedUserId = 3
+        };
+        fakeRepo.Add(_mapper.Map<Like>(dto1));
+
+        //act
+        service.RemoveLike(dto2);
+
+        //assert
+        Assert.True(fakeRepo.Count is 1);
+        _mockRepo.Verify(r => r.RemoveLike(It.IsAny<Like>()), Times.Once);
+    }
+
+    [Fact]
+    public void RemoveLike_Invalid_InputIsNull()
+    {
+        //arrange
+        var repo = _mockRepo.Object;
+        ILikeService service = new LikeService(repo, _mapper);
+
+        //act + assert
+        var ex = Assert.Throws<ArgumentException>(() => service.RemoveLike(null));
+        Assert.Equal("Input is null", ex.Message);
+        _mockRepo.Verify(r => r.RemoveLike(It.IsAny<Like>()), Times.Never);
     }
 
     #endregion
