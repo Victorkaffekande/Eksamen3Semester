@@ -41,24 +41,12 @@ public class LikeService : ILikeService
 
     public List<UserDTO> GetAllLikedUsersByUser(int userId)
     {
-        List<UserDTO> userList = new List<UserDTO>();
-        foreach (var like in _repo.GetAllLikedUsersByUser(userId))
-        {
-            UserDTO dto = new UserDTO()
-            {
-                Email = like.LikedUser.Email,
-                BirthDay = like.LikedUser.BirthDay,
-               Id = like.LikedUserId,
-               ProfilePicture = like.LikedUser.ProfilePicture,
-               Username = like.LikedUser.Username
-            };
-            userList.Add(dto);
-        }
-        return userList;
+        return _mapper.Map<List<UserDTO>>(_repo.GetAllLikedUsersByUser(userId));
     }
 
     public List<DashboardPostDTO> GetallPostByLikedUsersByUser(int userId)
     {
+
         var dtoList = new List<DashboardPostDTO>();
         foreach (var l in _repo.GetallPostByLikedUsersByUser(userId))
         {

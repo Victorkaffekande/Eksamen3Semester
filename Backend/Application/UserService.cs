@@ -32,17 +32,8 @@ public class UserService : IUserService
         {
             return null;
         }
-
-        var userDto = new UserDTO()
-        {
-            Id = user.Id,
-            BirthDay = user.BirthDay,
-            Email = user.Email,
-            ProfilePicture = user.ProfilePicture,
-            Username = user.Username
-        };
-
-        return userDto;
+        
+        return _mapper.Map<UserDTO>(user);
     }
 
     public UserDTO UpdateUser(UserDTO userDto)

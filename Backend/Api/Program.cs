@@ -36,7 +36,15 @@ var config = new MapperConfiguration(cfg =>
     cfg.CreateMap<SimpleLikeDto, Like>();
     cfg.CreateMap<Like, SimpleLikeDto>();
     cfg.CreateMap<DashboardPostDTO, Like>();
+    cfg.CreateMap<Post, PostFromProjectDTO>();
+    cfg.CreateMap<Pattern, PatternGetAllDTO>();
+    cfg.CreateMap<Like, UserDTO>().ForMember(p => p.Id, opt => opt.MapFrom(p =>p.LikedUser.Id))
+        .ForMember(p => p.Username, opt => opt.MapFrom(p =>p.LikedUser.Username))
+        .ForMember(p => p.Email, opt => opt.MapFrom(p =>p.LikedUser.Email))
+        .ForMember(p => p.ProfilePicture, opt => opt.MapFrom(p =>p.LikedUser.ProfilePicture))
+        .ForMember(p => p.BirthDay, opt => opt.MapFrom(p =>p.LikedUser.BirthDay));
 });
+
 
 var mapper = config.CreateMapper();
 

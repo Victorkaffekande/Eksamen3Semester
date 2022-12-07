@@ -26,6 +26,7 @@ public class PostServiceTest
         {
             cfg.CreateMap<PostCreateDTO, Post>();
             cfg.CreateMap<PostUpdateDTO, Post>();
+            cfg.CreateMap<Post, PostFromProjectDTO>();
         });
         _mapper = new Mapper(config);
 
@@ -125,6 +126,7 @@ public class PostServiceTest
 
     #region CreatePostTest
 
+    [Fact]
     public void CreatePost_Valid()
     {
         //Arrange
@@ -138,6 +140,9 @@ public class PostServiceTest
         var repo = _mockRepo.Object;
         var service = new PostService(repo, _mapper, _postCreateDtoValidator, _postUpdateValidator);
 
+        _mockRepo.Setup(r => r.CreatePost(It.IsAny<Post>())).Callback<Post>(p => _fakeRepo.Add(p));
+
+        
         //act
         service.CreatePost(dto);
 
@@ -386,6 +391,7 @@ public class PostServiceTest
         _mockRepo.Verify(r => r.GetPostGetById(id), Times.Once);
     }
 
+    [Fact]
     public void GetPostById_InvalidId_Test()
     {
         // Arrange
