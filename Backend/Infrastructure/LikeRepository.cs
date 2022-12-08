@@ -1,5 +1,8 @@
-﻿using Application.DTOs.Like;
-using Application.Interfaces.Like_Interfaces;
+
+using Application.DTOs.Like;
+
+using Application.DTOs;
+ using Application.Interfaces.Like_Interfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,10 +41,21 @@ public class LikeRepository : ILikeRepository
     {
        return _context.LikeTable.Include(l => l.LikedUser).Where(l => l.UserId == userId).ToList();
     }
-
-    public List<Like> GetallPostByLikedUsersByUser(int userId)
+    
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int skip, int take)
     {
-        return _context.LikeTable.Include(l => l.LikedUser.Projects).ThenInclude(p => p.Posts).Where(l => l.UserId == userId).ToList();
+        return _context.PostTable.Include(p => p.Project.User).Where(p =>users.Contains(p.Project.User)).IgnoreAutoIncludes().Select(p => new DashboardPostDTO()
+        {
+            Description = p.Description,
+            Id = p.Id,
+            Image = p.Image,
+            PostDate = p.PostDate,
+            ProfilePicture = p.Project.User.ProfilePicture,
+            ProjectId = p.Project.Id,
+            Title = p.Project.Title,
+            UserId = p.Project.UserId,
+            Username = p.Project.User.Username
+        }).OrderByDescending(p => p.PostDate).Skip(skip).Take(take).ToList();
     }
 
     public bool DoesUserExist(SimpleLikeDto dto)

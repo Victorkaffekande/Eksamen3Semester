@@ -74,13 +74,14 @@ public class LikeController : ControllerBase
         }
     }
     
+    
     [HttpGet]
-    [Route("GetLikedUsersPost/{id}")]
-    public ActionResult GetallPostByLikedUsersByUser([FromRoute] int id)
+    [Route("GetAllPostByLikedUsers/{id}/{skip}/{take}")]
+    public ActionResult GetAllPostByLikedUsers([FromRoute] int id, int skip, int take)
     {
         try
         {
-            return Ok(_service.GetallPostByLikedUsersByUser(id));
+            return Ok(_service.GetAllPostByLikedUsers(id, skip,take));
         }
         catch (Exception e)
         {

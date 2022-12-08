@@ -11,6 +11,6 @@ public interface ILikeService
     
     public bool AlreadyLike(SimpleLikeDto dto);
     public List<UserDTO> GetAllLikedUsersByUser(int userId);
-    public List<DashboardPostDTO> GetallPostByLikedUsersByUser(int userId);
 
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int skip, int take);
 }

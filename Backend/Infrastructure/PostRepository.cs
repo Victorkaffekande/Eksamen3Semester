@@ -49,4 +49,5 @@ public class PostRepository : IPostRepository
     {
         return _context.PostTable.Where(p => p.ProjectId == id).ToList();
     }
+
 }

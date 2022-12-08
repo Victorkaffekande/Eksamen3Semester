@@ -10,4 +10,5 @@ public interface IPostRepository
     public Post DeletePost(int id);
     public Post GetPostGetById(int id);
     public List<Post> GetAllPostFromProject(int id);
+    
 }
