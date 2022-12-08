@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LikeService} from "../../services/like.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   postList: any;
 
-  constructor() { }
+  constructor(private service: LikeService) { }
 
   ngOnInit(): void {
+this.getPosts()
+  }
+
+  async getPosts(){
+    this.postList = await this.service.getAllPostByLikedUsers(3,0,10);
   }
 
 }
