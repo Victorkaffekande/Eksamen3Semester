@@ -1,4 +1,5 @@
 ﻿
+using Application.DTOs;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,12 +28,16 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Post>()
             .Property(p => p.Id)
             .ValueGeneratedOnAdd();
-        
+
+        modelBuilder.Entity<Like>()
+            .HasKey(p => new { p.UserId, p.LikedUserId });
+            
         
         modelBuilder.Entity<User>().Ignore(t => t.Patterns);
         modelBuilder.Entity<Pattern>().Ignore(t => t.User);
         modelBuilder.Entity<User>().Ignore(t => t.Projects);
         modelBuilder.Entity<Project>().Ignore(t => t.Posts);
+        modelBuilder.Entity<Like>().Ignore(l => l.User);
 
 
 
@@ -54,9 +59,18 @@ public class DatabaseContext : DbContext
             .WithMany(project => project.Posts)
             .HasForeignKey(post => post.ProjectId)
             .OnDelete(DeleteBehavior.Cascade);
-        
-        
-        
+
+        modelBuilder.Entity<Like>()
+            .HasOne(p => p.User)
+            .WithMany()
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Like>()
+                .HasOne(p => p.LikedUser)
+                .WithMany()
+                .HasForeignKey(p => p.LikedUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
     }
 
     
@@ -64,4 +78,6 @@ public class DatabaseContext : DbContext
     public DbSet<Project> ProjectTable { get; set; }
     public DbSet<Post> PostTable { get; set; }
     public DbSet<Pattern> PatternTable { get; set; }
+    
+    public DbSet<Like> LikeTable { set; get; }
 }

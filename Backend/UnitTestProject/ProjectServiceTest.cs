@@ -33,6 +33,8 @@ public class ProjectServiceTest
         _mockRepo.Setup(r => r.AddProject(It.IsAny<Project>())).Callback<Project>(p => fakeRepo.Add(p));
         _mockRepo.Setup(r => r.GetProjectById(It.IsAny<int>())).Returns<int>(
             (id) => fakeRepo.FirstOrDefault(p => p.Id == id));
+        _mockRepo.Setup(x => x.GetAllProjectsFromUser(It.IsAny<int>())).Returns<int>(id => fakeRepo.FindAll(p => p.UserId == id));
+
         _mockRepo.Setup(r => r.UpdateProject(It.IsAny<Project>())).Callback<Project>(p =>
         {
             var index = fakeRepo.FindIndex(other => other.Id == p.Id);
@@ -388,4 +390,88 @@ public class ProjectServiceTest
         _mockRepo.Verify(r => r.DeleteProject(It.IsAny<Project>()), Times.Never);
     }
     #endregion
+    
+     #region GetAllProjectsByUser_Tests
+
+    [Fact]
+    public void GetAllProjectsByUser_Test()
+    {
+        // Arrange
+        var  project1 = new Project()
+        {
+            Id = 1,
+            Title = "filler",
+            UserId = 1,
+            Image = "data:image/png;base64,filler",
+        };
+        
+        
+        var  project2 = new Project()
+        {
+            Id = 2,
+            Title = "filler",
+            UserId = 2,
+            Image = "data:image/png;base64,filler",
+        };
+
+        
+        var  project3 = new Project()
+        {
+            Id = 3,
+            Title = "filler",
+            UserId = 1,
+            Image = "data:image/png;base64,filler",
+        };
+        fakeRepo.Add(project1);
+        fakeRepo.Add(project2);
+        fakeRepo.Add(project3);
+
+        var repo = _mockRepo.Object;
+        var service = new ProjectService(repo, _mapper, _dtoValidator,_projectValidator);
+        
+        
+        // Act
+        var result = service.GetAllProjectsFromUser(1).ToList();
+        Assert.True(result.Count == 2);
+        
+        Assert.Contains(project1, result);
+        Assert.Contains(project3, result);
+        Assert.DoesNotContain(project2,result);
+        _mockRepo.Verify(r => r.GetAllProjectsFromUser(1), Times.Once);
+    }
+    
+    
+    [Fact]
+    public void GetProjectsByUser_InvalidId_Test()
+    {
+        // Arrange
+        var id = 0;
+        string error = "Id cannot be lower than 1";
+
+        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator,_projectValidator);
+
+        // Assert & act
+        var ex = Assert.Throws<ArgumentException>(() => service.GetAllProjectsFromUser(id));
+        Assert.Equal(error, ex.Message);
+        _mockRepo.Verify(r => r.GetAllProjectsFromUser(id), Times.Never);
+    }
+    
+    [Fact]
+    public void GetProjectsByUser_NonExistingProject_Test()
+    {
+        // Arrange
+        var id = 1;
+        
+        var service = new ProjectService(_mockRepo.Object, _mapper, _dtoValidator,_projectValidator);
+        _mockRepo.Setup(r => r.GetProjectById(id)).Returns(() => null);
+
+        // Act
+        var result = service.GetProjectById(id);
+
+        // Assert
+        Assert.Null(result);
+        _mockRepo.Verify(r => r.GetProjectById(id), Times.Once);
+    }
+    
+    #endregion // GetAllProjectsByUser_Tests
 }

@@ -27,12 +27,14 @@ public class UserServiceTest
         var config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<UserDTO, User>();
+            cfg.CreateMap<User, UserDTO>();
         });
         _mapper = new Mapper(config);
 
         //Mockrepo setup
         _mockRepo = new Mock<IUserRepository>();
-     
+        _mockRepo.Setup(r => r.GetAllUsers()).Returns(_fakeRepo);
+
         _mockRepo.Setup(x => x.GetUserById(It.IsAny<int>())).Returns<int>(id => _fakeRepo.FirstOrDefault(p => p.Id == id));
 
         _mockRepo.Setup(x => x.UpdateUser(It.IsAny<User>())).Callback<User>(p =>
@@ -129,7 +131,7 @@ public class UserServiceTest
 
     
 
- #region UpdatePostTests
+ #region UpdateUserTests
     
         
     [Theory]
@@ -259,7 +261,81 @@ public class UserServiceTest
     #endregion //UpdatePostTests
 
  
-    
+    #region GetAllUsersTests
+
+    [Fact]
+    public void GetAllUsers_Test()
+    {
+        // Arrange
+        
+        var  user1 = new User()
+        {
+            Id = 1,
+            ProfilePicture = "data:image/png;base64,filler",
+            Username = "username",
+            BirthDay = DateOnly.MaxValue,
+            Email = "email@live.dk",
+            Password = "123",
+            Patterns = new List<Pattern>(),
+            Projects = new List<Project>(),
+            Role = "string",
+            Salt = "test"
+
+        };
+        var userDto1 = new UserDTO()
+        {
+            Id = 1,
+            ProfilePicture = "data:image/png;base64,filler",
+            Username = "username",
+            BirthDay = DateOnly.MaxValue,
+            Email = "email@live.dk",
+        };
+        var  user2 = new User()
+        {
+            Id = 2,
+            ProfilePicture = "data:image/png;base64,filler",
+            Username = "username",
+            BirthDay = DateOnly.MaxValue,
+            Email = "email@live.dk",
+            Password = "123",
+            Patterns = new List<Pattern>(),
+            Projects = new List<Project>(),
+            Role = "string",
+            Salt = "test"
+
+        };
+        var userDto2 = new UserDTO()
+        {
+            Id = 2,
+            ProfilePicture = "data:image/png;base64,filler",
+            Username = "username",
+            BirthDay = DateOnly.MaxValue,
+            Email = "email@live.dk",
+        };        
+        
+        _fakeRepo.Add(user1);
+        _fakeRepo.Add(user2);
+
+        var repo = _mockRepo.Object;
+        var service = new UserService(repo, _mapper, _userDtoValidator);
+
+        // assert & act
+        var result = service.GetAllUsers().ToList();
+
+        var expected1 = JsonConvert.SerializeObject(userDto1);
+        var actual1 = JsonConvert.SerializeObject(result[0]);
+        
+        var expected2 = JsonConvert.SerializeObject(userDto2);
+        var actual2 = JsonConvert.SerializeObject(result[1]);
+        
+        Assert.True(result.Count == 2);
+        Assert.Equal(expected1, actual1);
+        Assert.Equal(expected2, actual2);
+        _mockRepo.Verify(r => r.GetAllUsers(), Times.Once);
+    }
+
+    #endregion // GetAllPatternsTest
+
     
     
 }

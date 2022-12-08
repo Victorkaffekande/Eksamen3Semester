@@ -27,6 +27,8 @@ public class PatternServiceTest
         {
             cfg.CreateMap<PatternDTO, Pattern>();
             cfg.CreateMap<PatternUpdateDTO, Pattern>();
+            cfg.CreateMap<Pattern, PatternGetAllDTO>();
+            cfg.CreateMap<User, UserDTO>();
             
         });
         _mapper = new Mapper(config);
@@ -122,7 +124,12 @@ public class PatternServiceTest
             Title = "test",
             PdfString = "data:application/pdf;base64,filler",
             Image = "data:image/png;base64,filler",
-            Description = "test"
+            Description = "test",
+            difficulty = "test",
+            gauge = "test",
+            Language = "test",
+            Needlesize = "test",
+            yarn = "test"
         };
         var repo = _mockRepo.Object;
         var service = new PatternService(repo, _mapper, _dtoValidator,_patternValidator);
@@ -186,14 +193,19 @@ public class PatternServiceTest
 
     
     [Theory]
-    [InlineData(1,1, "test",  "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler")]  // update tittle
-    [InlineData(1,1, "filler",  "data:application/pdf;base64,test","filler", "data:image/png;base64,filler")]  // update pdf
-    [InlineData(1,1, "filler",  "data:application/pdf;base64,filler","test", "data:image/png;base64,filler")]  // update description 
-    [InlineData(1,1, "filler",  "data:application/pdf;base64,filler","filler", "data:image/jpeg;base64,filler")]  //updates image
-    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler")] //update nothing 
-    [InlineData(1,2, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler")] //update nothing 
+    [InlineData(1,1, "test",  "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","test","test","test")]  // update tittle
+    [InlineData(1,1, "filler",  "data:application/pdf;base64,test","filler", "data:image/png;base64,filler", "test","test","test","test","test")]  // update pdf
+    [InlineData(1,1, "filler",  "data:application/pdf;base64,filler","test", "data:image/png;base64,filler", "test","test","test","test","test")]  // update description 
+    [InlineData(1,1, "filler",  "data:application/pdf;base64,filler","filler", "data:image/jpeg;base64,filler", "test","test","test","test","test")]  //updates image
+    [InlineData(1,2, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","test","test","test")] //update userid 
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "hard","test","test","test","test")] //update difficulty 
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","yarn","test","test","test")] //update yarn
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","gauge","test","test")] //update gauge 
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","test","danish","test")] //update language 
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","test","test","needleSize")] //update needlesize 
+    [InlineData(1,1, "filler", "data:application/pdf;base64,filler","filler", "data:image/png;base64,filler", "test","test","test","test","test")] //update nothing 
     
-    public void UpdatePattern_Valid(int id, int userId, string title, string pdf, string desc, string image)
+    public void UpdatePattern_Valid(int id, int userId, string title, string pdf, string desc, string image, string difficulty, string yarn, string gauge, string language, string needleSize )
     {
         //arrange
         var  pattern = new PatternUpdateDTO()
@@ -203,7 +215,12 @@ public class PatternServiceTest
             UserId = 1,
             PdfString = "data:application/pdf;base64,filler",
             Image = "data:image/png;base64,filler",
-            Description = "filler"
+            Description = "filler",
+            difficulty = "test",
+            yarn = "test",
+            gauge = "test",
+            Language = "test",
+            Needlesize = "test",
         };
         _fakeRepo.Add(_mapper.Map<Pattern>(pattern));
 
@@ -281,6 +298,7 @@ public class PatternServiceTest
     
     [Theory]
     [InlineData(0,1,"title","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "ID must be higher than 0")]  // id is 0
+    [InlineData(1,0,"title","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "UserID must be higher than 0")]  // id is 0
     [InlineData(1,1,"","data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "title can not be empty or null")] // title is empty
     [InlineData(1,1,null,"data:application/pdf;base64,filler", "data:image/png;base64,filler", "filler", "title can not be empty or null")] // title is null
     [InlineData(1,1,"title","data:application/png;base64,filler", "data:image/png;base64,filler", "filler", "this is a not pdf")] // pdf blob is configured wrong

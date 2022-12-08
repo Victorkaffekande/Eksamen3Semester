@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Application;
 using Application.Interfaces;
+using Application.Interfaces.Like_Interfaces;
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,5 +16,6 @@ public static class DependencyResolverService
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILikeRepository, LikeRepository>();
     }
 }

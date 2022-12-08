@@ -7,4 +7,6 @@ public interface IUserService
 {
     UserDTO GetUserById(int id);
     UserDTO UpdateUser(UserDTO userDto);
+
+    List<UserDTO> GetAllUsers();
 }

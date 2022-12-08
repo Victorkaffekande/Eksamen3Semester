@@ -12,21 +12,7 @@ public class PostController : ControllerBase
     {
         _service = service;
     }
-    
-    [HttpGet]
-    [Route("GetAllPost")]
-    public ActionResult GetAllPost()
-    {
-        try
-        {
-            return Ok(_service.GetAllPosts());
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-    
+
     [HttpPost]
     [Route("CreatePost")]
     public ActionResult CreatePost( [FromBody] PostCreateDTO dto)
@@ -97,5 +83,6 @@ public class PostController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-
+    
+    
 }

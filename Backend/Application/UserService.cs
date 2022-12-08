@@ -32,17 +32,8 @@ public class UserService : IUserService
         {
             return null;
         }
-
-        var userDto = new UserDTO()
-        {
-            Id = user.Id,
-            BirthDay = user.BirthDay,
-            Email = user.Email,
-            ProfilePicture = user.ProfilePicture,
-            Username = user.Username
-        };
-
-        return userDto;
+        
+        return _mapper.Map<UserDTO>(user);
     }
 
     public UserDTO UpdateUser(UserDTO userDto)
@@ -57,5 +48,10 @@ public class UserService : IUserService
         if (_repo.GetUserById(user.Id) is null) {throw new ArgumentException("User id does not exist");}
 
         return _mapper.Map<UserDTO>(_repo.UpdateUser(user));
+    }
+
+    public List<UserDTO> GetAllUsers()
+    {
+        return _mapper.Map<List<UserDTO>>(_repo.GetAllUsers());
     }
 }
