@@ -1,23 +1,22 @@
-<br>
-<div>
-  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-         placeholder="&#61442;  Søg en opskrift">
-</div>
-<br>
-
-<h1>Alle opskrifter</h1>
-<ol class="flex-container">
-  <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
-    <img [src]="p.image" class="card-img-top">
-    <div class="card-body">
-      <p class="mat-card-title">{{p.title}}</p>
-
-      <p class="card-text ">af {{p.user.username}}</p>
-
-    </div>
-    <div class="card-footer bg-transparent">
-      <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
-    </div>
-
+<div class="mt-2">
+  <div class="p-2 d-flex">
+    <h1 class="p-2">Alle opskrifter</h1>
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+           placeholder="Søg efter en opskrift" style="max-width: 20rem">
   </div>
-</ol>
+  <ol class="flex-container">
+    <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
+      <img [src]="p.image" class="card-img-top">
+      <div class="card-body">
+        <p class="mat-card-title">{{p.title}}</p>
+
+        <p class="card-text ">af {{p.user.username}}</p>
+
+      </div>
+      <div class="card-footer bg-transparent">
+        <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
+      </div>
+
+    </div>
+  </ol>
+</div>
