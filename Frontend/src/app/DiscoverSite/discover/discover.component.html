@@ -2,7 +2,7 @@
   <div class="p-2 d-flex">
     <h1 class="p-2">Alle opskrifter</h1>
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
-           placeholder="Søg efter en opskrift" style="max-width: 20rem">
+           placeholder="Søg efter en opskrift" style="max-width: 20rem; height: 24px; margin-top: 13px">
   </div>
   <ol class="flex-container">
     <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">

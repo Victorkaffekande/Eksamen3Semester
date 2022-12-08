@@ -10,14 +10,17 @@
              class="rounded-circle" style="height: 325px; width: 325px">
       </div>
       <div class="col col-7 text-center" style="margin-top: 5%">
-        <label class="mat-card-title">@{{user.username}}</label>
+        <label class="mat-card-title">{{user.username}}</label>
         <br>
         <label class="mat-card-content" style="margin-top: 10px">{{user.email}}</label>
         <br>
         <label class="mat-card-content" style="margin-top: 10px">{{user.birthDay}}</label>
         <br>
         <button class="btn btn-primary" style="margin-top: 10px" *ngIf="userId == userRouteId" (click)="changeSubView()">Ændre profil</button>
-
+        <div>
+        <button class="btn btn-primary" *ngIf="alreadyLikes==false" (click)="likeUser()" style="margin-top: 10px">Følg</button>
+        <button class="btn btn-secondary" *ngIf="alreadyLikes==true" (click)="deleteLike()" style="margin-top: 10px">Følger</button>
+        </div>
       </div>
       </div>
 
