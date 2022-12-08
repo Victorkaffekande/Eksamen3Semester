@@ -72,7 +72,10 @@ public class LikeServiceTest
     [Fact]
     public void LikeUser_valid()
     {
+        
         //arrange
+        _mockRepo.Setup(r => r.DoesUserExist(It.IsAny<SimpleLikeDto>())).Returns(true);
+        
         var likeDto = new SimpleLikeDto()
         {
             UserId = 1,
@@ -82,7 +85,9 @@ public class LikeServiceTest
         ILikeService service = new LikeService(repo, _mapper);
 
 
+        
         //act
+        
         service.LikeUser(likeDto);
 
         //assert
@@ -139,7 +144,7 @@ public class LikeServiceTest
             UserId = userId,
             LikedUserId = likedUserId
         };
-        _mockRepo.Setup(r => r.DoesUserExist(likeDto)).Returns(true);
+        _mockRepo.Setup(r => r.DoesUserExist(likeDto)).Returns(false);
 
         //act + assert
         var ex = Assert.Throws<ArgumentException>(() => service.LikeUser(likeDto));
