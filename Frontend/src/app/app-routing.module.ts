@@ -13,6 +13,7 @@ import {PublicUserProfileComponent} from "./UserProfiles/public-user-profile/pub
 import {PrivateUserProfileComponent} from "./UserProfiles/private-user-profile/private-user-profile.component";
 import {AdminPatternsComponent} from "./admin/admin-patterns/admin-patterns.component";
 import {AdminUsersComponent} from "./admin/admin-users/admin-users.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
 
@@ -26,6 +27,7 @@ const routes: Routes = [
           {path: 'viewpattern/:id', component: PatternViewComponent},
           {path: 'discover', component: DiscoverComponent},
           {path: 'userprofile/:id', component: PublicUserProfileComponent},
+          {path: 'home', component: DashboardComponent},
         ]
       },
   {path: 'admin', component: AdminHeaderComponent, children: [
