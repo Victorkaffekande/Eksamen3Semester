@@ -23,7 +23,7 @@ public class LikeService : ILikeService
     {
         if (dto == null) throw new ArgumentException("SimpleLikeDto is null");
         if (AlreadyLike(dto)) throw new ArgumentException("Like already exists");
-        if (_repo.DoesUserExist(dto)) throw new ArgumentException("One or more userIds don't exist");
+        if (!_repo.DoesUserExist(dto)) throw new ArgumentException("One or more userIds don't exist");
 
 
         var like = _mapper.Map<Like>(dto);
@@ -56,13 +56,7 @@ public class LikeService : ILikeService
 
     public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int skip, int take)
     {
-        var list = new List<User>();
-        foreach (var like in _repo.GetAllLikedUsersByUser(userId))
-
-        {
-            list.Add(like.LikedUser);
-        }
-
+        var list = _mapper.Map<List<User>>(_repo.GetAllLikedUsersByUser(userId));
         
         return _repo.GetAllPostByLikedUsers(list, skip, take);
     }
