@@ -87,4 +87,18 @@ public class LikeController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("GetAllPostByLikedUsersTest/{id}/{start}/{end}")]
+    public ActionResult GetAllPostByLikedUsers([FromRoute] int id, int start, int end)
+    {
+        try
+        {
+            return Ok(_service.GetAllPostByLikedUsers(id, start,end));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

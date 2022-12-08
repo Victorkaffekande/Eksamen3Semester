@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Like_Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces.Like_Interfaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,5 +42,20 @@ public class LikeRepository : ILikeRepository
     public List<Like> GetallPostByLikedUsersByUser(int userId)
     {
         return _context.LikeTable.Include(l => l.LikedUser.Projects).ThenInclude(p => p.Posts).Where(l => l.UserId == userId).ToList();
+    }
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int start, int end)
+    {
+        return _context.PostTable.Include(p => p.Project.User).Where(p =>users.Contains(p.Project.User)).IgnoreAutoIncludes().Select(p => new DashboardPostDTO()
+        {
+            Description = p.Description,
+            Id = p.Id,
+            Image = p.Image,
+            PostDate = p.PostDate,
+            ProfilePicture = p.Project.User.ProfilePicture,
+            ProjectId = p.Project.Id,
+            Title = p.Project.Title,
+            UserId = p.Project.UserId,
+            Username = p.Project.User.Username
+        }).OrderByDescending(p => p.PostDate).Skip(0).Take(25).ToList();
     }
 }

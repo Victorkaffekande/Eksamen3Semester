@@ -70,8 +70,18 @@ public class LikeService : ILikeService
                 }
             }
         }
-
         
         return dtoList.OrderBy(p => p.PostDate).ToList();
+    }
+
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int start, int end)
+    {
+        var list = new List<User>();
+        foreach (var like in _repo.GetAllLikedUsersByUser(userId))
+        {
+            list.Add(like.LikedUser);
+        }
+        
+        return _repo.GetAllPostByLikedUsers(list, start, end);
     }
 }

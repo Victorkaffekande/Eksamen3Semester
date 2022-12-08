@@ -13,4 +13,5 @@ public interface ILikeService
     public List<UserDTO> GetAllLikedUsersByUser(int userId);
     public List<DashboardPostDTO> GetallPostByLikedUsersByUser(int userId);
 
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int start, int end);
 }
