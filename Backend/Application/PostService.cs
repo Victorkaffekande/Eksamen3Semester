@@ -32,17 +32,10 @@ public class PostService : IPostService
 
         var val = _postCreateDtoValidator.Validate(dto);
         if (!val.IsValid) throw new ArgumentException(val.ToString());
-
-//manual map
+        
         var response = _repo.CreatePost(_mapper.Map<Post>(dto));
-        var returnDto = new PostFromProjectDTO()
-        {
-            Id = response.Id,
-            Description = response.Description,
-            Image = response.Image,
-            PostDate = response.PostDate,
-        };
-        return returnDto;
+
+        return _mapper.Map<PostFromProjectDTO>(response);
     }
 
     public Post UpdatePost(PostUpdateDTO dto)
@@ -76,38 +69,6 @@ public class PostService : IPostService
         return _repo.GetPostGetById(id);
     }
 
-    public List<PostGetAllDTO> GetAllPosts()
-    {
-        List<PostGetAllDTO> allPost = new List<PostGetAllDTO>();
-        foreach (var p in _repo.GetAllPosts())
-        {
-            var post = new PostGetAllDTO()
-            {
-                Id = p.Id,
-                Description = p.Description,
-                Image = p.Image,
-                PostDate = p.PostDate,
-                Project = new ProjectGetAllDTO()
-                {
-                    Id = p.Project.Id,
-                    Image = null,
-                    Title = p.Project.Title,
-                    User = new UserDTO()
-                    {
-                        BirthDay = p.Project.User.BirthDay,
-                        Email = p.Project.User.Email,
-                        Id = p.Project.User.Id,
-                        ProfilePicture = p.Project.User.ProfilePicture,
-                        Username = p.Project.User.Username
-                    }
-                }
-            };
-            allPost.Add(post);
-        }
-
-        return allPost;
-    }
-
     public List<PostFromProjectDTO> GetAllPostFromProject(int id)
     {
         if (id < 1) throw new ArgumentException("Id cannot be lower than 1");
@@ -115,16 +76,9 @@ public class PostService : IPostService
         var allPost = new List<PostFromProjectDTO>();
         foreach (var p in _repo.GetAllPostFromProject(id))
         {
-            var post = new PostFromProjectDTO()
-            {
-                Id = p.Id,
-                Description = p.Description,
-                Image = p.Image,
-                PostDate = p.PostDate,
-            };
-            allPost.Add(post);
+            allPost.Add(_mapper.Map<PostFromProjectDTO>(p));
         }
-
         return allPost;
     }
+    
 }

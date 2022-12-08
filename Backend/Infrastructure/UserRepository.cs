@@ -32,4 +32,9 @@ public class UserRepository : IUserRepository
         _context.SaveChanges();
         return userById;
     }
+
+    public List<User> GetAllUsers()
+    {
+        return _context.UserTable.ToList();
+    }
 }
