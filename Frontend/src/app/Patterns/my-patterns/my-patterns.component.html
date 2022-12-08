@@ -1,16 +1,16 @@
+<div class="container mt-3">
+  <h1> Mine opskrifter </h1>
+  <button class="btn btn-warning" routerLink="/user/createpattern">Lav Opskrifter </button>
+  <br>
 
-<div class="fs-4 fw-bold mt-3" > Mine opskrifter </div>
+  <ol class="flex-container" style="margin-top: 10px">
+    <div class="card"  *ngFor="let p of this.patterns" style="width: 18rem;">
+      <img [src]="p.image" class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text h4">{{p.title}}</p>
+        <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
+      </div>
+    </div>
+  </ol>
 
-<br>
-<button class="btn btn-warning" routerLink="/user/createpattern">Lav Opskrifter </button>
-<br>
-
-<ol class="flex-container" style="margin-top: 10px">
-<div class="card"  *ngFor="let p of this.patterns" style="width: 18rem;">
-  <img [src]="p.image" class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text h4">{{p.title}}</p>
-    <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
-  </div>
 </div>
-</ol>
