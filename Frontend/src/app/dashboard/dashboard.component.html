@@ -47,7 +47,7 @@
       <h1>{{selectedPost.title}}</h1>
     </div>
     <div class="col">
-      <button class="btn btn-outline-secondary" (click)="goToProject(selectedPost.id)">Gå til projekt</button>
+      <button class="btn btn-outline-secondary" (click)="goToProject(selectedPost.projectId,modal)">Gå til projekt</button>
     </div>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>

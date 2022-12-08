@@ -42,7 +42,8 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  goToProject(id: any) {
-    //TODO FIX VICTOR
+  goToProject(id: any, modal: any) {
+    this.router.navigate(['user/projectDetails/'+id])
+    modal.dismiss();
   }
 }

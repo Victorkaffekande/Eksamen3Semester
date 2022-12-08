@@ -5,7 +5,8 @@
       <img src="{{project.image}}" style="max-height: 400px; max-width: 400px" alt="...">
     </div>
     <div class="col mt-5">
-      <div class="d-grid gap-2">
+      <div class="d-grid gap-2" *ngIf="amOwner">
+
         <app-create-post [projectId]="projectId"
                          (notify)="pushNewPost($event)">
         </app-create-post>
@@ -20,7 +21,9 @@
           projekt
         </button>
 
-        <button *ngIf="project.patternId" class="btn btn-info" (click)="navigateToRecipie(project.patternId)" >Gå til opskrift</button>
+        <button *ngIf="project.patternId" class="btn btn-info" (click)="navigateToRecipie(project.patternId)">Gå til
+          opskrift
+        </button>
 
       </div>
 
@@ -54,7 +57,7 @@
           </div>
 
           <!-- submit button -->
-          <button class="btn btn-primary" type="submit" >Opdater projekt</button>
+          <button class="btn btn-primary" type="submit">Opdater projekt</button>
           <!-- Cancel button-->
           <button class="btn btn-outline-danger" (click)="cancelUpdate(collapse)">Anuller</button>
         </form>
@@ -69,13 +72,13 @@
   <div class="flex-container ">
     <div *ngFor="let p of postList">
       <div class="card" style="width: 18rem;" [class.selected]="p">
-        <img class="card-img-top" src="{{p.image}}"  alt="" (click)="openModal(myModal,carousel,p)">
+        <img class="card-img-top" src="{{p.image}}" alt="" (click)="openModal(myModal,carousel,p)">
         <div class="card-body">
           <div class="text-truncate">{{p.description}}</div>
         </div>
         <div class="card-footer row">
           <small class="text-muted col">Dato: {{p.postDate | date: 'short'}}</small>
-          <button class="btn btn-outline-danger btn-sm" (click)="deletePost(p.id)">Slet</button>
+          <button class="btn btn-outline-danger btn-sm" *ngIf="amOwner" (click)="deletePost(p.id)">Slet</button>
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@
   <div class=" modal-body bg-light">
     <ngb-carousel
       #carousel
-      [animation] = "false"
+      [animation]="false"
       [showNavigationIndicators]="false"
       [interval]="0">
       <ng-container *ngFor="let p of carouselList">
