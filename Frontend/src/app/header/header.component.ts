@@ -32,4 +32,8 @@ export class HeaderComponent implements OnInit {
 
     this.user = await this.userService.getUserById(this.userid)
   }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate([''])
+  }
 }

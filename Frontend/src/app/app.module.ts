@@ -5,7 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HeaderComponent } from './header/header.component';
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyPatternsComponent } from './Patterns/my-patterns/my-patterns.component';
@@ -27,6 +27,9 @@ import { Custom_Ng2SearchPipe } from './DiscoverSite/discover/custom-search.pipe
 import {MatCardModule} from "@angular/material/card";
 import { PrivateUserProfileComponent } from './UserProfiles/private-user-profile/private-user-profile.component';
 import { PublicUserProfileComponent } from './UserProfiles/public-user-profile/public-user-profile.component';
+import { AdminPatternsComponent } from './admin/admin-patterns/admin-patterns.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
 
 
 
@@ -47,7 +50,10 @@ import { PublicUserProfileComponent } from './UserProfiles/public-user-profile/p
     DiscoverComponent,
     Custom_Ng2SearchPipe,
     PrivateUserProfileComponent,
-    PublicUserProfileComponent
+    PublicUserProfileComponent,
+    AdminPatternsComponent,
+    AdminUsersComponent,
+    AdminRegisterComponent
   ],
   imports: [
     BrowserModule,
