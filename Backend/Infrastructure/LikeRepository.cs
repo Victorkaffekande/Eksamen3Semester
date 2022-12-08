@@ -38,12 +38,8 @@ public class LikeRepository : ILikeRepository
     {
        return _context.LikeTable.Include(l => l.LikedUser).Where(l => l.UserId == userId).ToList();
     }
-
-    public List<Like> GetallPostByLikedUsersByUser(int userId)
-    {
-        return _context.LikeTable.Include(l => l.LikedUser.Projects).ThenInclude(p => p.Posts).Where(l => l.UserId == userId).ToList();
-    }
-    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int start, int end)
+    
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int skip, int take)
     {
         return _context.PostTable.Include(p => p.Project.User).Where(p =>users.Contains(p.Project.User)).IgnoreAutoIncludes().Select(p => new DashboardPostDTO()
         {
@@ -56,6 +52,6 @@ public class LikeRepository : ILikeRepository
             Title = p.Project.Title,
             UserId = p.Project.UserId,
             Username = p.Project.User.Username
-        }).OrderByDescending(p => p.PostDate).Skip(0).Take(25).ToList();
+        }).OrderByDescending(p => p.PostDate).Skip(skip).Take(take).ToList();
     }
 }

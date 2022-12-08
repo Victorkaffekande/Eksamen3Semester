@@ -11,7 +11,6 @@ public interface ILikeRepository
 
     public Like AlreadyLikes(Like like);
     public List<Like> GetAllLikedUsersByUser(int userId);
-    public List<Like> GetallPostByLikedUsersByUser(int userId);
-    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int start, int end);
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(List<User> users, int skip, int take);
 
 }

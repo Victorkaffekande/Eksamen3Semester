@@ -43,38 +43,8 @@ public class LikeService : ILikeService
     {
         return _mapper.Map<List<UserDTO>>(_repo.GetAllLikedUsersByUser(userId));
     }
-
-    public List<DashboardPostDTO> GetallPostByLikedUsersByUser(int userId)
-    {
-
-        var dtoList = new List<DashboardPostDTO>();
-        foreach (var l in _repo.GetallPostByLikedUsersByUser(userId))
-        {
-            foreach (var p in l.LikedUser.Projects)
-            {
-                foreach (var post in p.Posts)
-                {
-                    var dto = new DashboardPostDTO()
-                    {
-                        Description = post.Description,
-                        Id = post.Id,
-                        Image = post.Image,
-                        PostDate = post.PostDate,
-                        ProfilePicture = l.LikedUser.ProfilePicture,
-                        ProjectId = p.Id,
-                        Title = p.Title,
-                        UserId = l.LikedUserId,
-                        Username = l.LikedUser.Username
-                    };
-                    dtoList.Add(dto);
-                }
-            }
-        }
-        
-        return dtoList.OrderBy(p => p.PostDate).ToList();
-    }
-
-    public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int start, int end)
+    
+    public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int skip, int take)
     {
         var list = new List<User>();
         foreach (var like in _repo.GetAllLikedUsersByUser(userId))
@@ -82,6 +52,6 @@ public class LikeService : ILikeService
             list.Add(like.LikedUser);
         }
         
-        return _repo.GetAllPostByLikedUsers(list, start, end);
+        return _repo.GetAllPostByLikedUsers(list, skip, take);
     }
 }
