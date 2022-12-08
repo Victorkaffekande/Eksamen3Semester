@@ -17,7 +17,10 @@
         <label class="mat-card-content" style="margin-top: 10px">{{user.birthDay}}</label>
         <br>
         <button class="btn btn-primary" style="margin-top: 10px" *ngIf="userId == userRouteId" (click)="changeSubView()">Ændre profil</button>
-
+        <div>
+        <button class="btn btn-primary" *ngIf="alreadyLikes==false" (click)="likeUser()" style="margin-top: 10px">Følg</button>
+        <button class="btn btn-secondary" *ngIf="alreadyLikes==true" (click)="deleteLike()" style="margin-top: 10px">Følger</button>
+        </div>
       </div>
       </div>
 

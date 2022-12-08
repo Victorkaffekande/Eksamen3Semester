@@ -60,7 +60,6 @@ public class ProjectService : IProjectService
     {
         if (id < 1) throw new ArgumentException("Id cannot be lower than 1");
 
-        if (_repo.GetProjectById(id) == null) throw new ArgumentException("");
             return _repo.GetAllProjectsFromUser(id);
     }
 

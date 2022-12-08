@@ -30,6 +30,7 @@ import { PublicUserProfileComponent } from './UserProfiles/public-user-profile/p
 import { AdminPatternsComponent } from './admin/admin-patterns/admin-patterns.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 
@@ -55,22 +56,23 @@ import { AdminRegisterComponent } from './admin/admin-register/admin-register.co
     AdminUsersComponent,
     AdminRegisterComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    CdkStepperModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        CdkStepperModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatExpansionModule,
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
