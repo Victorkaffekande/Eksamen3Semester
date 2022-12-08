@@ -16,4 +16,8 @@ export class UserService {
     let response = await customAxios.put<any>("User/UpdateUser", user);
     return response.data
   }
+  async getAllUsers(){
+    const httpResult = await customAxios.get("User/GetAllUsers")
+    return httpResult.data
+  }
 }
