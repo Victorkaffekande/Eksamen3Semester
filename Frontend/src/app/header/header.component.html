@@ -8,37 +8,56 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a [routerLink]="['/user/home']" [routerLinkActive]="['active']" class="nav-link text-white bi-house" aria-current="page">
+        <a [routerLink]="['/user/home']" [routerLinkActive]="['active']" class="nav-link text-white bi-house"
+           aria-current="page">
           Hjem
         </a>
       </li>
       <li>
-        <a   [routerLink]="['/user/discover']" [routerLinkActive]="['active']" class="nav-link text-white bi-compass">
+        <a [routerLink]="['/user/discover']" [routerLinkActive]="['active']" class="nav-link text-white bi-compass">
           Udforsk opskrifter
         </a>
       </li>
       <li>
-        <a [routerLink]="['/user/myprojects']" [routerLinkActive]="['active']" class="nav-link text-white bi-bookmark-heart">
+        <a [routerLink]="['/user/myprojects']" [routerLinkActive]="['active']"
+           class="nav-link text-white bi-bookmark-heart">
           Mine projekter
         </a>
       </li>
       <li>
-        <a  [routerLink]="['/user/mypatterns']" [routerLinkActive]="['active']"   class="nav-link text-white bi-journal-text">
+        <a [routerLink]="['/user/mypatterns']" [routerLinkActive]="['active']"
+           class="nav-link text-white bi-journal-text">
           Mine opskrifter
         </a>
       </li>
       <li>
-        <a [routerLink]="['/user/friends']" [routerLinkActive]="['active']" class="nav-link text-white bi-people">
-          Venner
-        </a>
+
+        <mat-expansion-panel class=" bg-dark text-white "
+                             style="border-color: transparent;margin-top: -5px; border: 0px;box-shadow: 0px 0px orange, 0px 0px orange, 0px 0px orange;"
+                             hideToggle>
+          <mat-expansion-panel-header class="bi-bookmark-heart" style="margin-left: -9px">
+            Brugere
+          </mat-expansion-panel-header>
+          <a [routerLink]="['/user/myfriends']" [routerLinkActive]="['active']"
+             class="dropdown nav-link text-white bi-people">
+            Dem du føgler
+          </a>
+          <a [routerLink]="['/user/allusers']" [routerLinkActive]="['active']"
+             class="nav-link text-white bi-journal-text">
+            Alle brugere
+          </a>
+        </mat-expansion-panel>
+
       </li>
     </ul>
+
     <div>
       <button class="btn btn-outline-light bi-box-arrow-left" (click)="logout()"> Log ud</button>
     </div>
     <hr>
     <div>
-      <a routerLink="/user/userprofile/{{userid}}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+      <a routerLink="/user/userprofile/{{userid}}"
+         class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
          data-bs-toggle="dropdown" aria-expanded="false">
         <img [src]=[profilePicture] *ngIf="profilePicture != undefined" alt="" width="32" height="32" class="rounded-circle me-2">
         <strong>{{username}}</strong>
@@ -46,7 +65,7 @@
     </div>
   </div>
 </div>
-  <div class="grid-container">
+<div class="grid-container">
   <router-outlet></router-outlet>
 </div>
 

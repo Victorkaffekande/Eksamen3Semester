@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   }
 
   username: string = "default"
+  panelOpenState: boolean | undefined;
+
 
   async ngOnInit(){
     let t = localStorage.getItem("token");

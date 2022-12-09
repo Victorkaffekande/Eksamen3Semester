@@ -31,6 +31,9 @@ import { AdminPatternsComponent } from './admin/admin-patterns/admin-patterns.co
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { LikedUsersComponent } from './liked-users/liked-users.component';
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -55,24 +58,27 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminPatternsComponent,
     AdminUsersComponent,
     AdminRegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    LikedUsersComponent,
+    UsersComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    CdkStepperModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        CdkStepperModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatExpansionModule,
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

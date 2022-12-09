@@ -14,6 +14,8 @@ import {PrivateUserProfileComponent} from "./UserProfiles/private-user-profile/p
 import {AdminPatternsComponent} from "./admin/admin-patterns/admin-patterns.component";
 import {AdminUsersComponent} from "./admin/admin-users/admin-users.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {LikedUsersComponent} from "./liked-users/liked-users.component";
+import {UsersComponent} from "./users/users.component";
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
 
@@ -28,6 +30,8 @@ const routes: Routes = [
           {path: 'discover', component: DiscoverComponent},
           {path: 'userprofile/:id', component: PublicUserProfileComponent},
           {path: 'home', component: DashboardComponent},
+          {path: 'myfriends', component: LikedUsersComponent},
+          {path: 'allusers', component: UsersComponent},
         ]
       },
   {path: 'admin', component: AdminHeaderComponent, children: [

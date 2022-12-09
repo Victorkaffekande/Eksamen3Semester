@@ -35,6 +35,6 @@ public class UserRepository : IUserRepository
 
     public List<User> GetAllUsers()
     {
-        return _context.UserTable.ToList();
+        return _context.UserTable.Where(p => p.Role == "user").ToList();
     }
 }

@@ -9,18 +9,18 @@ export class LikeService {
   constructor() { }
 
 
-  async likeUser(dto: { id:number, likeId:number}){
+  async likeUser(dto: { userId:number, likedUserId:number}){
     const httpResult = await customAxios.post("Like/LikeUser" , dto )
   return httpResult.data
   }
 
-  async removeLike(dto: {id: number, likeId:number}){
+  async removeLike(dto: {userId: number, likedUserId:number}){
 
     const httpResult = await customAxios.delete("Like/RemoveLike" , {data: dto})
     return httpResult.data
   }
 
-  async alreadyLikes(dto: {id: number, likeId:number}){
+  async alreadyLikes(dto: {userId: any, likedUserId:any}){
     const httpResult = await customAxios.post("Like/AlreadyLikes", dto)
     return httpResult.data
   }
