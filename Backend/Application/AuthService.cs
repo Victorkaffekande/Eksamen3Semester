@@ -3,28 +3,31 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Application.DTOs;
+using Application.Helpers;
 using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
 using Domain;
 using FluentValidation;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application;
 
 public class AuthService : IAuthService
 {
-    private string fillerScret = "asdasgggyhuouhouhuohouhuhouhuhouhouhouhouhuohujuotfrtdeswadserlukiytrdyuiopiugyftrdasd";
     private IAuthRepository _repo;
     private IValidator<UserRegisterDTO> _registerValidator;
     private IValidator<UserLoginDTO> _loginValidator;
     private IMapper _mapper;
+    private readonly AppSettings _appSettings;
     public AuthService(IAuthRepository repo, 
         IValidator<UserRegisterDTO> registerValidator, 
         IValidator<UserLoginDTO> loginValidator,
-        IMapper mapper
-        )
+        IMapper mapper,
+        IOptions<AppSettings> appSettings)
     {
+        _appSettings = appSettings.Value;
         _mapper = mapper;
         _repo = repo;
         _registerValidator = registerValidator;
@@ -72,7 +75,7 @@ public class AuthService : IAuthService
 
     public string GenerateToken(User user)
     {
-        var key =Encoding.UTF8.GetBytes(fillerScret);
+        var key =Encoding.UTF8.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[] { 
