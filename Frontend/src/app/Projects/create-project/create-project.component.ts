@@ -62,8 +62,7 @@ export class CreateProjectComponent implements OnInit {
       StartTime: new Date(Date.now()).toJSON(),
       IsActive: true
     }
-    let a = await this.projectService.createProject(dto);
-    this.emmitProject(a.data);
+    await this.projectService.createProject(dto).then( p =>this.emmitProject(p.data));
     modal.dismiss();
     return "project DTO created"
   }

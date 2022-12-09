@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   userid: any;
   user: any;
   page: string | null = "";
+  profilePicture: any
 
   constructor(private router: Router,  private userService: UserService) {
 
@@ -32,7 +33,7 @@ export class HeaderComponent implements OnInit {
       this.userid = deToken.userId
     }
 
-    this.user = await this.userService.getUserById(this.userid)
+    this.user = await this.userService.getUserById(this.userid).then(u => this.profilePicture = u.profilePicture)
   }
   logout() {
     localStorage.removeItem('token');

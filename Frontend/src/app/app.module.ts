@@ -30,6 +30,7 @@ import { PublicUserProfileComponent } from './UserProfiles/public-user-profile/p
 import { AdminPatternsComponent } from './admin/admin-patterns/admin-patterns.component';
 import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AdminRegisterComponent } from './admin/admin-register/admin-register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { LikedUsersComponent } from './liked-users/liked-users.component';
 import { UsersComponent } from './users/users.component';
@@ -57,6 +58,7 @@ import { UsersComponent } from './users/users.component';
     AdminPatternsComponent,
     AdminUsersComponent,
     AdminRegisterComponent,
+    DashboardComponent,
     LikedUsersComponent,
     UsersComponent
   ],

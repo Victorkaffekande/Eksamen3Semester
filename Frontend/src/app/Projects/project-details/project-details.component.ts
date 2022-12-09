@@ -4,6 +4,8 @@ import {ProjectService} from "../../../services/project.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgbCarousel, NgbCollapse, NgbModal, NgbSlide, NgbSlideEvent} from "@ng-bootstrap/ng-bootstrap";
 import {PostService} from "../../../services/post.service";
+import jwtDecode from "jwt-decode";
+import {Token} from "../../../interfaces/token";
 
 @Component({
   selector: 'app-project-details',
@@ -20,6 +22,7 @@ export class ProjectDetailsComponent implements OnInit {
   editCollapsed: boolean = true;
   oldImage: any;
 
+  amOwner: boolean = false;
 
   updateForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -38,10 +41,23 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.projectId = this.activatedRoute.snapshot.params['id']; // get id from browser route
     this.getProject()
-      .then(() => this.fillForm());
+      .then(() => this.setup() );
 
     this.fillPostList();
 
+  }
+
+  setup(){
+    this.checkOwner();
+    this.fillForm();
+  }
+
+  checkOwner() {
+    let t = localStorage.getItem('token')
+    if (t) {
+      let deToken = jwtDecode(t) as Token;
+      this.amOwner = deToken.userId == this.project.userId;
+    }
   }
 
   /**
