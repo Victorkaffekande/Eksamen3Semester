@@ -11,7 +11,7 @@ import {Token} from "../../interfaces/token";
   styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent implements OnInit {
-  postList: any;
+  postList: any =[];
   selectedPost: any;
 
   skip: number = 0;

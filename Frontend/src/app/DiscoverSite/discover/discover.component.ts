@@ -8,7 +8,7 @@ import {PatternService} from "../../../services/pattern.service";
 })
 export class DiscoverComponent implements OnInit {
 
-  allPatterns :any;
+  allPatterns :any = [];
   searchText: any;
   constructor(private patternService: PatternService) { }
 
