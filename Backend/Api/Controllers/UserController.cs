@@ -74,6 +74,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize("AdminPolicy")]
     [Route("DeleteUser/{id}")]
     public ActionResult DeleteUser([FromRoute] int id)
     {
