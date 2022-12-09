@@ -15,7 +15,7 @@ export class MyPatternsComponent implements OnInit {
   constructor(private router: Router, private patternService: PatternService) { }
   id: number = 0;
   username: string = "default"
-  patterns : any;
+  patterns : any = [];
 
   async ngOnInit() {
     let t = localStorage.getItem("token");

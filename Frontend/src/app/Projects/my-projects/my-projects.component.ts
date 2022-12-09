@@ -19,8 +19,8 @@ export class MyProjectsComponent implements OnInit {
   }
 
 
-  projectList: any;
-  filteredList: any;
+  projectList: any = [];
+  filteredList: any=[];
   showIsActive: number = 1;
 
   ngOnInit(): void {

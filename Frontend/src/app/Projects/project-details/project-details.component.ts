@@ -17,7 +17,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   project: any;
   projectId: any;
-  postList: any;
+  postList: any = [];
   carouselList: any;
   editCollapsed: boolean = true;
   oldImage: any;
