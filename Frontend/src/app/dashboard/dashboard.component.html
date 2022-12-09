@@ -1,16 +1,14 @@
 <div class="container mt-3 justify-content-center">
   <div class=" text-center">
     <h1>Nyeste opslag fra dem du følger</h1>
-    <h1>Todo: click modal</h1>
   </div>
-
   <!-- centered cards -->
   <div class="row">
     <div class="w-50 mx-auto">
       <div *ngFor="let p of postList" class="card mb-3" style="max-width: 35rem;">
         <div class="card-header">
           <div class="row">
-            <div class="col">
+            <div class="col" (click)="goToProfile(p.userId)">
               <!-- if profile img-->
               <img src="{{p.profilePicture}}" *ngIf="p.profilePicture" class="rounded-circle me-2"
                    style="width: 32px; height: 32px;" alt="">
@@ -37,7 +35,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="getMorePosts()" >asdasd</button>
+    <button class="btn btn-primary" (click)="getMorePosts()" >Indlæs flere opslag</button>
   </div>
 </div>
 

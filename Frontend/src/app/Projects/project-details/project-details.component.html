@@ -2,24 +2,27 @@
   <div class="row">
     <div class="col">
       <h1>{{project.title}}</h1>
-      <img src="{{project.image}}" style="max-height: 400px; max-width: 400px" alt="...">
+      <img src="{{project.image}}" style="max-height: 400px; max-width: 400px" alt="">
+      <div *ngIf="!project.image"> Projektet har ikke et cover billede</div>
     </div>
     <div class="col mt-5">
-      <div class="d-grid gap-2" *ngIf="amOwner">
+      <div class="d-grid gap-2">
 
-        <app-create-post [projectId]="projectId"
-                         (notify)="pushNewPost($event)">
-        </app-create-post>
+        <div *ngIf="amOwner" class="d-grid gap-2">
+          <app-create-post [projectId]="projectId"
+                           (notify)="pushNewPost($event)">
+          </app-create-post>
 
-        <button class="btn btn-danger" (click)="deleteProject()" type="button">Slet projekt</button>
+          <button class="btn btn-danger" (click)="deleteProject()" type="button">Slet projekt</button>
 
-        <button class="btn btn-primary" (click)="collapse.toggle()" type="button">Rediger</button>
+          <button class="btn btn-primary" (click)="collapse.toggle()" type="button">Rediger</button>
 
-        <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt
-        </button>
-        <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart
-          projekt
-        </button>
+          <button *ngIf="project.isActive" class="btn btn-warning" (click)="endProject()" type="button">Afslut projekt
+          </button>
+          <button *ngIf="!project.isActive" class="btn btn-secondary" (click)="restartProject()" type="button">Genstart
+            projekt
+          </button>
+        </div>
 
         <button *ngIf="project.patternId" class="btn btn-info" (click)="navigateToRecipie(project.patternId)">Gå til
           opskrift

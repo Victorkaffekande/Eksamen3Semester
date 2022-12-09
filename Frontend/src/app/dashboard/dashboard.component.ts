@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {LikeService} from "../../services/like.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
+import jwtDecode from "jwt-decode";
+import {Token} from "../../interfaces/token";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +15,8 @@ export class DashboardComponent implements OnInit {
   selectedPost: any;
 
   skip: number = 0;
-  take: number = 10;
-  batchSize: number = 10;
+  take: number = 3;
+  userId: any;
 
   constructor(private service: LikeService,
               private modalService: NgbModal,
@@ -22,18 +24,27 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInitialPosts();
+    this.setUserId();
+    this.getMorePosts();
   }
 
-  async getInitialPosts() {
-    this.postList = await this.service.getAllPostByLikedUsers(2, this.skip, this.take);
-    this.skip += this.batchSize;
-    this.take += this.batchSize;
+  setUserId() {
+    let t = localStorage.getItem('token');
+    if (t) {
+      let deToken = jwtDecode(t) as Token;
+      this.userId = deToken.userId;
+    }
   }
 
   async getMorePosts() {
-    let a = await this.service.getAllPostByLikedUsers(2, 0, 10);
-    this.postList.push(a);
+
+    let r = await this.service.getAllPostByLikedUsers(this.userId, this.skip, this.take);
+    this.skip += this.take;
+
+    if (this.postList == undefined)
+      this.postList = r;
+    else
+      this.postList.push.apply(this.postList, r);
   }
 
   openModal(modal: any, p: any) {
@@ -43,7 +54,11 @@ export class DashboardComponent implements OnInit {
 
 
   goToProject(id: any, modal: any) {
-    this.router.navigate(['user/projectDetails/'+id])
+    this.router.navigate(['user/projectDetails/' + id])
     modal.dismiss();
+  }
+
+  goToProfile(userId: any) {
+    this.router.navigate(['user/userprofile/' + userId])
   }
 }
