@@ -33,10 +33,14 @@ export class AdminPatternsComponent implements OnInit {
     if (confirm("Er du sikker på at du vil slette?")) {
       let result = await this.patternService.deletePattern(id);
       this.patternList = this.patternList.filter((p: { id: any }) => result.id != p.id);
+      await this.setProjectList();
     }
   }
 
-  deleteProject(id:any) {
-    
+  async deleteProject(id: any) {
+    if (confirm("Er du sikker på at du vil slette?")) {
+      let result = await this.projectService.deleteProject(id);
+      this.projectList = this.projectList.filter((p: { id: any }) => result.id != p.id);
+    }
   }
 }
