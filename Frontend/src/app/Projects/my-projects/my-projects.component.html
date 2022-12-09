@@ -31,6 +31,7 @@
       Afsluttede</label>
   </div>
 
+  <hr>
   <!-- project lists -->
   <ul class="flex-container">
     <div *ngFor="let p of filteredList">
@@ -62,6 +63,11 @@
     </div>
   </ul>
 
+  <!-- Text if empty list -->
+  <div *ngIf="filteredList.length == 0" class="text-center">
+  <h1>Her kan du se alle dine projekter</h1>
+  <h1>Du kan starte et nyt projekt her eller finde en opskrift du vil følge</h1>
+  </div>
 </div>
 
 

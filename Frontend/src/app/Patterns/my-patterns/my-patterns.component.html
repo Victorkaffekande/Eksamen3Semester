@@ -2,15 +2,21 @@
   <h1> Mine opskrifter </h1>
   <button class="btn btn-warning" routerLink="/user/createpattern">Lav Opskrifter </button>
   <br>
-
+  <hr>
   <ol class="flex-container" style="margin-top: 10px">
     <div class="card"  *ngFor="let p of this.patterns" style="width: 18rem;">
-      <img [src]="p.image" class="card-img-top" alt="...">
+      <img [src]="p.image" class="card-img-top" alt="" style="object-fit: cover; max-height: 18rem" >
       <div class="card-body">
         <p class="card-text h4">{{p.title}}</p>
         <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
       </div>
     </div>
   </ol>
+
+  <!-- Text if empty list -->
+  <div *ngIf="patterns.length == 0" class="text-center">
+    <h1>Her kan du se alle dine opskrifter</h1>
+    <h1>Du kan lave en ny strikke opskrift som andre vil kunne finde</h1>
+  </div>
 
 </div>

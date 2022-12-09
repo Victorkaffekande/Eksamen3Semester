@@ -6,7 +6,7 @@
   </div>
   <ol class="flex-container">
     <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
-      <img [src]="p.image" class="card-img-top">
+      <img [src]="p.image" class="card-img-top" style="object-fit: cover; max-height: 18rem" >
       <div class="card-body">
         <p class="mat-card-title">{{p.title}}</p>
 
@@ -19,4 +19,10 @@
 
     </div>
   </ol>
+  <!-- Text if empty list -->
+  <div *ngIf="allPatterns.length == 0" class="text-center">
+    <h1>Der er desværre ingen opskrifter på hjemmesiden</h1>
+    <h1>Men det betyder at du kan være den første til at lave en under menuen "Mine opskrifter"</h1>
+  </div>
 </div>
+

@@ -22,5 +22,7 @@ public class Pattern
     public string? NeedleSize { get; set; }
     
     public string? Gauge { get; set; }
-    
+
+    public List<Project>? Projects { get; set; }
+
 }

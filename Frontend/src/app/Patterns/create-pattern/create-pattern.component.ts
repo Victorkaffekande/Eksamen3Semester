@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
 import {PatternService} from "../../../services/pattern.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-pattern',
@@ -22,7 +23,9 @@ export class CreatePatternComponent implements OnInit {
   submitted = false;
   errorMsg: any;
 
-  constructor(private _formBuilder: FormBuilder, private patternService: PatternService) {
+  constructor(private _formBuilder: FormBuilder,
+              private patternService: PatternService,
+              private router: Router) {
 
   }
 
@@ -73,7 +76,10 @@ export class CreatePatternComponent implements OnInit {
 
     await this.patternService.CreatePattern(dto)
       .then(() =>
-        this.patternCreated = true
+      {
+        this.patternCreated = true;
+        this.router.navigate(["user/mypatterns"])
+      }
       )
       .catch(error => {
         this.patternCreated = false;

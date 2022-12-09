@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       if (deToken.role == "admin") {
         await this.router.navigate(["/admin/patterns"]);
       } else if (deToken.role == "user") {
-        await this.router.navigate(["/user"]);
+        await this.router.navigate(["/user/home"]);
       }
     }
   }

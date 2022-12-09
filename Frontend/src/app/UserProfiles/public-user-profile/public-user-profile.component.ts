@@ -40,6 +40,8 @@ export class PublicUserProfileComponent implements OnInit {
 
     this.patterns = await this.patternService.getPatternsByUserId(this.userRouteId)
     this.projects = await this.projectService.getAllProjectsFromUser(this.userRouteId)
+    this.projects = this.projects.filter((u: { image: any }) => u.image != null);
+
     let dto = {
       userId: this.userId,
       likedUserId: this.userRouteId
