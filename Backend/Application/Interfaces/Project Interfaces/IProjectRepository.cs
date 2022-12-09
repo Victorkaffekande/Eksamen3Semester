@@ -9,5 +9,6 @@ public interface IProjectRepository
     Project UpdateProject(Project project);
     Project GetProjectById(int id);
     List<Project> GetAllProjectsFromUser(int id);
+    List<Project> GetAllProjects();
     Project DeleteProject(Project project);
 }

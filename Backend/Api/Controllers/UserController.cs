@@ -16,12 +16,11 @@ public class UserController : ControllerBase
     {
         _service = service;
     }
-    
+
     [HttpGet]
     [Route("GetUserById/{id}")]
-    public ActionResult GetUserById( [FromRoute] int id)
+    public ActionResult GetUserById([FromRoute] int id)
     {
-
         try
         {
             return Ok(_service.GetUserById(id));
@@ -31,12 +30,11 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpGet]
     [Route("GetAllUsers")]
     public ActionResult GetAllUser()
     {
-
         try
         {
             return Ok(_service.GetAllUsers());
@@ -46,10 +44,24 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet]
+    [Route("GetAllAdmins")]
+    public ActionResult GetAllAdmins()
+    {
+        try
+        {
+            return Ok(_service.GetAllAdmins());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
     
     [HttpPut]
     [Route("UpdateUser")]
-    public ActionResult UpdatePattern( [FromBody] UserDTO pattern)
+    public ActionResult UpdateUser([FromBody] UserDTO pattern)
     {
         try
         {
@@ -60,5 +72,19 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
+    [HttpDelete]
+    [Authorize("AdminPolicy")]
+    [Route("DeleteUser/{id}")]
+    public ActionResult DeleteUser([FromRoute] int id)
+    {
+        try
+        {
+            return Ok(_service.DeleteUser(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

@@ -32,7 +32,7 @@ public class UserService : IUserService
         {
             return null;
         }
-        
+
         return _mapper.Map<UserDTO>(user);
     }
 
@@ -40,12 +40,15 @@ public class UserService : IUserService
     {
         if (userDto is null) throw new ArgumentException("User is null");
         var user = _mapper.Map<User>(userDto);
-        
+
         var val = _userDtoValidator.Validate(userDto);
         if (!val.IsValid) throw new ArgumentException(val.ToString());
 
-        
-        if (_repo.GetUserById(user.Id) is null) {throw new ArgumentException("User id does not exist");}
+
+        if (_repo.GetUserById(user.Id) is null)
+        {
+            throw new ArgumentException("User id does not exist");
+        }
 
         return _mapper.Map<UserDTO>(_repo.UpdateUser(user));
     }
@@ -53,5 +56,16 @@ public class UserService : IUserService
     public List<UserDTO> GetAllUsers()
     {
         return _mapper.Map<List<UserDTO>>(_repo.GetAllUsers());
+    }
+
+    public List<UserDTO> GetAllAdmins()
+    {
+        return _mapper.Map<List<UserDTO>>(_repo.GetAllAdmins());
+    }
+
+    public User DeleteUser(int userId)
+    {
+        if (userId < 1) throw new ArgumentException("userId can not be 1 or less");
+        return _repo.DeleteUser(userId);
     }
 }

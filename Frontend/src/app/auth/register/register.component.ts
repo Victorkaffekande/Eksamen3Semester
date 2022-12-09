@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     birthdate: ['', Validators.required]
   }, {
     updateOn: 'submit',
-    validators: this.passwordValidator('password', 'passwordConfirm')
+    validators: RegisterComponent.passwordValidator('password', 'passwordConfirm')
   });
 
   accountCreated = false;
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private passwordValidator(fieldA: string, fieldB: string): ValidatorFn {
+  static passwordValidator(fieldA: string, fieldB: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
       const formGroup = control as FormGroup;
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
 
       var date = this.registerForm.get("birthdate")?.value as NgbDate;
 
-      let dateString = this.formatDate(date);
+      let dateString = RegisterComponent.formatDate(date);
 
       const dto: UserDto = {
         username: this.registerForm.get("username")?.value,
@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  formatDate(d: NgbDate): string {
+ static formatDate(d: NgbDate): string {
     let day = String(d.day);
     if (d.day < 10) {
       day = '0' + day

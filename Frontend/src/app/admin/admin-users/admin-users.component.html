@@ -1,8 +1,9 @@
 <div class="container mt-5">
-  <h1>TODO: register user / admin</h1>
+  <app-admin-register (notify)="addNewUser($event)"></app-admin-register>
   <!-- User table -->
   <div class="row">
     <div class="col">
+      <h1>Alle brugere</h1>
       <table class="table table-hover border">
         <thead>
         <tr>
@@ -29,6 +30,7 @@
 
     <!-- Admin table -->
     <div class="col">
+      <h1>Alle admins</h1>
       <div class="row">
         <div class="col">
           <table class="table table-hover border">
@@ -48,7 +50,7 @@
               <td>{{u.email}}</td>
               <td>{{u.birthDay}}</td>
               <td>
-                <button class="btn btn-outline-danger" (click)="deleteUser(u.id)">Slet</button>
+                <button class="btn btn-outline-danger" (click)="deleteAdmin(u.id)">Slet</button>
               </td>
             </tr>
             </tbody>
@@ -58,3 +60,4 @@
     </div>
   </div>
 </div>
+
