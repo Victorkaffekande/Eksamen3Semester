@@ -37,4 +37,17 @@ public class UserRepository : IUserRepository
     {
         return _context.UserTable.Where(p => p.Role == "user").ToList();
     }
+
+    public List<User> GetAllAdmins()
+    {
+        return _context.UserTable.Where(p => p.Role == "admin").ToList();
+    }
+
+    public User DeleteUser(int userId)
+    {
+        var user = _context.UserTable.Find(userId) ?? throw new ArgumentException("User does not exist");
+        _context.UserTable.Remove(user);
+        _context.SaveChanges();
+        return user;
+    }
 }

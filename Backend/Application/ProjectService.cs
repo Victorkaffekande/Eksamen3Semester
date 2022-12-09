@@ -63,6 +63,11 @@ public class ProjectService : IProjectService
             return _repo.GetAllProjectsFromUser(id);
     }
 
+    public List<Project> GetAllProjects()
+    {
+        return _repo.GetAllProjects();
+    }
+
     public Project DeleteProject(int id)
     {
         var p = GetProjectById(id);

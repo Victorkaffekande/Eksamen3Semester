@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {customAxios} from "./httpAxios";
+import * as http from "http";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,14 @@ export class UserService {
   async getAllUsers(){
     const httpResult = await customAxios.get("User/GetAllUsers")
     return httpResult.data
+  }
+  async getAllAdmins(){
+    const httpResult = await customAxios.get("User/GetAllAdmins")
+    return httpResult.data
+  }
+
+  async deleteUser(id:any){
+    const httpResult = await customAxios.delete("User/DeleteUser/" + id);
+    return httpResult.data;
   }
 }

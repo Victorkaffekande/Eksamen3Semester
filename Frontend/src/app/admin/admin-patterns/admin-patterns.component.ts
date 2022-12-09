@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PatternService} from "../../../services/pattern.service";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'app-admin-patterns',
@@ -8,13 +9,20 @@ import {PatternService} from "../../../services/pattern.service";
 })
 export class AdminPatternsComponent implements OnInit {
 
-  constructor(private patternService: PatternService) {
+  constructor(private patternService: PatternService,
+              private projectService: ProjectService) {
   }
 
+  projectList: any;
   patternList: any;
 
   ngOnInit(): void {
+    this.setProjectList();
     this.setPatternList();
+  }
+
+  async setProjectList() {
+    this.projectList = await this.projectService.getAllProjects();
   }
 
   async setPatternList() {
@@ -26,5 +34,9 @@ export class AdminPatternsComponent implements OnInit {
       let result = await this.patternService.deletePattern(id);
       this.patternList = this.patternList.filter((p: { id: any }) => result.id != p.id);
     }
+  }
+
+  deleteProject(id:any) {
+    
   }
 }

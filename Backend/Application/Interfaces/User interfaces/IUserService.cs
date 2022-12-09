@@ -9,4 +9,6 @@ public interface IUserService
     UserDTO UpdateUser(UserDTO userDto);
 
     List<UserDTO> GetAllUsers();
+    List<UserDTO> GetAllAdmins();
+    User DeleteUser(int userId);
 }

@@ -18,6 +18,10 @@ export class ProjectService {
     let response = await customAxios.get<any>("Project/GetProjectsFromUser/" + id);
     return response.data
   }
+  async getAllProjects(): Promise<any> {
+    let response = await customAxios.get<any>("Project/GetProjects");
+    return response.data
+  }
 
   async updateProject(project: any) {
     let response = await customAxios.put<any>("Project/UpdateProject", project);

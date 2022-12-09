@@ -44,6 +44,11 @@ public class ProjectRepository : IProjectRepository
         return _context.ProjectTable.Where(p => p.UserId == id).ToList();
     }
 
+    public List<Project> GetAllProjects()
+    {
+        return _context.ProjectTable.ToList();
+    }
+
     public Project GetProjectById(int id)
     {
         return _context.ProjectTable.Find(id) ?? throw new ArgumentException("Project does not exist");

@@ -9,4 +9,8 @@ public interface IUserRepository
     User UpdateUser(User user);
 
     List<User> GetAllUsers();
+    List<User> GetAllAdmins();
+
+    User DeleteUser(int userId);
+
 }

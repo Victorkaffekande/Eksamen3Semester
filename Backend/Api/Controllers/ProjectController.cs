@@ -47,6 +47,20 @@ public class ProjectController : Controller
         }
     }
 
+    [HttpGet]
+    [Route("GetProjects")]
+    public ActionResult GetAllProjects()
+    {
+        try
+        {
+            return Ok(_service.GetAllProjects());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost]
     [Route("CreateProject")]
     public ActionResult CreateProject([FromBody] ProjectCreateDTO createDto)
