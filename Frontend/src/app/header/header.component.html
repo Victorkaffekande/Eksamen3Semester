@@ -2,7 +2,7 @@
   <!-- Nav sidebar-->
   <div class="col d-flex flex-column position-fixed flex-shrink-0 p-3 text-white bg-dark"
        style="width: 280px; height: 100%">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a [routerLink]="['/user/home']" [routerLinkActive]="['active']" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <span class="fs-4">StrikkeNet</span>
     </a>
     <hr>
@@ -32,8 +32,8 @@
       </li>
       <li>
 
-        <mat-expansion-panel class=" bg-dark text-white "
-                             style="border-color: transparent;margin-top: -5px; border: 0px;box-shadow: 0px 0px orange, 0px 0px orange, 0px 0px orange;"
+        <mat-expansion-panel class="  text-white "
+                             style="background-color: transparent; border-color: transparent;margin-top: -5px; border: 0px;box-shadow: 0px 0px orange, 0px 0px orange, 0px 0px orange;"
                              hideToggle>
           <mat-expansion-panel-header class="bi-bookmark-heart" style="margin-left: -9px">
             Brugere

@@ -1,11 +1,13 @@
 ﻿using Application.DTOs.Like;
 using Application.Interfaces.Like_Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class LikeController : ControllerBase
 {
 

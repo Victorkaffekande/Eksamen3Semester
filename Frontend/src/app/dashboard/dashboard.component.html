@@ -1,7 +1,9 @@
 <div class="container mt-3 justify-content-center">
   <div class=" text-center">
     <h1>Nyeste opslag fra dem du følger</h1>
+    <hr>
   </div>
+
   <!-- centered cards -->
   <div class="row">
     <div class="w-50 mx-auto">
@@ -35,7 +37,12 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" (click)="getMorePosts()" >Indlæs flere opslag</button>
+    <button *ngIf="postList.length >0" class="btn btn-primary" (click)="getMorePosts()" >Indlæs flere opslag</button>
+    <!-- Text if empty list -->
+    <div *ngIf="postList.length == 0" class="text-center">
+      <h1>Her kan du opslag fra dem du følger</h1>
+      <h1>Find nye folk at følge under "Brugere" menuen</h1>
+    </div>
   </div>
 </div>
 

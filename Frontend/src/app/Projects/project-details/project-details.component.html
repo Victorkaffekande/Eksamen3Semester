@@ -75,7 +75,7 @@
   <div class="flex-container ">
     <div *ngFor="let p of postList">
       <div class="card" style="width: 18rem;" [class.selected]="p">
-        <img class="card-img-top" src="{{p.image}}" alt="" (click)="openModal(myModal,carousel,p)">
+        <img class="card-img-top" src="{{p.image}}" style="object-fit: cover; max-height: 18rem" alt="" (click)="openModal(myModal,carousel,p)">
         <div class="card-body">
           <div class="text-truncate">{{p.description}}</div>
         </div>

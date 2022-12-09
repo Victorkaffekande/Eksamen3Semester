@@ -1,11 +1,15 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using Application.DTOs;
 using Application.DTOs.Like;
+using Application.Helpers;
 using AutoMapper;
 using Domain;
 using FluentValidation;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +63,23 @@ builder.Services.AddSingleton(mapper);
 Application.DependencyResolver.DependencyResolverService.RegisterApplicationLayer(builder.Services);
 infrastructure.DependencyResolver.DependencyResolverService.RegisterInfrastructure(builder.Services);
 
-
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            builder.Configuration.GetValue<String>("AppSettings:Secret")))
+    };
+});
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AdminPolicy", (policy) => { policy.RequireRole("admin"); });
+});
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,6 +98,7 @@ app.UseCors(options =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

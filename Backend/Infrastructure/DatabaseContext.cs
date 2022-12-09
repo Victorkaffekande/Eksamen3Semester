@@ -53,7 +53,13 @@ public class DatabaseContext : DbContext
             .WithMany(user => user.Projects)
             .HasForeignKey(project => project.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
+        modelBuilder.Entity<Project>()
+            .HasOne(project => project.Pattern)
+            .WithMany(p => p.Projects)
+            .HasForeignKey(p => p.PatternId)
+            .OnDelete(DeleteBehavior.SetNull);
+
         modelBuilder.Entity<Post>()
             .HasOne(post => post.Project)
             .WithMany(project => project.Posts)
