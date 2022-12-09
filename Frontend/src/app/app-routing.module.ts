@@ -16,11 +16,12 @@ import {AdminUsersComponent} from "./admin/admin-users/admin-users.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {LikedUsersComponent} from "./liked-users/liked-users.component";
 import {UsersComponent} from "./users/users.component";
+import {AuthgaurdService} from "../services/authgaurd.service";
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
 
       {
-        path: 'user', component: HeaderComponent, children: [
+        path: 'user', component: HeaderComponent, canActivate: [AuthgaurdService], children: [
           {path: 'mypatterns', component: MyPatternsComponent},
           {path: 'myprojects', component: MyProjectsComponent},
           {path: 'projectDetails/:id', component: ProjectDetailsComponent},
@@ -34,7 +35,7 @@ const routes: Routes = [
           {path: 'allusers', component: UsersComponent},
         ]
       },
-  {path: 'admin', component: AdminHeaderComponent, children: [
+  {path: 'admin', component: AdminHeaderComponent, canActivateChild: [AuthgaurdService], children: [
       {path: 'patterns', component: AdminPatternsComponent},
       {path: 'users', component: AdminUsersComponent},
     ]},
