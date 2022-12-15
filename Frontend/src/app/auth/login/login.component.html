@@ -1,0 +1,58 @@
+<h1 class="text-center p-5"> Velkommen til strikkeNet</h1>
+
+<div class="container justify-content-center">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        #localForm="ngForm">
+        <!-- username input -->
+        <div class="form-outline mb-4">
+          <input type="text"
+                 id="username"
+                 formControlName="username"
+                 class="form-control"
+                 [class.is-invalid]="localForm.submitted && loginForm.get('username')?.invalid"/>
+          <div class="invalid-feedback">Udfyld brugernavn</div>
+          <label class="form-label" for="username">Brugernavn</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password"
+                 id="password"
+                 formControlName="password"
+                 class="form-control"
+                 [class.is-invalid]="localForm.submitted && loginForm.get('password')?.invalid"/>
+          <div class="invalid-feedback">Udfyld kodeord</div>
+          <label class="form-label" for="password">Kodeord</label>
+        </div>
+
+        <!-- Submit button -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+      <div class="text-center">
+        <p>Har du ikke en konto?</p>
+        <button class="btn btn-secondary"
+                (click)="collapse.toggle()"> Registrer
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 "
+         #collapse="ngbCollapse"
+         [(ngbCollapse)]="collapsed"
+         [horizontal]="true">
+      <div class="card">
+        <app-register></app-register>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,107 @@
+<br>
+<div class="container" *ngIf="doesPatternExist">
+  <div class="row">
+    <div class="col">
+      <img [src]="selectedPattern.image" style="max-width: 400px">
+      <br>
+      <br>
+
+      <div class="card"  style="width: 150px;">
+        <div class="card-body text-center">
+          <img [src]="user.profilePicture" *ngIf="user.profilePicture != undefined" alt="" width="64" height="64"
+               class="rounded-circle me-2">
+          <img *ngIf="user.profilePicture == undefined"
+               src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+               alt="" width="64" height="64"
+               class="rounded-circle me-2">
+          <p class="mat-card-top">{{user.username}}</p>
+          <a routerLink="/user/userprofile//{{user.id}}" class="btn btn-outline-success">Se profil</a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col">
+
+      <form [formGroup]="formGroup" disabled="true">
+        <br>
+        <label>Titel</label>
+        <input formControlName="title" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>Sværhedsgrad</label>
+        <input formControlName="difficulty" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>Sprog</label>
+        <input formControlName="language" type="text" class="form-control " style="width: 300px">
+        <br>
+        <label>Strikkepind størelse</label>
+        <input formControlName="needleSize" type="text" class="form-control " style="width: 300px">
+
+        <br>
+        <label>Strikkefasthed</label>
+        <input formControlName="gauge" type="text" class="form-control " style="width: 300px">
+
+        <br>
+        <label>Garn</label>
+        <textarea formControlName="yarn" class="form-control" placeholder="Garn typer"
+                  id="floatingTextarea2" style="height: 150px; width: 500px"></textarea>
+
+        <br>
+        <label>Beskrivelse</label>
+        <textarea formControlName="description" class="form-control" placeholder="Beskrivelse"
+                  id="floatingTextarea1" style="height: 150px; width: 500px"></textarea>
+
+        <div *ngIf="this.formGroup.enabled">
+          <br>
+          <label>pdf</label>
+          <input accept="application/pdf" (change)="onFileSelectedPdf($event)" formControlName="pdf"
+                 class="form-control"
+                 id="formFileLg" style="width: 300px"
+                 type="file"/>
+
+          <br>
+          <label>Billede</label>
+          <input accept="image/png,image/jpeg" (change)="onFileSelectedImage($event)" formControlName="image"
+                 class="form-control" style="width: 300px"
+                 type="file"/>
+
+          <br>
+          <button class="btn btn-primary" (click)="cancelEdit()">Annuller</button>
+
+          <button class="btn btn-primary" (click)="submitEdit()" style="margin-left: 10px">opdater</button>
+        </div>
+        <br>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined ">
+          {{errorMsg}}
+        </div>
+      </form>
+
+    </div>
+    <div class="col">
+      <app-create-project style="margin-top: 5px" [pattern]="selectedPattern"></app-create-project>
+      <br>
+      <button (click)="createPdfBtn()" style="margin-top: 5px" class="btn btn-primary bi-file-earmark-arrow-down-fill">
+        Download
+        {{selectedPattern.title}}
+      </button>
+      <br>
+      <div *ngIf="isButtonForEditVisble == true">
+        <button class="btn btn-primary" style="background-position: left ; margin-top: 5px"
+                (click)="enableEditing()">Opdater opskrift
+        </button>
+        <br>
+        <button class="btn btn-danger" style="  background-position: left; margin-top: 5px"
+                (click)="deletePattern()">fjern opskrift
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container" *ngIf="!doesPatternExist">
+  <label> Søger efter Opskrift</label>
+  <mat-spinner>
+  </mat-spinner>
+</div>

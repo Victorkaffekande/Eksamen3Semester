@@ -1,0 +1,72 @@
+<div class="container mt-3 justify-content-center">
+  <div class=" text-center">
+    <h1>Nyeste opslag fra dem du følger</h1>
+    <hr>
+  </div>
+
+  <!-- centered cards -->
+  <div class="row">
+    <div class="w-50 mx-auto">
+      <div *ngFor="let p of postList" class="card mb-3" style="max-width: 35rem;">
+        <div class="card-header">
+          <div class="row">
+            <div class="col" (click)="goToProfile(p.userId)">
+              <!-- if profile img-->
+              <img src="{{p.profilePicture}}" *ngIf="p.profilePicture" class="rounded-circle me-2"
+                   style="width: 32px; height: 32px;" alt="">
+              <!-- if no profile img-->
+              <img
+                src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+                *ngIf="!p.profilePicture" class="rounded-circle me-2" style="width: 32px; height: 32px;" alt="">
+
+              <span class="fs-4">{{p.username}}</span>
+            </div>
+            <div class="col text-center">
+              <p class="fs-5">{{p.title}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex" [class.selected]="p">
+          <img style="max-height: 30rem; object-fit: cover" class="card-img" src="{{p.image}}" alt="" (click)="openModal(myModal,p)">
+        </div>
+        <div class="card-body">
+          <p class="card-text text-truncate">  {{p.description}}</p>
+        </div>
+        <div class="card-footer">
+          {{p.postDate | date: 'short'}}
+        </div>
+      </div>
+    </div>
+    <button *ngIf="postList.length > 0" class="btn btn-primary" (click)="getMorePosts()" >Indlæs flere opslag</button>
+    <!-- Text if empty list -->
+    <div *ngIf="postList.length == 0" class="text-center">
+      <h1>Her kan du opslag fra dem du følger</h1>
+      <h1>Find nye folk at følge under "Brugere" menuen</h1>
+    </div>
+  </div>
+</div>
+
+<ng-template #myModal let-modal class="">
+  <div class="modal-header">
+    <div class="col">
+      <h1>{{selectedPost.title}}</h1>
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-secondary" (click)="goToProject(selectedPost.projectId,modal)">Gå til projekt</button>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class=" modal-body bg-light">
+    <div class="row justify-content-center">
+      <div class="col">
+        <img src="{{selectedPost.image}}" alt="" style="max-height: 600px; max-width: 500px;">
+      </div>
+      <div class="col fs-4 lh-sm overflow-auto" style="max-height: 25rem">
+         {{selectedPost.description}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <small class="text-muted">Dato: {{selectedPost.postDate | date: 'short'}}</small>
+    </div>
+  </div>
+</ng-template>

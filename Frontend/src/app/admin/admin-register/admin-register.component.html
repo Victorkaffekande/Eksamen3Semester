@@ -1,0 +1,119 @@
+<button class="btn btn-outline-primary" (click)="openModal(myModal)">Ny bruger / admin</button>
+<ng-template #myModal let-modal class="">
+  <div class="modal-header">
+    <div class="col">
+      <h1>Registrer</h1>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class=" modal-body bg-light">
+    <div class="row justify-content-center">
+
+      <form [formGroup]="registerForm"
+            (ngSubmit)="register()"
+            #localForm="ngForm">
+        <!-- username input -->
+        <div class="mb-4">
+          <input type="text"
+                 id="username"
+                 formControlName="username"
+                 class="form-control"
+                 placeholder="Brugernavn"
+                 [class.is-invalid]="localForm.submitted && registerForm.get('username')?.invalid"/>
+          <div class="invalid-feedback">Udfyld brugernavn</div>
+          <label class="form-label" for="username">Brugernavn</label>
+        </div>
+
+        <!-- Email input -->
+        <div class="mb-4">
+          <input type="email"
+                 formControlName="email"
+                 class="form-control"
+                 required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                 placeholder="Example@mail.dk"
+                 [class.is-invalid]="localForm.submitted && registerForm.get('email')?.invalid">
+          <div class="invalid-feedback">Udfyld med gyldig E-mail</div>
+          <label class="form-check-label"> Email </label>
+        </div>
+
+        <!-- Birthdate input -->
+        <div>
+          <div class="col-12 mb-4">
+            <div class="input-group"
+                 [class.is-invalid]="localForm.submitted && registerForm.get('birthdate')?.invalid">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="birthdate"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                formControlName="birthdate"
+
+                [class.is-invalid]="localForm.submitted && registerForm.get('birthdate')?.invalid"
+              />
+              <button name="birthdate" class="btn btn-outline-secondary bi bi-calendar3"
+                      id="birthdate"
+                      (click)="d.toggle()"
+                      type="button"
+              ></button>
+            </div>
+            <div class="invalid-feedback">Valg en gyldig dato</div>
+            <label class="form-check-label" for="birthdate">Fødselsdag</label>
+          </div>
+        </div>
+
+        <!-- password input -->
+        <div>
+          <input
+            type="password"
+            formControlName="password"
+            class=form-control
+            placeholder="Kodeord"
+            id="password"
+            [class.is-invalid]="localForm.submitted && registerForm.get('password')?.invalid"/>
+          <div class="invalid-feedback">Udfyld kodeord</div>
+          <label class="form-label" for="password">Kodeord</label>
+        </div>
+
+        <!-- confirm password input -->
+        <div>
+          <input
+            type="password"
+            formControlName="passwordConfirm"
+            class=form-control
+            placeholder="Gentag kodeord"
+            [class.is-invalid]="registerForm.errors?.['valuesDoNotMatch'] || localForm.submitted && registerForm.get('username')?.invalid"/>
+          <div class="invalid-feedback"> Dine kodeord er ikke ens</div>
+          <label class="form-label" for="username">Gentag kodeord</label>
+        </div>
+
+        <!-- Role input -->
+        <div>
+          <select class="form-select"
+                  id="role"
+                  formControlName="role">
+            <option value="admin" [selected]="true">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <label for="role">Role</label>
+        </div>
+        <br>
+        <!-- Submit button -->
+        <button type="submit"
+                class="btn btn-primary"
+        >Register
+        </button>
+
+        <!-- Feedback popups -->
+        <div class="alert alert-success" *ngIf="accountCreated">
+          Din konto er blevet skabt
+        </div>
+
+        <div class="alert alert-danger" *ngIf="!accountCreated && registerForm.valid">
+          {{errorMsg}}
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+

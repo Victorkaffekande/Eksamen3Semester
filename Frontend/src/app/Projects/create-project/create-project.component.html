@@ -1,0 +1,53 @@
+<button class="btn btn-warning"
+        (click)="open(content)"> start nyt projekt
+</button>
+<ng-template
+  #content
+  let-modal>
+  <div class="modal-header">
+    <div>
+      <h1>Start nyt projekt</h1>
+      <h3 *ngIf="pattern">{{pattern.title}}</h3>
+      <h3 *ngIf="!pattern"> Dette projekt bliver ikke tilknyttet en opskrift</h3>
+    </div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="row modal-body">
+    <!-- inputs -->
+    <div class="col">
+      <form [formGroup]=createForm
+            (ngSubmit)="createProject(modal)"
+            #localForm="ngForm">
+        <!-- title input -->
+        <div class="mb-3">
+          <label for="title">Min projekt titel </label>
+          <input class="form-control"
+                 type="text"
+                 id="title"
+                 formControlName="title"
+                 [class.is-invalid]="localForm.submitted && createForm.get('title')?.invalid">
+          <div class="invalid-feedback">Udfyld projekt titel</div>
+        </div>
+
+        <!-- image input -->
+        <div class="mb-3">
+          <label for="coverImg">Cover billede </label>
+          <input accept="image/png, image/jpeg"
+                 class="form-control"
+                 type="file"
+                 id="coverImg"
+                 (change)="onFileSelectedPdf($event)">
+        </div>
+        <!-- submit button -->
+        <button class="btn btn-primary" type="submit">Start projekt</button>
+      </form>
+    </div>
+
+    <!-- image preview -->
+    <div class="col">
+      <img src="{{selectedImage}}" class="ratio ratio-16x9" alt="">
+    </div>
+  </div>
+</ng-template>
+
+

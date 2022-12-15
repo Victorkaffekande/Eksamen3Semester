@@ -1,0 +1,28 @@
+<div class="mt-2">
+  <div class="p-2 d-flex">
+    <h1 class="p-2">Alle opskrifter</h1>
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+           placeholder="Søg efter en opskrift" style="max-width: 20rem; height: 24px; margin-top: 13px">
+  </div>
+  <ol class="flex-container">
+    <div class="card" *ngFor="let p of this.allPatterns | filter:searchText" style="width: 18rem;">
+      <img [src]="p.image" class="card-img-top" style="object-fit: cover; max-height: 18rem" >
+      <div class="card-body">
+        <p class="mat-card-title">{{p.title}}</p>
+
+        <p class="card-text ">af {{p.user.username}}</p>
+
+      </div>
+      <div class="card-footer bg-transparent">
+        <a routerLink="/user/viewpattern/{{p.id}}" class="btn btn-primary">Se opskrift</a>
+      </div>
+
+    </div>
+  </ol>
+  <!-- Text if empty list -->
+  <div *ngIf="allPatterns.length == 0" class="text-center">
+    <h1>Der er desværre ingen opskrifter på hjemmesiden</h1>
+    <h1>Men det betyder at du kan være den første til at lave en under menuen "Mine opskrifter"</h1>
+  </div>
+</div>
+

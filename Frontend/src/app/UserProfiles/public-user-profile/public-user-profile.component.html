@@ -1,0 +1,76 @@
+<div *ngIf="user != undefined" class="container">
+
+
+
+    <div class="card" style="border-color: transparent">
+      <div class="row">
+      <div class="col col-1">
+        <img [src]="user.profilePicture" *ngIf="user.profilePicture != undefined" style="height: 325px; width: 325px" class="rounded-circle ">
+        <img *ngIf="user.profilePicture == undefined" src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+             class="rounded-circle" style="height: 325px; width: 325px">
+      </div>
+      <div class="col col-7 text-center" style="margin-top: 5%">
+        <label class="mat-card-title">{{user.username}}</label>
+        <br>
+        <label class="mat-card-content" style="margin-top: 10px">{{user.email}}</label>
+        <br>
+        <label class="mat-card-content" style="margin-top: 10px">{{user.birthDay}}</label>
+        <br>
+        <button class="btn btn-primary" style="margin-top: 10px" *ngIf="userId == userRouteId" (click)="changeSubView()">Ændre profil</button>
+        <div>
+        <button class="btn btn-primary" *ngIf="alreadyLikes==false" (click)="likeUser()" style="margin-top: 10px">Følg</button>
+        <button class="btn btn-secondary" *ngIf="alreadyLikes==true" (click)="deleteLike()" style="margin-top: 10px">Følger</button>
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+
+  <div class="row" style="margin-top: 5rem">
+
+    <div class="col" *ngIf="showEditScreen == true">
+      <app-private-user-profile></app-private-user-profile>
+
+    </div>
+
+    <div class="col text-center" *ngIf="showEditScreen == false">
+
+      <label class="title" >Opskrifter</label>
+      <ngb-carousel style="width: 100%; height: 40rem">
+        <ng-template ngbSlide *ngFor="let p of patterns">
+          <div class="picsum-img-wrapper">
+            <img [src]="p.image" alt="Random first slide" style="width: 100%; height: 40rem"/>
+          </div>
+          <div class="carousel-caption">
+            <h3>{{p.title}}</h3>
+            <button class="btn btn-close-white " routerLink="/user/viewpattern/{{p.id}}"
+                    style="background-color: transparent;"> Se opskriften
+            </button>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+
+    <div class="col text-center"  *ngIf="showEditScreen == false">
+      <label class="title">Projekter</label>
+      <ngb-carousel style="width: 100%; height: 40rem">
+        <ng-template ngbSlide *ngFor="let p of projects">
+          <div class="picsum-img-wrapper">
+            <img [src]="p.image" alt="Random first slide" style="width: 100%; height: 40rem"/>
+          </div>
+          <div class="carousel-caption">
+            <h3>{{p.title}}</h3>
+            <button class="btn btn-close-white " routerLink="/user/projectDetails/{{p.id}}"
+                    style="background-color: transparent;"> Se projektet
+            </button>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+
+  </div>
+  <br>
+
+</div>
+

@@ -5,14 +5,17 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master","Development" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master","Development" ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Backend
 
     steps:
     - uses: actions/checkout@v3
