@@ -10,8 +10,10 @@ public interface IPatternRepository
     public Pattern UpdatePattern(Pattern pattern);
     public Pattern DeletePattern(int id);
 
+    //finds pattern by id
     public Pattern GetPatternById(int id);
 
+    //gets all patterns that a user owns
     public List<Pattern> GetAllPatternsByUser(int userId);
 
 }

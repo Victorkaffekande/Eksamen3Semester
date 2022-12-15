@@ -46,6 +46,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize("AdminPolicy")]
     [Route("GetAllAdmins")]
     public ActionResult GetAllAdmins()
     {
