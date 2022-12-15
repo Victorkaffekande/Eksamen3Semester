@@ -52,7 +52,7 @@ public class ProjectService : IProjectService
 
     public Project GetProjectById(int id)
     {
-        if (id <= 0) throw new ArgumentException("Project Id must be 1 or above");
+        if (id < 1) throw new ArgumentException("Project Id must be 1 or above");
         return _repo.GetProjectById(id);
     }
 
@@ -71,7 +71,9 @@ public class ProjectService : IProjectService
     public Project DeleteProject(int id)
     {
         var p = GetProjectById(id);
+        
         if (p == null) throw new ArgumentException("Project id does not exist");
+        
         return _repo.DeleteProject(p);
     }
 }

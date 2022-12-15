@@ -51,13 +51,14 @@ public class LikeService : ILikeService
 
     public List<UserDTO> GetAllLikedUsersByUser(int userId)
     {
-        return _mapper.Map<List<UserDTO>>(_repo.GetAllLikedUsersByUser(userId));
+        return _mapper.Map<List<UserDTO>>(_repo.GetAllLikedUsersByUser(userId)); // finds all users a user like.
     }
 
+    
     public List<DashboardPostDTO> GetAllPostByLikedUsers(int userId, int skip, int take)
     {
-        var list = _mapper.Map<List<User>>(_repo.GetAllLikedUsersByUser(userId));
+        var list = _mapper.Map<List<User>>(_repo.GetAllLikedUsersByUser(userId)); //finds all the users that a user likes
         
-        return _repo.GetAllPostByLikedUsers(list, skip, take);
+        return _repo.GetAllPostByLikedUsers(list, skip, take); // gets all the DashboardPostDTO
     }
 }
