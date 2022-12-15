@@ -5,6 +5,7 @@ import {LoginService} from "../../../services/login.service";
 import jwtDecode from "jwt-decode";
 import {Token} from "../../../interfaces/token";
 import {Router, RouterModule} from "@angular/router";
+import {customAxios, reloadAxios} from "../../../services/httpAxios";
 
 @Component({
   selector: 'app-login',
@@ -35,9 +36,9 @@ export class LoginComponent implements OnInit {
     };
     var token = await this.loginService.login(dto);
     localStorage.setItem('token', token)
+    reloadAxios();
     let deToken = jwtDecode(token) as Token;
     if (deToken) {
-
       if (deToken.role == "admin") {
         await this.router.navigate(["/admin/patterns"]);
       } else if (deToken.role == "user") {
